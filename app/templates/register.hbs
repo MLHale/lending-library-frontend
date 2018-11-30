@@ -1,0 +1,28 @@
+<div class="layout-column flex layout-align-center-center">
+  {{#paper-card class="landing-page-card" as |card|}}
+    {{#card.title as |title|}}
+      {{#title.text as |text|}}
+        {{#text.headline}}Register for WiSTEM Award Tracker{{/text.headline}}
+      {{/title.text}}
+    {{/card.title}}
+    {{#card.content}}
+      {{#paper-form onSubmit=(action "register") as |form|}}
+        <div class="layout-row">
+          {{form.input class="flex" required=true customValidation=emailValidation label="Username" value=model.username onChange=(action (mut model.username))}}
+        </div>
+        <div class="layout-row">
+          {{form.input class="flex" required=true label="Password" type="password" customValidations=passwordValidation value=model.password onChange=(action (mut model.password))}}
+          {{form.input class="flex" required=true label="Confirm Password" type="password" customValidations=passwordValidation value=confirmpassword onChange=(action (mut confirmpassword))}}
+        </div>
+        <div class="layout-row">
+          {{form.input class="flex" required=true type="email" label="Email" customValidations=emailValidation value=model.email onChange=(action (mut model.email))}}
+          {{form.input class="flex" required=true type="email" label="Email" customValidations=emailValidation value=confirmemail onChange=(action (mut confirmemail))}}
+        </div>
+        <div class="layout-row">
+          {{#form.submit-button class="flex" disabled=invalidForm raised=true}}Register{{/form.submit-button}}
+        </div>
+      {{/paper-form}}
+    {{/card.content}}
+
+  {{/paper-card}}
+</div>

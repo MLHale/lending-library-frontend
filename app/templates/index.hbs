@@ -1,0 +1,20 @@
+<div class="layout-row landing-page-container">
+  <div class="layout-column flex">
+    {{#paper-card class="landing-page-card" as |card|}}
+      {{#card.title as |title|}}
+        {{#title.text as |text|}}
+          {{#text.headline}}Welcome to the WiSTEM Award Tracker App{{/text.headline}}
+
+          <br>
+          <p>The Award tracker was created to help faculty, staff, and students find the resources they need to apply for awards and scholarships. The award tracker collates known awards from various internal and external sources</p>
+        {{/title.text}}
+      {{/card.title}}
+      {{#card.content}}
+        <div class="layout-row">
+          {{#paper-button class="flex" raised=true onClick=(transition-to "awards")}}Get started  {{paper-icon "send"}}{{/paper-button}}
+        </div>
+      {{/card.content}}
+
+    {{/paper-card}}
+  </div>
+</div>

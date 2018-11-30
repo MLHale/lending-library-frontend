@@ -1,0 +1,47 @@
+<!--
+@Author: Matthew Hale <matthale>
+@Date:   2018-03-05T13:55:43-06:00
+@Email:  mlhale@unomaha.edu
+@Filename: award-display.hbs
+@Last modified by:   matthale
+@Last modified time: 2018-03-05T14:07:43-06:00
+@Copyright: Copyright (C) 2018 Matthew L. Hale
+-->
+
+
+
+<div>
+  <p>
+    Deadline: {{moment-to now selectedAward.submdeadline}} ({{moment-format selectedAward.submdeadline 'MM-DD-YYYY HH:mm'}})
+  </p>
+  <p>
+    Description: {{selectedAward.description}}
+  </p>
+  <p>
+    Sponsor: {{selectedAward.sponsororg}}
+  </p>
+  <p>
+    STEM Fields:
+    {{#each selectedAward.stemfield as |stem|}}
+      {{stem.name}}
+    {{/each}}
+  </p>
+  <p>
+    Award Purpose:
+    {{#each selectedAward.awardpurpose as |purpose|}}
+      {{purpose.name}}
+    {{/each}}
+  </p>
+  <p>
+    Source: {{selectedAward.source.name}}
+  </p>
+  <p>
+    Additional Information: {{selectedAward.additionalinfo}}
+  </p>
+  <p>
+    Nomination Required: {{#if selectedAward.nomreq}}Yes {{else}} No{{/if}}
+  </p>
+  <p>
+    Submission deadline:
+  </p>
+</div>

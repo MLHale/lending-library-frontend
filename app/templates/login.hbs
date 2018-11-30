@@ -1,0 +1,38 @@
+<!--
+@Author: Matthew Hale <matthale>
+@Date:   2018-03-01T16:19:15-06:00
+@Email:  mlhale@unomaha.edu
+@Filename: login.hbs
+@Last modified by:   matthale
+@Last modified time: 2018-03-01T17:22:41-06:00
+@Copyright: Copyright (C) 2018 Matthew L. Hale
+-->
+
+<div class="layout-column flex layout-align-center-center">
+  {{#paper-card class="landing-page-card" as |card|}}
+    {{#card.title as |title|}}
+      {{#title.text as |text|}}
+        {{#text.headline}}Login{{/text.headline}}
+      {{/title.text}}
+    {{/card.title}}
+    {{#card.content}}
+      {{#paper-form onSubmit=(action "login") as |form|}}
+        <div class="layout-row">
+          {{form.input class="flex" label="Username" value=auth.username onChange=(action (mut auth.username))}}
+          {{form.input class="flex" label="Password" type="password" value=auth.password onChange=(action (mut auth.password))}}
+        </div>
+        <div class="layout-row">
+          {{#form.submit-button class="flex" raised=true}}login{{/form.submit-button}}
+        </div>
+      {{/paper-form}}
+      <div class="layout-row layout-align-center">
+        <p>Not registered?
+          {{#link-to 'register' class="button"}}
+            Create an account.
+          {{/link-to}}
+        </p>
+      </div>
+    {{/card.content}}
+
+  {{/paper-card}}
+</div>

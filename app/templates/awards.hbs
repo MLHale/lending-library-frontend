@@ -1,0 +1,112 @@
+{{#paper-expansion-panel as |panel|}}
+  {{#panel.collapsed}}
+    <div class="md-panel-title">Refine your search</div>
+    <div class="md-panel-summary"></div>
+    {{paper-icon "keyboard_arrow_down"}}
+  {{/panel.collapsed}}
+
+  {{#panel.expanded as |expanded|}}
+    {{#expanded.header}}
+      <div class="md-panel-title">Search for awards</div>
+      <div class="md-panel-summary"></div>
+      {{paper-icon "keyboard_arrow_up"}}
+    {{/expanded.header}}
+
+    {{#expanded.content}}
+      <div class="layout-row">
+        {{paper-input class="flex-30" label="Award Title" value=filters.title onChange=(action (mut filters.title))}}
+        {{paper-input class="flex" label="Sponsor" value=filters.sponsororg onChange=(action (mut filters.sponsororg))}}
+
+        <div class="flex-25">
+          Filter by stem field:
+          {{#power-select-multiple options=model.stemfields selected=filters.stemfields placeholder="Select stem fields..." onchange=(action (mut filters.stemfields)) as |stemfield|}}
+            {{stemfield.name}}
+          {{/power-select-multiple}}
+        </div>
+        <div class="flex-25">
+          Filter by who can apply:
+          {{#power-select-multiple options=model.applicanttypes selected=filters.applicanttypes placeholder="Select applicant types..." onchange=(action (mut filters.applicanttypes)) as |applicanttype|}}
+            {{applicanttype.name}}
+          {{/power-select-multiple}}
+        </div>
+      </div>
+      {{#paper-expansion-panel as |advsearch|}}
+        {{#advsearch.collapsed}}
+          <div class="md-panel-title">Advanced search</div>
+          <div class="md-panel-summary"></div>
+          {{paper-icon "keyboard_arrow_down"}}
+        {{/advsearch.collapsed}}
+
+        {{#advsearch.expanded as |expanded|}}
+          {{#expanded.header}}
+            <div class="md-panel-title">Advanced search</div>
+            <div class="md-panel-summary"></div>
+            {{paper-icon "keyboard_arrow_up"}}
+          {{/expanded.header}}
+
+          {{#expanded.content}}
+            <div class="layout-row">
+              {{paper-input class="flex" label="Award URL" value=filters.awardlink onChange=(action (mut filters.awardlink))}}
+              {{paper-input class="flex" label="Description" value=filters.description onChange=(action (mut filters.description))}}
+            </div>
+            <div class="layout-row">
+              {{#power-select-multiple class="flex" options=model.sources selected=filters.sources placeholder="Sources" onchange=(action (mut filters.sources)) as |awardsource|}}
+                {{awardsource.name}}
+              {{/power-select-multiple}}
+              {{#power-select-multiple class="flex" options=model.purposes selected=filters.purposes placeholder="Purpose" onchange=(action (mut filters.purposes)) as |purpose|}}
+                {{purpose.name}}
+              {{/power-select-multiple}}
+            </div>
+          {{/expanded.content}}
+        {{/advsearch.expanded}}
+      {{/paper-expansion-panel}}
+    {{/expanded.content}}
+    {{!-- {{#expanded.footer}}
+        {{#paper-button accent=true class="flex" onClick=(action "search")}}Find Awards{{/paper-button}}
+    {{/expanded.footer}} --}}
+  {{/panel.expanded}}
+{{/paper-expansion-panel}}
+
+{{#paper-list}}
+  {{#paper-subheader}}Click an award below to find more information about the application.{{/paper-subheader}}
+  {{#each filteredAwards as |award|}}
+    {{#paper-item class="md-3-line" onClick=(action "openDialog" award) as |listitem|}}
+        <div class="md-list-item-text">
+          <h3><strong>Award name:</strong> {{award.title}}</h3>
+          <h4><strong>Deadline:</strong> {{award.submdeadline}}</h4>
+          <p><strong>Description:</strong>{{award.description}}</p>
+        </div>
+
+        {{#listitem.button secondary=true}}
+          {{#paper-chips
+              readOnly=true
+              content=award.applicanttypes as |type|}}
+              {{type.name}}
+          {{/paper-chips}}
+        {{/listitem.button}}
+        {{paper-divider}}
+    {{/paper-item}}
+  {{/each}}
+{{/paper-list}}
+
+
+{{#if showDialog}}
+  {{#paper-dialog class="flex" onClose=(action "closeDialog" "cancel") origin=dialogOrigin clickOutsideToClose=true}}
+    {{#paper-toolbar accent=true}}
+      {{#paper-toolbar-tools}}
+        <h2>{{selectedAward.title}}</h2>
+        <span class="flex"></span>
+        {{#paper-button iconButton=true onClick=(action "closeDialog" "cancel")}}{{paper-icon icon="close"}}{{/paper-button}}
+      {{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+
+    {{#paper-dialog-content}}
+      {{award-display selectedAward=selectedAward}}
+    {{/paper-dialog-content}}
+
+    {{#paper-dialog-actions class="layout-row"}}
+      <span class="flex"></span>
+      {{#paper-button onClick=(action "closeDialog" "ok")}}OK{{/paper-button}}
+    {{/paper-dialog-actions}}
+  {{/paper-dialog}}
+{{/if}}

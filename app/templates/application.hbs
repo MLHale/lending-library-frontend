@@ -1,0 +1,103 @@
+<!--
+@Author: Matthew Hale <matthale>
+@Date:   2018-03-01T16:19:15-06:00
+@Email:  mlhale@unomaha.edu
+@Filename: application.hbs
+@Last modified by:   matthale
+@Last modified time: 2018-03-01T17:13:48-06:00
+@Copyright: Copyright (C) 2018 Matthew L. Hale
+-->
+
+
+
+<div class="container">
+  {{notification-container position="bottom-left"}}
+  {{#paper-toolbar accent=true}}
+    {{#paper-toolbar-tools}}
+      {{#paper-menu as |menu|}}
+        {{#menu.trigger}}
+          {{#paper-button iconButton=true}}
+            {{paper-icon "menu"}}
+          {{/paper-button}}
+        {{/menu.trigger}}
+        {{#menu.content width=4 class="main-app-menu" as |content|}}
+          {{#each navigation.menuitems as |item|}}
+            {{#if (eq item.type "internal")}}
+              {{#content.menu-item onClick=(transition-to item.route)}}
+                {{#if item.icon}}{{paper-icon item.icon}}{{/if}}
+                <span>{{item.title}}</span>
+              {{/content.menu-item}}
+            {{else}}
+              {{#content.menu-item onClick=(action "externalLink" item)}}
+                {{#if item.icon}}{{paper-icon item.icon}}{{/if}}
+                <span>{{item.title}}</span>
+              {{/content.menu-item}}
+            {{/if}}
+          {{/each}}
+          {{#if auth.user.issuperuser}}
+            {{#each navigation.adminmenuitems as |item|}}
+              {{#if (eq item.type "internal")}}
+                {{#content.menu-item onClick=(transition-to item.route)}}
+                  {{#if item.icon}}{{paper-icon item.icon}}{{/if}}
+                  <span>{{item.title}}</span>
+                {{/content.menu-item}}
+              {{else}}
+                {{#content.menu-item onClick=(action "externalLink" item)}}
+                  {{#if item.icon}}{{paper-icon item.icon}}{{/if}}
+                  <span>{{item.title}}</span>
+                {{/content.menu-item}}
+              {{/if}}
+            {{/each}}
+          {{/if}}
+        {{/menu.content}}
+      {{/paper-menu}}
+      <h2>
+        {{#link-to 'index'}}WiSTEM Award Tracker{{/link-to}}
+      </h2>
+      <span class="flex"></span>
+      {{#if auth.isLoggedIn}}
+        <div class="layout-column flex-33 flex-sm-100 layout-align-center-center">
+          {{#paper-menu position="target-right target" as |menu|}}
+            {{#menu.trigger}}
+              {{#paper-button}}
+                {{auth.user.username}}
+                {{paper-icon "arrow_drop_down" class="md-menu-origin"}}
+
+              {{/paper-button}}
+            {{/menu.trigger}}
+            {{#menu.content as |content|}}
+              {{#content.menu-item onClick=(transition-to "profile")}}
+                <p style="width: 150px;">Your account</p>
+                {{paper-icon "person" class="md-menu-align-target"}}
+              {{/content.menu-item}}
+              {{#content.menu-item onClick=(action "logout")}}
+                <p style="width: 150px;">Logout</p>
+                {{paper-icon "power_settings_new" class="md-menu-align-target"}}
+              {{/content.menu-item}}
+            {{/menu.content}}
+        {{/paper-menu}}
+        </div>
+      {{else}}
+        {{#paper-button onClick=(transition-to 'login')}}
+          Login
+          {{paper-icon "exit_to_app" class="md-menu-origin"}}
+        {{/paper-button}}
+      {{/if}}
+    {{/paper-toolbar-tools}}
+  {{/paper-toolbar}}
+  {{paper-toaster}}
+  <div class="main layout-row">
+    <div class="flex">
+      {{outlet}}
+    </div>
+  </div>
+  <div class="footer layout-row layout-align-space-between-end">
+    <div class="left-footer">
+      <p class="credit">
+        © 2018 <a href="https://www.unomaha.edu/wistem-professional-development/index.php" target="_blank" style="color: inherit;">WiSTEM</a>, created by <a href="http://faculty.ist.unomaha.edu/mhale/" target="_blank" style="color: inherit;">Dr. Matthew L. Hale</a> with help from <a href="https://github.com/MLHale/CYBR8470/" target="_blank" style="color: inherit;">CYBR 8470 Students</a>
+      </p>
+    </div>
+    <div class="center-footer">
+    </div>
+  </div>
+</div>
