@@ -1,8 +1,8 @@
 {
-  "name": "lending-library-frontend",
+  "name": "lend-database",
   "version": "0.0.0",
   "private": true,
-  "description": "Small description for lending-library-frontend goes here",
+  "description": "Small description for lend-database goes here",
   "repository": "",
   "license": "MIT",
   "author": "",
@@ -20,8 +20,6 @@
   "devDependencies": {
     "@ember/jquery": "^0.5.2",
     "@ember/optional-features": "^0.6.3",
-    "@fortawesome/ember-fontawesome": "^0.1.9",
-    "@fortawesome/free-solid-svg-icons": "^5.5.0",
     "bootstrap": "^4.1.3",
     "broccoli-asset-rev": "^2.7.0",
     "ember-ajax": "^3.1.0",
@@ -40,6 +38,7 @@
     "ember-cli-uglify": "^2.1.0",
     "ember-data": "~3.4.0",
     "ember-export-application-global": "^2.0.0",
+    "ember-font-awesome": "^4.0.0-rc.4",
     "ember-load-initializers": "^1.1.0",
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-resolver": "^5.0.1",
