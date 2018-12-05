@@ -1,25 +1,10 @@
-/**
- * @Author: Matthew Hale <matthale>
- * @Date:   2018-02-28T02:12:57-06:00
- * @Email:  mlhale@unomaha.edu
- * @Filename: environment.js
- * @Last modified by:   matthale
- * @Last modified time: 2018-03-28T17:57:50-05:00
- * @Copyright: Copyright (C) 2018 Matthew L. Hale
- */
-
-
-
-/* eslint-env node */
 'use strict';
 
 module.exports = function(environment) {
   let ENV = {
-    modulePrefix: 'wistem-app-frontend',
+    modulePrefix: 'lend-database',
     environment,
-    rootURL: 'static/ember/',
-    bURL: '/',
-    serverName: 'http://localhost',
+    rootURL: '/',
     locationType: 'auto',
     EmberENV: {
       FEATURES: {
@@ -55,12 +40,11 @@ module.exports = function(environment) {
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
     ENV.APP.rootElement = '#ember-testing';
+    ENV.APP.autoboot = false;
   }
 
   if (environment === 'production') {
     // here you can enable a production-specific feature
-    ENV.serverName = 'http://wistem.mlhale.com',
-    ENV.rootURL = "static/ember/"
   }
 
   return ENV;
