@@ -15,11 +15,8 @@ module.exports = {
     browser: true
   },
   rules: {
-    "indent": "off",
-    "linebreak-style": 0,
-    "quotes": 0,
-    "semi": 0,
-    "no-console":0,
+    "indent": 0,
+    "no-console":0
   },
   overrides: [
     // node files
