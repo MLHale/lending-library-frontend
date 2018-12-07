@@ -1,5 +1,5 @@
 import Controller from '@ember/controller';
-import Ember from 'ember';
+import $ from 'jquery';
 
 export default Controller.extend({
   actions: {
@@ -14,7 +14,7 @@ export default Controller.extend({
       Set of functions related to opening and closing menu options
     **/
     openDialog(event) {
-      this.set('dialogOrigin', Ember.$(event.currentTarget));
+      this.set('dialogOrigin', $(event.currentTarget));
       this.set('showDialog', true);
     },
     closeDialog(result) {
