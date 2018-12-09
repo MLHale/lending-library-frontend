@@ -1,0 +1,11 @@
+{{yield}}
+{{link-to "Secret codez here" "secret"}}
+
+<h2>Login page</h2>
+<p>Use login / ok</p>
+
+<form {{action "authenticate" on="submit"}}>
+  {{input value=login placeholder="Login"}}<br>
+  {{input value=password placeholder="Password" type="password"}}<br>
+  <button type="submit">Login</button>
+</form>
