@@ -6,3 +6,24 @@
 
   <p>This is the Checkout page.<br></p>
 </div>
+{{models-table
+          data=model
+          columns=columns}}
+          columns: [
+  {
+    "propertyName": "id",
+    "title": "ID"
+  },
+  {
+    "propertyName": "item",
+    "title": "Item"
+  },
+  {
+    "propertyName": "component",
+    "title": "Component"
+  },
+  {
+    "propertyName": "count",
+    "title": "count"
+  }
+]
