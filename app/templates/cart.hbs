@@ -6,3 +6,28 @@
 
   <p>This is the cart page.<br></p>
 </div>
+{{models-table
+          data=model
+          columns=columns}}
+          columns: [
+  {
+    "propertyName": "id",
+    "title": "ID"
+  },
+  {
+    "propertyName": "partname",
+    "title": "Part Name"
+  },
+  {
+    "propertyName": "owner",
+    "title": "Owner"
+  },
+  {
+    "propertyName": "description",
+    "title": "Description"
+  },
+  {
+    "propertyName": "checkoutto",
+    "title": "Lender"
+  }
+]
