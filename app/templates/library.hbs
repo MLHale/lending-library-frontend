@@ -1,11 +1,15 @@
 {{outlet}}
+
 <div class="jumbotron text-center">
   <h1>Welcome to the University of Nebraska at Omaha Technology Lending Library<br></h1>
-
-
-
-  <p>This is the Library page.<br></p>
 </div>
+
+
+{{#each objlist as |obj|}}
+<img src='/assets/{{obj.link}}' height='100' width='150'/>
+{{obj.name}}
+{{obj.qty}}
+{{/each}}
 
 
 <div class="row">
@@ -92,3 +96,4 @@
 
 
           </div>
+
