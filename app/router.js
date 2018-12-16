@@ -7,9 +7,9 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
-  this.route('tasks');
+  this.route('tasks',{path:'/static/ember/tasks'});
   this.route('about');
-  this.route('library');
+  this.route('library',{path:'/library'});
   this.route('projects');
   this.route('cart');
   this.route('checkout');

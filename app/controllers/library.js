@@ -1,7 +1,9 @@
 import { computed, observer } from '@ember/object';
 import { A } from '@ember/array';
 import Controller from '@ember/controller';
-
+import Ember from 'ember';
+// import { computed } from '@ember/object';
+import $ from 'jquery';
 export default Controller.extend({
 
   listitem: Ember.computed('', function(){
@@ -21,7 +23,7 @@ export default Controller.extend({
         success: function(response){
           ite.qty=response.count;
         },
-        error: function(responsse) {
+        error: function(response) {
           // Do error handling
         }
 

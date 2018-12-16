@@ -5,6 +5,7 @@ module.exports = function(environment) {
     modulePrefix: 'lend-database',
     environment,
     rootURL: '/static/ember/',
+    bURL: '/',
     locationType: 'auto',
     EmberENV: {
       FEATURES: {
