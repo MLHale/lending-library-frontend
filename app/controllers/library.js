@@ -1,12 +1,11 @@
-import { computed, observer } from '@ember/object';
+import { computed } from '@ember/object';
 import { A } from '@ember/array';
 import Controller from '@ember/controller';
-import Ember from 'ember';
 // import { computed } from '@ember/object';
 import $ from 'jquery';
 export default Controller.extend({
 
-  listitem: Ember.computed('', function(){
+  listitem: computed('', function(){
     return 'rpi2b.jpg';
   }),
 
@@ -14,7 +13,7 @@ export default Controller.extend({
     getitemcount(){
       //Loop through the objects and get count for each object and update objlist
       this.objlist.forEach(function(ite){
-      Ember.$.ajax({
+      $.ajax({
         //url can change, we just need to update the url
         url:'/api/items/count?partname='+ite.name,
         type:"GET",
@@ -23,11 +22,10 @@ export default Controller.extend({
         success: function(response){
           ite.qty=response.count;
         },
-        error: function(response) {
+        error: function() {
           // Do error handling
         }
-
-        });
+      });
     });
   }
 },

@@ -11,16 +11,13 @@ var defaultitems = A([
     img: 'img/NGC-logo.png',
     link: '',
     link_external: 'http://mlhale.github.io/lending-library'
-
   },
 	{
 		title: 'Masonry-based Event Display Template',
 		description: 'You are seeing this template, because you haven\'t loaded any data into your client yet. This Template will be used to display events as they load from your REST API.',
     img: 'img/template-icon.svg',
     link: 'index'
-
 	},
-
 
 ]);
 

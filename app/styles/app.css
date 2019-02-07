@@ -2,9 +2,7 @@
   --input-padding-x: 1.5rem;
   --input-padding-y: .75rem;
 }
-body {
-  padding-top: 20px;
-}
+
 .card-signin {
   border: 0;
   border-radius: 1rem;
