@@ -3,89 +3,19 @@
   <h1>Welcome to the University of Nebraska at Omaha Technology Lending Library<br></h1>
 </div>
 
-
-{{#each objlist as |obj|}}
-  <img src="/assets/{{obj.link}}" height="100" width="150" alt=""> 
-  {{obj.name}}
-  {{obj.qty}}
-{{/each}}
 <div class="row">
-
-  <div class="col-lg-4 col-md-6 mb-4">
-    <div class="card h-100">
-      <a href="#"><img alt="image" class="card-img-top" src="localhost/image" ></a>
-      <div class="card-body">
-        <h4 class="card-title">
-          <a href="#">Product 1</a>
-        </h4>
-        <h5>$124.99</h5>
-        <p class="card-text">This is a product example!</p>
+  {{#each this.model as |item|}}
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card h-100">
+        <a href="#"><img alt="image" class="card-img-top" src="/static/ember/assets/rpi2b.jpg" ></a>
+        <div class="card-body">
+          <h4 class="card-title">
+            <a href="#">{{item.partname}}</a>
+          </h4>
+          <h5>$124.99</h5>
+          <p class="card-text">{{item.description}}</p>
+        </div>
       </div>
     </div>
-  </div>
-
-  <div class="col-lg-4 col-md-6 mb-4">
-    <div class="card h-100">
-      <a href="#"><img alt="image" class="card-img-top" src="localhost/image" ></a>
-      <div class="card-body">
-        <h4 class="card-title">
-          <a href="#">Product 2</a>
-        </h4>
-        <h5>$124.99</h5>
-        <p class="card-text">This is a product example!</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-lg-4 col-md-6 mb-4">
-    <div class="card h-100">
-      <a href="#"><img alt="image" class="card-img-top" src="localhost/image" ></a>
-      <div class="card-body">
-        <h4 class="card-title">
-          <a href="#">Product 3</a>
-        </h4>
-        <h5>$124.99</h5>
-        <p class="card-text">This is a product example!</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-lg-4 col-md-6 mb-4">
-    <div class="card h-100">
-      <a href="#"><img alt="image" class="card-img-top" src="localhost/image" ></a>
-      <div class="card-body">
-        <h4 class="card-title">
-          <a href="#">Product 4</a>
-        </h4>
-        <h5>$124.99</h5>
-        <p class="card-text">This is a product example!</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-lg-4 col-md-6 mb-4">
-    <div class="card h-100">
-      <a href="#"><img alt="image" class="card-img-top" src="localhost/image" ></a>
-      <div class="card-body">
-        <h4 class="card-title">
-          <a href="#">Product 5</a>
-        </h4>
-        <h5>$124.99</h5>
-        <p class="card-text">This is a product example!</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-lg-4 col-md-6 mb-4">
-    <div class="card h-100">
-      <a href="#"><img alt="image" class="card-img-top" src="localhost/image" ></a>
-      <div class="card-body">
-        <h4 class="card-title">
-          <a href="#">Product 6</a>
-        </h4>
-        <h5>$124.99</h5>
-        <p class="card-text">This is a product example!</p>
-      </div>
-    </div>
-  </div>
+  {{/each}}
 </div>
