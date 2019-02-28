@@ -3,17 +3,18 @@ import config from './config/environment';
 
 const Router = EmberRouter.extend({
   location: config.locationType,
-  rootURL: config.rootURL
+  rootURL: config.bURL
 });
 
 Router.map(function() {
-  this.route('tasks',{path:'/static/ember/tasks'});
+  this.route('home', { path: '/' });
+  this.route('tasks');
   this.route('about');
-  this.route('library',{path:'/library'});
-  this.route('projects');
-  this.route('cart');
-  this.route('checkout');
-  this.route('login');
+  this.route('library', { path: '/library' });
+  this.route('projects', { path: '/projects' });
+  this.route('cart', { path: '/cart' });
+  this.route('checkout', { path: '/checkout' });
+  this.route('login', { path: '/login' });
 });
 
 export default Router;
