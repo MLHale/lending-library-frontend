@@ -29,7 +29,7 @@ export default Route.extend({
     var items = A([]);
     return $.get('/api/projects').then(function(events){
       console.log(events);
-      events.forEach(function(event){
+      (function(event){
         console.log(event);
         items.addObject({
           id: event.pk,

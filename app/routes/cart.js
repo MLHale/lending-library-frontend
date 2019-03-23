@@ -27,17 +27,13 @@ var defaultitems = A([
 export default Route.extend({
   getData(){
     var items = A([]);
-    return $.get('/api').then(function(events){
-      events.forEach(function(event){
-        // console.log(event);
+    return $.get('/api/itemType').then(function(events){
+      (function(event){
+        //console.log(events);
         items.addObject({
-          id: event.pk,
-          eventtype: event.fields.eventtype,
-          requestor: event.fields.requestor,
-          timestamp: event.fields.timestamp,
-          userid: event.fields.userid,
-          img: 'img/event-icon.jpg',
-          link: 'index'
+          name: event.fields.name,
+          description: event.fields.description,
+          imagepath: 'static/ember/assets/rpi2b',
         });
       });
       return items.reverse()

@@ -6,15 +6,15 @@ import { later } from '@ember/runloop';
 export default Route.extend({
   getData(){
     var items = A([]);
-    return $.get('/api/items').then(function(events){
-      console.log(events);
-      events.data.forEach(function(event){
+    return $.get('/api/itemType').then(function(events){
+      //console.log(lol);
+      (function(event){
         console.log("----------------------------");
         console.log(event.attributes.description);
-        console.log(event.attributes.partname);
+        console.log(event.attributes.name);
 
         items.addObject({
-          partname: event.attributes.partname,
+          name: event.attributes.name,
           description: event.attributes.description
         });
       });
