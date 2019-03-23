@@ -11,7 +11,7 @@ Router.map(function() {
   this.route('tasks');
   this.route('about');
   this.route('library', { path: '/library' });
-  this.route('projects', { path: '/projects' });
+  this.route('packages', { path: '/packages' });
   this.route('cart', { path: '/cart' });
   this.route('checkout', { path: '/checkout' });
   this.route('login', { path: '/login' });
