@@ -4,6 +4,7 @@ export default DS.Model.extend({
     partName:DS.attr(),
     owner:DS.attr(),
     description:DS.attr(),
-    checkoutto:DS.attr()
+    checkoutto:DS.attr(),
+    category:DS.attr(),
 });
  

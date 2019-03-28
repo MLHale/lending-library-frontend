@@ -3,22 +3,20 @@ import Route from '@ember/routing/route';
 import $ from 'jquery';
 import { later } from '@ember/runloop';
 
-export default Route.extend({
+export default Route.extend({ 
   getData(){
-    var items = A([]);
-    return $.get('/api/items').then(function(events){
-      console.log(events);
+    var categories = A([]);
+    return $.get('/api/categories').then(function(events){
       events.data.forEach(function(event){
-        console.log("----------------------------");
-        console.log(event.attributes.description);
-        console.log(event.attributes.partname);
+        // console.log(event.attributes.image);
 
-        items.addObject({
-          partname: event.attributes.partname,
-          description: event.attributes.description
+        categories.addObject({
+          categoryname: event.attributes.categoryname,
+          description: event.attributes.description,
+          image: event.attributes.image
         });
       });
-      return items.reverse();
+      return categories.reverse();
       // events.forEach(function(event){
       //   // console.log(event);
       //   items.addObject({
@@ -42,7 +40,7 @@ export default Route.extend({
 	},
   setupController(controller, model){
     this._super(controller, model);
-    this.set('items', this.getData());
+    this.set('categories', this.getData());
     var route = this;
     setInterval(later(route, function() {
       // code here will execute within a RunLoop about every minute

@@ -1,13 +1,25 @@
 import { computed } from '@ember/object';
 import { A } from '@ember/array';
 import Controller from '@ember/controller';
-// import { computed } from '@ember/object';
 import $ from 'jquery';
+
+// Import pagination 
+import pagedArray from 'ember-cli-pagination/computed/paged-array';
+
+
 export default Controller.extend({
 
-  listitem: computed('', function(){
-    return 'rpi2b.jpg';
+  // Pagination Stuff
+  queryParams: ["page", "perPage"],
+  page: 1,
+  perPage: 10,
+  pagedContent: pagedArray('content', {
+    page: computed.alias("parent.page"),
+    perPage: computed.alias("parent.perPage"),
+    totalPages: 2,
   }),
+  // totalPages: computed.oneWay("pagedContent.totalPages"),
+  // totalPages: 1,
 
   actions: {
     getitemcount(){
@@ -15,12 +27,12 @@ export default Controller.extend({
       this.objlist.forEach(function(ite){
       $.ajax({
         //url can change, we just need to update the url
-        url:'/api/items/count?partname='+ite.name,
-        type:"GET",
-        contentType:"application/json",
-        dataType:"json",
+        url: '/api/items/count?partname='+ite.name,
+        type: "GET",
+        contentType: "application/json",
+        dataType: "json",
         success: function(response){
-          ite.qty=response.count;
+          ite.qty = response.count;
         },
         error: function() {
           // Do error handling

@@ -1,0 +1,24 @@
+{{yield paginatedItems}}
+<div class="row center" style="margin-top: 20px; margin-bottom: 20px;">
+    <div class="btn-toolbar mb-3 justify-content-between" role="toolbar" style="text-align: center; margin: auto;">
+        <div class="btn-group" role="group" aria-label="First group">
+            {{#if showPrevious}}
+                <button {{action "previousClicked"}} type="button" class="btn btn-outline-secondary">{{previousText}}</button>
+            {{else}}
+                <button type="button" class="btn btn-outline-secondary" disabled>{{previousText}}</button>
+            {{/if}}
+
+  
+            {{#each pageNumbers as |pageNumber|}}
+                <button {{action "pageClicked" pageNumber}} type="button" class="btn btn-outline-secondary">Page {{pageNumber}}</button>
+            {{/each}}
+
+
+            {{#if showNext}}
+                <button {{action "nextClicked"}} type="button" class="btn btn-outline-secondary">{{nextText}}</button>
+            {{else}}
+                <button type="button" class="btn btn-outline-secondary" disabled>{{nextText}}</button>
+            {{/if}}
+        </div>
+    </div>
+</div>
