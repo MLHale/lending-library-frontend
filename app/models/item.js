@@ -1,9 +1,10 @@
 import DS from 'ember-data';
 
 export default DS.Model.extend({
-    partName:DS.attr(),
-    owner:DS.attr(),
-    description:DS.attr(),
-    checkoutto:DS.attr()
+    id: DS.attr(),
+    type: DS.belongsTo('itemtype'),
+    barcode: DS.attr(),
+    status: DS.attr(),
+    owner: DS.belongsTo('userprofile'),
+    checkedoutto: DS.belongsTo('userprofile'),
 });
- 
