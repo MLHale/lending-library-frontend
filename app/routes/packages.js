@@ -1,9 +1,12 @@
-import { A } from '@ember/array';
 import Route from '@ember/routing/route';
+
+/*
+import { A } from '@ember/array';
 import $ from 'jquery';
 import { later } from '@ember/runloop';
+*/
 
-
+/*
 var defaultitems = A([
   {
     title: 'Lending Library',
@@ -23,8 +26,14 @@ var defaultitems = A([
 
 
 ]);
+*/
 
 export default Route.extend({
+  model() {
+    return this.store.findAll('package');
+	}
+
+  /*
   getData(){
     var items = A([]);
     return $.get('/api/projects').then(function(events){
@@ -65,4 +74,5 @@ export default Route.extend({
       }
     }, 5), 3000);
   }
+  */
 });

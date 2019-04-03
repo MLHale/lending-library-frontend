@@ -1,9 +1,15 @@
-import { A } from '@ember/array';
 import Route from '@ember/routing/route';
+/*
+import { A } from '@ember/array';
 import $ from 'jquery';
 import { later } from '@ember/runloop';
+*/
 
 export default Route.extend({
+  model() {
+    return this.store.findAll('itemtype');
+	}
+  /*
   getData(){
     var items = A([]);
     return $.get('/api/itemType').then(function(events){
@@ -38,7 +44,7 @@ export default Route.extend({
     });
   },
 	model() {
-    return this.getData();
+    return this.store.this.store.findAll('itemtype');
 	},
   setupController(controller, model){
     this._super(controller, model);
@@ -55,4 +61,5 @@ export default Route.extend({
       }
     }, 5), 3000);
   }
+  */
 });
