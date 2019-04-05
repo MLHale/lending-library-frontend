@@ -30,7 +30,7 @@ var defaultitems = A([
 
 export default Route.extend({
   model() {
-    return this.store.findAll('package');
+    return this.store.findAll('package', {include: 'packageitemtypequantities'});
 	}
 
   /*
