@@ -1,5 +1,5 @@
-export function initialize(/* application */) {
-  // application.inject('route', 'foo', 'service:foo');
+export function initialize(application) {
+  application.inject('route', 'login', 'service:auth-manager'); // verify parameter functionality
 }
 
 export default {

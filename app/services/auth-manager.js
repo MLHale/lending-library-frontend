@@ -13,7 +13,7 @@
 import Service from '@ember/service';
 import { inject as service } from '@ember/service';
 import $ from 'jquery';
-import { later } from '@ember/runloop';
+// import { later } from '@ember/runloop';
 
 export default Service.extend({
 	store: service('store'),
@@ -34,7 +34,7 @@ export default Service.extend({
 	/**
 		Authenticates against session endpoint on backend (at /api/session)
 	**/
-	login: function(eyetracker=true, callback){
+	login: function(callback){
 		console.log('Logging in:');
 
 		//retrieve field data
@@ -51,6 +51,7 @@ export default Service.extend({
 		//make api request
 		$.post('/api/session/', data, function(response){
 			console.log('4');
+			console.log(response);
 			if(response.data.isauthenticated){
 				//success
 				console.log('Login POST Request to /api/session/ was successful.');
@@ -69,8 +70,9 @@ export default Service.extend({
 					localStorage.removeItem('password');
 				}
 				console.log('5');
-				auth.get('store').findRecord('profile', response.data.profileid /*, {include: 'experimentsessions,user,experimentsessions.subjectsessions'}*/).then(
+				auth.get('store').findRecord('userprofile', response.data.profileid /*, {include: 'experimentsessions,user,experimentsessions.subjectsessions'}*/).then(
 					function(profile){
+						console.log(profile);
 						console.log('6');
 						auth.set('user',profile.get('user'));
 						// transition after the profile is loaded
@@ -80,10 +82,14 @@ export default Service.extend({
 							callback();
 						}
 						else {
-							if(profile.get('roles').admin) {
+							console.log("The profile contains the following:");
+							console.log(profile);
+							if(profile.get('isadmin')) {
 								auth.get('router').transitionTo('home');
+								console.log('You have been redirected to the admin page');
 							} else {
 								auth.get('router').transitionTo('home');
+								console.log('You have been redirected to the home page');
 							}
 						}
 					}
@@ -149,7 +155,7 @@ export default Service.extend({
 			if(response.data.isauthenticated){
 				//success
 				console.log('The user: \''+response.data.username+'\' is currently logged in.');
-				auth.get('store').findRecord('profile', response.data.profileid /*, {include: 'experimentsessions,user,experimentsessions.subjectsessions'}*/).then(
+				auth.get('store').findRecord('userprofile', response.data.profileid /*, {include: 'experimentsessions,user,experimentsessions.subjectsessions'}*/).then(
 					function(profile){
 						auth.set('user',profile.get('user'));
 						auth.set('profile',profile);
@@ -158,7 +164,7 @@ export default Service.extend({
 						}
 						if (auth.get('router._router.currentPath')==='login'){
 							// transition if on the login page
-							if(profile.get('roles').admin) {
+							if(profile.get('isadmin')) {
 								auth.get('router').transitionTo('home');
 							} else {
 								auth.get('router').transitionTo('home');

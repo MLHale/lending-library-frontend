@@ -3,7 +3,6 @@ import DS from 'ember-data';
 export default DS.Model.extend({
   /* The serializer has fields from both user and userprofile in backend. */
   /* This will probably need split into two models. */
-  id: DS.attr(),
   username: DS.attr(),
   first_name: DS.attr(),
   last_name: DS.attr(),
