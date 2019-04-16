@@ -55,7 +55,8 @@ export default Service.extend({
 			if(response.data.isauthenticated){
 				//success
 				console.log('Login POST Request to /api/session/ was successful.');
-
+				auth.set('user', response.data.username);
+				console.log(auth.get('user') + " was logged in.");
 
 				if(remember){
 					//save username and pass to local storage
@@ -72,24 +73,27 @@ export default Service.extend({
 				console.log('5');
 				auth.get('store').findRecord('userprofile', response.data.profileid /*, {include: 'experimentsessions,user,experimentsessions.subjectsessions'}*/).then(
 					function(profile){
+						console.log("The profile contains the following,");
 						console.log(profile);
+						console.log(profile.isadmin);
+						console.log(profile.islender);
 						console.log('6');
-						auth.set('user',profile.get('user'));
 						// transition after the profile is loaded
 						auth.set('profile',profile);
+						console.log(auth.get('profile'));
 						auth.set('password', '');
 						if (callback){
+							console.log('Executing callback')
 							callback();
 						}
 						else {
-							console.log("The profile contains the following:");
-							console.log(profile);
 							if(profile.get('isadmin')) {
+								console.log("profile.get('isadmin') returned true");
 								auth.get('router').transitionTo('home');
-								console.log('You have been redirected to the admin page');
+
 							} else {
+								console.log("profile.get('isadmin') returned false");
 								auth.get('router').transitionTo('home');
-								console.log('You have been redirected to the home page');
 							}
 						}
 					}
