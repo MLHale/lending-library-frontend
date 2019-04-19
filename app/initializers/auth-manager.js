@@ -1,5 +1,7 @@
 export function initialize(application) {
-  application.inject('route', 'login', 'service:auth-manager'); // verify parameter functionality
+  application.inject('route', 'auth', 'service:auth-manager');
+  application.inject('controller', 'auth', 'service:auth-manager');
+  application.inject('component', 'auth', 'service:auth-manager');
 }
 
 export default {

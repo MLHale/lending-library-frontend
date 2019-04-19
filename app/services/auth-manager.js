@@ -16,7 +16,7 @@ import $ from 'jquery';
 // import { later } from '@ember/runloop';
 
 export default Service.extend({
-	store: service('store'),
+	store: service(),
 	router: service(),
 
 	//field vars
@@ -51,13 +51,11 @@ export default Service.extend({
 		//make api request
 		$.post('/api/session/', data, function(response){
 			console.log('4');
-			console.log(response);
 			if(response.data.isauthenticated){
 				//success
 				console.log('Login POST Request to /api/session/ was successful.');
 				auth.set('user', response.data.username);
-				console.log(auth.get('user') + " was logged in.");
-
+				console.log(auth.get('user') + " was logged in");
 				if(remember){
 					//save username and pass to local storage
 					localStorage.setItem('remember', true);
@@ -71,43 +69,34 @@ export default Service.extend({
 					localStorage.removeItem('password');
 				}
 				console.log('5');
-				auth.get('store').findRecord('userprofile', response.data.profileid /*, {include: 'experimentsessions,user,experimentsessions.subjectsessions'}*/).then(
+				auth.get('store').findRecord('userprofile', response.data.profileid, {include: 'org'}).then(
 					function(profile){
-						console.log("The profile contains the following,");
-						console.log(profile);
-						console.log(profile.isadmin);
-						console.log(profile.islender);
 						console.log('6');
 						// transition after the profile is loaded
 						auth.set('profile',profile);
-						console.log(auth.get('profile'));
 						auth.set('password', '');
 						if (callback){
-							console.log('Executing callback')
+							// does not currently appear to be used
+							console.log('Executing callback');
 							callback();
 						}
 						else {
 							if(profile.get('isadmin')) {
 								console.log("profile.get('isadmin') returned true");
-								auth.get('router').transitionTo('home');
-
 							} else {
 								console.log("profile.get('isadmin') returned false");
-								auth.get('router').transitionTo('home');
 							}
 						}
 					}
 				);
 				console.log(7);
 				auth.set('isLoggedIn', true);
-
 			} else{
 				//errors
 				console.log('Login POST Request to /api/session/ was unsuccessful.');
 				auth.set('errorMsg', response.data.message);
 			}
 		});
-
 	},
 	/**
 		De-authenticates against session endpoint on backend (at /api/session)
@@ -158,20 +147,17 @@ export default Service.extend({
 		$.get('/api/session', function(response){
 			if(response.data.isauthenticated){
 				//success
+				auth.set('user', response.data.username)
 				console.log('The user: \''+response.data.username+'\' is currently logged in.');
 				auth.get('store').findRecord('userprofile', response.data.profileid /*, {include: 'experimentsessions,user,experimentsessions.subjectsessions'}*/).then(
 					function(profile){
-						auth.set('user',profile.get('user'));
 						auth.set('profile',profile);
-						if(auth.get('profile.roles.annon')){
-							auth.set('isannon', true);
-						}
 						if (auth.get('router._router.currentPath')==='login'){
 							// transition if on the login page
 							if(profile.get('isadmin')) {
-								auth.get('router').transitionTo('home');
+								console.log("profile.get('isadmin') returned true");
 							} else {
-								auth.get('router').transitionTo('home');
+								console.log("profile.get('isadmin') returned false");
 							}
 						}
 					}

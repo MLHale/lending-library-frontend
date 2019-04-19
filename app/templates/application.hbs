@@ -29,10 +29,14 @@
         {{#link-to "cart"}}<a class="nav-link">Cart</a>{{/link-to}}
       </li>
       <li class="nav-item">
-        {{#if user.isauthenticated}}
-          {{#link-to "userprofile"}}<a class="nav-link">userprofile</a>{{/link-to}}
+        {{#if auth.isLoggedIn}}
+        <li class="nav-item">
+          {{#link-to "login"}}<a class="nav-link">Login (Signed in as {{auth.user}})</a>{{/link-to}}
+        </li>
         {{else}}
+        <li class="nav-item">
           {{#link-to "login"}}<a class="nav-link">Login</a>{{/link-to}}
+        </li>
         {{/if}}
       </li>
     </ul>
