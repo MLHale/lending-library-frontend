@@ -69,8 +69,11 @@ export default Service.extend({
 					localStorage.removeItem('password');
 				}
 				console.log('5');
-				auth.get('store').findRecord('userprofile', response.data.profileid, {include: 'org'}).then(
+				auth.get('store').findRecord('userprofile', response.data.profileid,
+					{include: 'organizations,carts,carts.cartitemtypequantities'}).then(
 					function(profile){
+						console.log(profile);
+						console.log(profile.get('cart.cartitemtypequantities'));
 						console.log('6');
 						// transition after the profile is loaded
 						auth.set('profile',profile);
@@ -142,14 +145,14 @@ export default Service.extend({
 			auth.set('password', localStorage.password);
 		}
 
-
 		//check to see if the user is logged into the API
 		$.get('/api/session', function(response){
 			if(response.data.isauthenticated){
 				//success
 				auth.set('user', response.data.username)
 				console.log('The user: \''+response.data.username+'\' is currently logged in.');
-				auth.get('store').findRecord('userprofile', response.data.profileid /*, {include: 'experimentsessions,user,experimentsessions.subjectsessions'}*/).then(
+				auth.get('store').findRecord('userprofile', response.data.profileid,
+					{include: 'organizations,carts,carts.cartitemtypequantities'}).then(
 					function(profile){
 						auth.set('profile',profile);
 						if (auth.get('router._router.currentPath')==='login'){
@@ -171,7 +174,5 @@ export default Service.extend({
 				console.log('The user is not currently logged in.');
 			}
 		});
-
-
 	}
 });

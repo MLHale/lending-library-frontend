@@ -1,16 +1,17 @@
 <article class="cart">
   <div class="cart-user">
-    User's Cart
+    {{auth.user}}'s Cart
   </div>
   <!-- Need an #each helper here to cover multiple itemtypes in cart -->
-  <div class="item-type">
-    <div class="item-name">
-      Item name here.
-    </div>
-    <div class="item-description">
-      Item description here.
-    </div>
-    <img src="" alt="Image of item.">
+  <div>
+    {{#each auth.profile.cart.cartitemtypequantities as |item|}}
+    <ul>
+      <li>
+        {{item.itemtype.name}}<br />
+        Quantity: {{item.quantity}}
+      </li>
+    </ul>
+    {{/each}}
   </div>
   <!-- Want to include quantity later -->
 </article>

@@ -1,9 +1,12 @@
-import { A } from '@ember/array';
 import Route from '@ember/routing/route';
+
+/*
+import { A } from '@ember/array';
 import $ from 'jquery';
 import { later } from '@ember/runloop';
+*/
 
-
+/*
 var defaultitems = A([
   {
     title: 'Lending Library',
@@ -23,8 +26,22 @@ var defaultitems = A([
 
 
 ]);
+*/
 
 export default Route.extend({
+  model() {
+    // bug - when page is refreshed auth.isLoggedIn is logged as false
+    // when the user is logged in and the property is still set to true
+    if (this.get('auth.isLoggedIn'))
+    {
+      console.log("Retrieve the user's cart");
+    }
+    else{
+      console.log('User not logged in, no cart to display');
+    }
+	}
+
+  /*
   getData(){
     var items = A([]);
     return $.get('/api/itemType').then(function(events){
@@ -60,4 +77,5 @@ export default Route.extend({
       }
     }, 5), 3000);
   }
+  */
 });
