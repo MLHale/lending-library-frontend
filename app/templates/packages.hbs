@@ -5,11 +5,9 @@
 </div>
 
 <div class="row">
-  {{#each this.model as |package|}}
+  {{#each model as |package|}}
     <div class="col-lg-4 col-md-6 mb-4">
       <div class="card h-100">
-        <!-- <a href="#"><img alt="image" class="card-img-top" src="/static/ember/assets/{{item.imagepath}}" ></a>
-        Might put a picture of the first item of the package in here. -->
         <div class="card-body">
           <h4 class="card-title">
             <a href="#">{{package.name}}</a>
@@ -24,8 +22,8 @@
               </ul>
               <p>Quantity: {{item.quantity}}</p>
             {{/each}}
-          <a href="#" class="btn btn-primary">Add to cart</a>
-          <input class="form-control form-control-sm" type="text" placeholder="Quantity">
+          <button type="submit" class="btn btn-lg btn-primary btn-block" {{action "add" package package.quantity}}>Add to cart</button>
+          {{input type="text" class="input-sm form-control" value=package.quantity placeholder="Quantity" autofocus="autofocus"}}
         </div>
       </div>
     </div>
