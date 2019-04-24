@@ -10,6 +10,12 @@ export default Controller.extend({
       console.log('Itemtype: ' + itemtype);
       console.log('Quantity: ' + itemtype.get('quantity'));
 
+      if (itemtype.get('quantity') < 1)
+      {
+        console.log('Invalid quantity, no action taken.')
+        return
+      }
+
       var found = cart.get('cartitemtypequantities').findBy('itemtype.name', itemtype.get('name'))
 
       if (found){
