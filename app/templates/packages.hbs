@@ -1,9 +1,6 @@
 {{outlet}}
 <div class="jumbotron text-center">
   <h1>Welcome to the University of Nebraska at Omaha Technology Lending Library<br></h1>
-
-
-
   <p>This is the Packages page.<br></p>
 </div>
 
@@ -21,13 +18,13 @@
           <h4>
             Package Contents:
           </h4>
-          {{#each package.packageitemtypequantities as |item|}}
-            <ul>
-              <li>{{item.itemtype.name}}</li>
-            </ul>
-            <p>Quantity: {{item.quantity}}</p>
-          {{/each}}
-          <a href="#" class="btn btn-primary">Add to the cart</a>
+            {{#each package.packageitemtypequantities as |item|}}
+              <ul>
+                <li>{{item.itemtype.name}}</li>
+              </ul>
+              <p>Quantity: {{item.quantity}}</p>
+            {{/each}}
+          <a href="#" class="btn btn-primary">Add to cart</a>
           <input class="form-control form-control-sm" type="text" placeholder="Quantity">
         </div>
       </div>
@@ -114,7 +111,4 @@
             </div>
           -->
 
-
-
-
-          </div>
+</div>

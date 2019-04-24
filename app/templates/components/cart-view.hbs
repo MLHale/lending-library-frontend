@@ -1,17 +1,29 @@
 <article class="cart">
-  <div class="cart-user">
-    {{auth.user}}'s Cart
-  </div>
-  <!-- Need an #each helper here to cover multiple itemtypes in cart -->
-  <div>
-    {{#each auth.profile.cart.cartitemtypequantities as |item|}}
-    <ul>
-      <li>
-        {{item.itemtype.name}}<br />
-        Quantity: {{item.quantity}}
-      </li>
-    </ul>
-    {{/each}}
-  </div>
-  <!-- Want to include quantity later -->
+  {{#if auth.isLoggedIn}}
+    <div class="jumbotron text-center">
+      <h2>{{auth.user}}'s Cart</h2>
+    </div>
+    <div class="row">
+      {{#each auth.profile.cart.cartitemtypequantities as |item|}}
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card h-100">
+            <a href="#"><img alt="image" class="card-img-top" src="/static/ember/assets/{{item.itemtype.imagepath}}" ></a>
+            <div class="card-body">
+              <h4 class="card-title">
+                {{item.itemtype.name}}
+              </h4>
+              <p class="card-text">Quantity: {{item.quantity}}</p>
+            </div>
+          <button type="submit" class="btn btn-primary" {{action "remove" item}}>Remove from cart</button>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+    <button type="submit" class="btn btn-lg btn-primary btn-block" {{action "empty"}}>Empty cart</button>
+    <button type="submit" class="btn btn-lg btn-primary btn-block" {{action "order"}}>Place order</button>
+  {{else}}
+    <div>
+      Please sign in to access your cart.
+    </div>
+  {{/if}}
 </article>

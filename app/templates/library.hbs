@@ -4,7 +4,7 @@
 </div>
 
 <div class="row">
-  {{#each this.model as |item|}}
+  {{#each model as |item|}}
     <div class="col-lg-4 col-md-6 mb-4">
       <div class="card h-100">
         <a href="#"><img alt="image" class="card-img-top" src="/static/ember/assets/{{item.imagepath}}" ></a>
@@ -13,8 +13,8 @@
             <a href="#">{{item.name}}</a>
           </h4>
           <p class="card-text">{{item.description}}</p>
-          <a href="#" class="btn btn-primary">Add to the cart</a>
-          <input class="form-control form-control-sm" type="text" placeholder="Quantity">
+          <button type="submit" class="btn btn-lg btn-primary btn-block" {{action "add" item item.quantity}}>Add to cart</button>
+          {{input type="text" class="input-sm form-control" value=item.quantity placeholder="Quantity" autofocus="autofocus"}}
         </div>
       </div>
     </div>
