@@ -13,6 +13,7 @@ export default Controller.extend({
       if (itemtype.get('quantity') < 1)
       {
         console.log('Invalid quantity, no action taken.')
+        alert('Invalid quantity')
         return
       }
 
