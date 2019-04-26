@@ -10,13 +10,14 @@ export default Controller.extend({
       console.log('Itemtype: ' + itemtype);
       console.log('Quantity: ' + itemtype.get('quantity'));
 
-      if (itemtype.get('quantity') < 1)
+      if (itemtype.get('quantity') < 1 || itemtype.get('quantity') == isNaN || itemtype.get('quantity') == null)
       {
         console.log('Invalid quantity, no action taken.')
         alert('Invalid quantity')
         return
       }
 
+      alert('You\'ve added ' + itemtype.get('quantity') + ' ' + itemtype.name + ' to you cart!')
       var found = cart.get('cartitemtypequantities').findBy('itemtype.name', itemtype.get('name'))
 
       if (found){

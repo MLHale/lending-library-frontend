@@ -9,10 +9,13 @@ export default Controller.extend({
       console.log("You've called the \"add\" function for packages.")
       console.log(pkg.name)
 
-      if (pkg.get('quantity') < 1){
+      if (pkg.get('quantity') < 1 || pkg.get('quantity') == isNaN || pkg.get('quantity') == null)
+      {
         console.log('Invalid quantity, no action taken.')
         alert('Invalid quantity')
         return
+      } else{
+        alert('You\'ve added ' + pkg.get('quantity') + ' ' + pkg.name + ' to your cart!')
       }
 
       for (var i = 0; i < pkg.get('quantity'); i++){
