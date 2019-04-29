@@ -30,17 +30,8 @@ var defaultitems = A([
 
 export default Route.extend({
   model() {
-    // bug - when page is refreshed auth.isLoggedIn is logged as false
-    // when the user is logged in and the property is still set to true
-    if (this.get('auth.isLoggedIn'))
-    {
-      console.log("Retrieve the user's cart");
-    }
-    else{
-      console.log('User not logged in, no cart to display');
-    }
-	}
-
+    return this.store.findAll('item', {include: 'itemtypes'});
+  }
   /*
   getData(){
     var items = A([]);

@@ -1,7 +1,7 @@
 import DS from 'ember-data';
 
 export default DS.Model.extend({
-  user: DS.blongsTo('userprofile'),
+  user: DS.belongsTo('userprofile'),
   status: DS.attr(),
   items: DS.hasMany('item'),
   createdon: DS.attr(),
