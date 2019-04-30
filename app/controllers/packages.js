@@ -7,7 +7,7 @@ export default Controller.extend({
       var cart = this.get('auth.profile.cart');
       console.log('Quantity: ' + pkg.get('quantity'))
       console.log("You've called the \"add\" function for packages.")
-      console.log(pkg.name)
+      console.log(pkg.get('name'))
 
       if (pkg.get('quantity') < 1 || pkg.get('quantity') == isNaN || pkg.get('quantity') == null)
       {

@@ -41,16 +41,12 @@ export default Service.extend({
 		var username = this.get('username');
 		var password = this.get('password');
 		var remember = this.get('remember');
-		console.log('1');
 		var data = {
 			'username': username,
 			'password': password};
-		console.log('2');
 		var auth = this;
-		console.log('3');
 		//make api request
 		$.post('/api/session/', data, function(response){
-			console.log('4');
 			if(response.data.isauthenticated){
 				//success
 				console.log('Login POST Request to /api/session/ was successful.');
@@ -68,13 +64,11 @@ export default Service.extend({
 					localStorage.removeItem('username');
 					localStorage.removeItem('password');
 				}
-				console.log('5');
 				auth.get('store').findRecord('userprofile', response.data.profileid,
-					{include: 'organizations,carts,carts.cartitemtypequantities'}).then(
+					{include: 'organizations,cart,cart.cartitemtypequantities'}).then(
 					function(profile){
 						console.log(profile);
 						console.log(profile.get('cart.cartitemtypequantities'));
-						console.log('6');
 						// transition after the profile is loaded
 						auth.set('profile',profile);
 						auth.set('password', '');
@@ -92,7 +86,6 @@ export default Service.extend({
 						}
 					}
 				);
-				console.log(7);
 				auth.set('isLoggedIn', true);
 			} else{
 				//errors
@@ -152,7 +145,7 @@ export default Service.extend({
 				auth.set('user', response.data.username)
 				console.log('The user: \''+response.data.username+'\' is currently logged in.');
 				auth.get('store').findRecord('userprofile', response.data.profileid,
-					{include: 'organizations,carts,carts.cartitemtypequantities'}).then(
+					{include: 'organizations,cart,cart.cartitemtypequantities'}).then(
 					function(profile){
 						auth.set('profile',profile);
 						if (auth.get('router._router.currentPath')==='login'){

@@ -9,20 +9,16 @@ export default Controller.extend({
       console.log("You've called the \"add\" function.");
       console.log('Itemtype: ' + itemtype);
       console.log('Quantity: ' + itemtype.get('quantity'));
-
       if (itemtype.get('quantity') < 1 || itemtype.get('quantity') == isNaN || itemtype.get('quantity') == null)
       {
         console.log('Invalid quantity, no action taken.')
         alert('Invalid quantity')
         return
       }
-
-      alert('You\'ve added ' + itemtype.get('quantity') + ' ' + itemtype.name + ' to you cart!')
+      alert('You\'ve added ' + itemtype.get('quantity') + ' ' + itemtype.get('name') + ' to your cart!')
       var found = cart.get('cartitemtypequantities').findBy('itemtype.name', itemtype.get('name'))
-
       if (found){
         console.log('Itemtype exists in cart, updating quantity...')
-
         found.set('quantity', found.get('quantity') + Number(itemtype.get('quantity')))
         found.save()
       } else{
@@ -32,7 +28,6 @@ export default Controller.extend({
           itemtype: itemtype,
           quantity: itemtype.get('quantity')
         });
-
         newitem.save();
       }
     }
