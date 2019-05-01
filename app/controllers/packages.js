@@ -2,20 +2,19 @@ import Controller from '@ember/controller';
 
 export default Controller.extend({
   actions:{
+    /**
+      Adds a Package (Set of Cartitemtypequantities) to the User's Cart
+    */
     add: function(pkg){
       var contr = this;
       var cart = this.get('auth.profile.cart');
-      console.log('Quantity: ' + pkg.get('quantity'))
-      console.log("You've called the \"add\" function for packages.")
-      console.log(pkg.get('name'))
 
       if (pkg.get('quantity') < 1 || pkg.get('quantity') == isNaN || pkg.get('quantity') == null)
       {
-        console.log('Invalid quantity, no action taken.')
         alert('Invalid quantity')
         return
       } else{
-        alert('You\'ve added ' + pkg.get('quantity') + ' ' + pkg.name + ' to your cart!')
+        alert('You\'ve added ' + pkg.get('quantity') + ' ' + pkg.get('name') + ' to your cart!')
       }
 
       for (var i = 0; i < pkg.get('quantity'); i++){
@@ -25,15 +24,10 @@ export default Controller.extend({
             packageitemtypequantity.get('itemtype.name'))
 
           if (found){
-            // Update the quantity of existing cartitemtypequantity
-            console.log('Itemtype exists in cart, updating quantity...')
-
             found.set('quantity', found.get('quantity') +
               Number(packageitemtypequantity.get('quantity')))
             found.save()
           } else{
-            // Create a new record
-            console.log('Itemtype does not exist in cart, creating new record...')
             var newitem = contr.get('store').createRecord('cartitemtypequantity', {
               cart: cart,
               itemtype: packageitemtypequantity.get('itemtype'),

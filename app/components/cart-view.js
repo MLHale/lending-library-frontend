@@ -4,14 +4,21 @@ import { inject as service } from '@ember/service';
 export default Component.extend({
   store: service(),
   actions:{
+    /**
+      Places an Order per the Cartitemtypequantities within the User's Cart
+    */
     order: function(){
-      console.log("You've called the \"order\" function.")
       var cart = this.get('auth.profile.cart')
       // Note: Possibly change model hook to only query for available items
       var inventory = this.get('items').filterBy('status', 'AVA')
       var comp = this
       var fulfillable = true
-      cart.get("cartitemtypequantities")
+      if (cart.get('cartitemtypequantities._length') == 0)
+      {
+        console.log('Cart is empty, no order will be placed.')
+        fulfillable = false
+      }
+      cart.get('cartitemtypequantities')
         .forEach(function(cartitemtypequantity){
         var results = inventory.filterBy('type.name',
           cartitemtypequantity.get('itemtype.name'))
@@ -52,14 +59,17 @@ export default Component.extend({
         comp.send('empty')
       }
     },
+    /**
+      Removes a Cartitemtypequantity from the User's Cart
+    */
     remove: function(itemtype){
-      console.log("You've called the \"remove\" function to remove (" +
-        itemtype.quantity + ") " + itemtype.get('itemtype.name'));
       itemtype.deleteRecord();
       itemtype.save();
     },
+    /**
+      Removes all Cartitemtypequantities from the User's Cart
+    */
     empty: function(){
-      console.log("You've called the \"empty\" function.");
       var cart = this.get('auth.profile.cart');
       cart.get("cartitemtypequantities").forEach(function(cartitemtypequantity){
       cartitemtypequantity.deleteRecord();

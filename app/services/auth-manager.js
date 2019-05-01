@@ -13,7 +13,6 @@
 import Service from '@ember/service';
 import { inject as service } from '@ember/service';
 import $ from 'jquery';
-// import { later } from '@ember/runloop';
 
 export default Service.extend({
 	store: service(),
@@ -33,7 +32,7 @@ export default Service.extend({
 
 	/**
 		Authenticates against session endpoint on backend (at /api/session)
-	**/
+	*/
 	login: function(callback){
 		console.log('Logging in:');
 
@@ -67,8 +66,6 @@ export default Service.extend({
 				auth.get('store').findRecord('userprofile', response.data.profileid,
 					{include: 'organizations,cart,cart.cartitemtypequantities'}).then(
 					function(profile){
-						console.log(profile);
-						console.log(profile.get('cart.cartitemtypequantities'));
 						// transition after the profile is loaded
 						auth.set('profile',profile);
 						auth.set('password', '');
@@ -79,9 +76,7 @@ export default Service.extend({
 						}
 						else {
 							if(profile.get('isadmin')) {
-								console.log("profile.get('isadmin') returned true");
-							} else {
-								console.log("profile.get('isadmin') returned false");
+								console.log('User is admin');
 							}
 						}
 					}
@@ -96,7 +91,7 @@ export default Service.extend({
 	},
 	/**
 		De-authenticates against session endpoint on backend (at /api/session)
-	**/
+	*/
 	logout: function(){
 		console.log('Logging out');
 		var auth = this;
@@ -121,8 +116,8 @@ export default Service.extend({
 		);
 	},
 	/**
-		called whenever the application loads to initialize any stored session/local variables
-	**/
+		Called whenever the application loads to initialize any stored session/local variables
+	*/
 	init: function(){
 		this._super();
 		var auth = this;
@@ -151,9 +146,7 @@ export default Service.extend({
 						if (auth.get('router._router.currentPath')==='login'){
 							// transition if on the login page
 							if(profile.get('isadmin')) {
-								console.log("profile.get('isadmin') returned true");
-							} else {
-								console.log("profile.get('isadmin') returned false");
+								console.log("User is admin");
 							}
 						}
 					}
