@@ -13,8 +13,12 @@
             <a href="#">{{item.name}}</a>
           </h4>
           <p class="card-text">{{item.description}}</p>
-          <button type="submit" class="btn btn-lg btn-primary btn-block" {{action "add" item item.quantity}}>Add to cart</button>
+          {{#if auth.isLoggedIn}}
           {{input type="number" class="input-sm form-control" value=item.quantity placeholder="Quantity" autofocus="autofocus"}}
+          <button type="submit" class="btn btn-lg btn-primary btn-block" {{action "add" item item.quantity}}>Add to cart</button>
+          {{else}}
+          Unable to add. Please login!
+          {{/if}}
         </div>
       </div>
     </div>

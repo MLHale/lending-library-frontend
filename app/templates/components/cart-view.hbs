@@ -1,8 +1,5 @@
 <article class="cart">
   {{#if auth.isLoggedIn}}
-    <div class="jumbotron text-center">
-      <h2>{{auth.user}}'s Cart</h2>
-    </div>
     <div class="row">
       {{#each auth.profile.cart.cartitemtypequantities as |item|}}
         <div class="col-lg-4 col-md-6 mb-4">

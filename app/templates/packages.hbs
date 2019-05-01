@@ -1,7 +1,6 @@
 {{outlet}}
 <div class="jumbotron text-center">
   <h1>Welcome to the University of Nebraska at Omaha Technology Lending Library<br></h1>
-  <p>This is the Packages page.<br></p>
 </div>
 
 <div class="row">
@@ -22,8 +21,12 @@
               </ul>
               <p>Quantity: {{item.quantity}}</p>
             {{/each}}
-          <button type="submit" class="btn btn-lg btn-primary btn-block" {{action "add" package package.quantity}}>Add to cart</button>
+          {{#if auth.isLoggedIn}}
           {{input type="number" class="input-sm form-control" value=package.quantity placeholder="Quantity" autofocus="autofocus"}}
+          <button type="submit" class="btn btn-lg btn-primary btn-block" {{action "add" package package.quantity}}>Add to cart</button>
+          {{else}}
+          Unable to add. Please login!
+          {{/if}}
         </div>
       </div>
     </div>

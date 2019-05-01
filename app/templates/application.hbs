@@ -25,13 +25,19 @@
       <li class="nav-item">
         {{#link-to "packages"}}<a class="nav-link">Packages</a>{{/link-to}}
       </li>
+      {{#if auth.isLoggedIn}}
       <li class="nav-item">
-        {{#link-to "cart"}}<a class="nav-link">Cart</a>{{/link-to}}
+        {{#link-to "cart"}}<a class="nav-link">Cart: {{auth.profile.cart.cartitemtypequantities.length}} Items</a>{{/link-to}}
       </li>
+      {{else}}
+      <li class="nav-item">
+        {{#link-to "login"}}<a class="nav-link">Cart</a>{{/link-to}}
+      </li>
+      {{/if}}
       <li class="nav-item">
         {{#if auth.isLoggedIn}}
         <li class="nav-item">
-          {{#link-to "login"}}<a class="nav-link">Login (Signed in as {{auth.user}})</a>{{/link-to}}
+          {{#link-to "login"}}<a class="nav-link">Welcome, {{auth.user}}!</a>{{/link-to}}
         </li>
         {{else}}
         <li class="nav-item">
