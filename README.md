@@ -2,6 +2,17 @@
 
 This README outlines the details of collaborating on the lending library frontend application.
 
+This project is a component of the lending-library-site-builds repository. It is recommended to follow the instructions from the lending-library-site-builds README so that development of this app can be coordinated with the lending-library-backend repository. Frontend functionality is dependent upon lending-library-backend.
+
+## Application Functionality
+
+The Frontend application allows users to:
+* login to the website
+* place items into their cart by itemtype and quantity
+* place items into their cart by adding a package containing a group of itemtypes and respective quantities
+* remove individual itemtype-quantities from their cart
+* empty their cart
+* place an order if sufficient items exist
 
 ## Prerequisites
 
