@@ -17,7 +17,6 @@ export default Controller.extend({
         alert('You\'ve added ' + pkg.get('quantity') + ' ' + pkg.get('name') + ' to your cart!')
       }
 
-      for (var i = 0; i < pkg.get('quantity'); i++){
         pkg.get('packageitemtypequantities').forEach(function(packageitemtypequantity){
 
           var found = cart.get('cartitemtypequantities').findBy('itemtype.name',
@@ -31,13 +30,12 @@ export default Controller.extend({
             var newitem = contr.get('store').createRecord('cartitemtypequantity', {
               cart: cart,
               itemtype: packageitemtypequantity.get('itemtype'),
-              quantity: packageitemtypequantity.get('quantity')
+              quantity: packageitemtypequantity.get('quantity') * pkg.get('quantity')
             });
 
             newitem.save();
           }
         });
-      }
     }
   }
 });
