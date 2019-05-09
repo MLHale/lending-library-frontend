@@ -1,0 +1,39 @@
+{{outlet}}
+<div class="jumbotron text-center">
+    <h1>Category Name Goes Here</h1>
+</div>
+
+<div class="alert alert-success" id="success-alert" style="display: none;">
+    <button type="button" class="close" data-dismiss="alert" {{action "hideAlert"}}>x</button>
+    <strong>Success! </strong>
+    Item has been successfully added to your {{#link-to "cart" class="alert-link"}}shopping cart{{/link-to}}.
+</div>
+
+
+{{!--           <div class="float-right">
+                    <button class="btn btn-primary" type="submit" {{action "addToCart" item}}>Add To Cart</button>
+                </div>  --}}
+{{#bs-accordion as |accordion|}}
+    {{#each this.model as |item index|}}
+        {{#if item.checkedoutto}}
+            {{!-- var itemTitle = item.partname + "- Unavailable"; --}}
+            {{#accordion.item value=index title=item.partname disabled="true"}}
+                {{item.description}} 
+            {{/accordion.item}}
+        {{else}}
+            {{#accordion.item value=index title=item.partname}}
+                {{item.description}}<br>
+                <hr>
+                <div class="d-inline-block quantity"><strong>Available: </strong> 5</div> {{!-- TODO: Determine how to check quantity --}}
+                <div class="d-inline-block float-right">
+                    ${{item.price}} &nbsp;&nbsp;&nbsp;<button class="btn btn-primary" type="submit" {{action "addToCart" item}}>Add To Cart</button>
+                </div> 
+            {{/accordion.item}}
+        {{/if}}
+    {{else}}
+        <div class="row text-center">
+            Sorry, there are no items to be displayed in this category :(
+        </div>
+    {{/each}}
+{{/bs-accordion}}
+<br>

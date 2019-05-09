@@ -1,10 +1,11 @@
 import DS from 'ember-data';
 
 export default DS.Model.extend({
-    partName:DS.attr(),
+    partname:DS.attr('string'),
     owner:DS.attr(),
-    description:DS.attr(),
-    checkoutto:DS.attr(),
+    description:DS.attr('string'),
+    checkedoutto:DS.attr(),
     category:DS.attr(),
+    price:DS.attr()
 });
  

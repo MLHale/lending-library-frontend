@@ -33,10 +33,12 @@
       </li>
     </ul>
     
+    <span class="navbar-text">
+      {{!-- {{#bs-popover triggerEvents="hover" title="What's in my cart?" placement="bottom"}}1. Raspberry Pi <br>2. Little Bits part<br>3. Other little Bits Part<br><br><button class="btn btn-primary">{{#link-to "cart"}}Go to cart{{/link-to}}</button>{{/bs-popover}} --}}
+            
+      {{#link-to "cart"}}<a class="navbar-link">{{fa-icon "shopping-cart"}} Cart</a>{{/link-to}}
+    </span>
 
-    {{#link-to "cart"}}<a class="navbar-text">{{fa-icon "shopping-cart"}}</a>{{/link-to}}
-
-    
   </div>
 </nav>
 <div class="container">

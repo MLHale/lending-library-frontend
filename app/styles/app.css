@@ -102,3 +102,12 @@
   color: white;
   background-color: #3b5998;
 }
+
+.quantity {
+  margin-top: 8px;
+  margin-bottom: -5px;
+}
+
+.table > tbody > tr > td {
+  vertical-align: middle;
+}

@@ -40,9 +40,9 @@ export default Component.extend({
     return (this.get('page') > 1);
   }),
   // The text to display on the "next" button
-  nextText: 'Next',
+  nextText: '»',
   // The text to display on the "previous" button
-  previousText: 'Back',
+  previousText: '«',
   actions: {
     // Show the next page of items
     nextClicked() {

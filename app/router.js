@@ -7,10 +7,11 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
-  this.route('home', { path: '/' });
   this.route('tasks');
   this.route('about');
-  this.route('library', { path: '/library' });
+  this.route('library', { path: '/library' }, function() {
+    this.route('library-items', { path: '/:category_id' });
+  });
   this.route('cart', { path: '/cart' });
   this.route('checkout', { path: '/checkout' });
   this.route('login', { path: '/login' });

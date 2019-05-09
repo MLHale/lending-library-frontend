@@ -1,26 +1,8 @@
-import { computed } from '@ember/object';
 import { A } from '@ember/array';
 import Controller from '@ember/controller';
 import $ from 'jquery';
 
-// Import pagination 
-import pagedArray from 'ember-cli-pagination/computed/paged-array';
-
-
 export default Controller.extend({
-
-  // Pagination Stuff
-  queryParams: ["page", "perPage"],
-  page: 1,
-  perPage: 10,
-  pagedContent: pagedArray('content', {
-    page: computed.alias("parent.page"),
-    perPage: computed.alias("parent.perPage"),
-    totalPages: 2,
-  }),
-  // totalPages: computed.oneWay("pagedContent.totalPages"),
-  // totalPages: 1,
-
   actions: {
     getitemcount(){
       //Loop through the objects and get count for each object and update objlist

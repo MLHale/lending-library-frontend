@@ -10,7 +10,7 @@
 
   
             {{#each pageNumbers as |pageNumber|}}
-                <button {{action "pageClicked" pageNumber}} type="button" class="btn btn-outline-secondary">Page {{pageNumber}}</button>
+                <button {{action "pageClicked" pageNumber}} type="button" class="btn btn-outline-primary">{{pageNumber}}</button>
             {{/each}}
 
 
