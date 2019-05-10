@@ -3,12 +3,12 @@
   <h1>Welcome to the University of Nebraska at Omaha Technology Lending Library<br></h1>
 </div>
 
-{{#list-pagination paginateBy=6 items=this.model as |categories|}}
+{{#list-pagination paginateBy=9 items=this.model as |categories|}}
   <div class="row">
     {{#each categories as |category|}}
       <div class="col-lg-4 col-md-6 mb-4">
         <div class="card h-100">
-          {{#link-to "library.library-items" category}}
+          {{#link-to "library.library-items" category.categoryname}}
             <img alt="image" class="card-img-top" src={{category.image}}>
             <div class="card-body">
               <h4 class="card-title">

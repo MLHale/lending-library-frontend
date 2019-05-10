@@ -13,10 +13,43 @@
 {{!--           <div class="float-right">
                     <button class="btn btn-primary" type="submit" {{action "addToCart" item}}>Add To Cart</button>
                 </div>  --}}
-{{#bs-accordion as |accordion|}}
-    {{#each this.model as |item index|}}
+
+
+
+
+
+
+{{#list-pagination paginateBy=12 items=this.model as |items|}}
+    {{#bs-accordion as |accordion|}}
+        {{#each items as |item index|}}
+            {{#if item.checkedoutto}}
+                {{!-- var itemTitle = item.partname + "- Unavailable"; --}}
+                {{#accordion.item value=index title=item.partname disabled="true"}}
+                    {{item.description}} 
+                {{/accordion.item}}
+            {{else}}
+                {{#accordion.item value=index title=item.partname}}
+                    {{item.description}}<br>
+                    <hr>
+                    <div class="d-inline-block quantity"><strong>Available: </strong> 5</div> {{!-- TODO: Determine how to check quantity --}}
+                    <div class="d-inline-block float-right">
+                        ${{item.price}} &nbsp;&nbsp;&nbsp;<button class="btn btn-primary" type="submit" {{action "add" item}}>Add To Cart</button>
+                    </div> 
+                {{/accordion.item}}
+            {{/if}}
+        {{else}}
+            <div class="row text-center">
+                Sorry, there are no items to be displayed in this category :(
+            </div>
+        {{/each}}
+    {{/bs-accordion}}
+{{/list-pagination}}
+    
+
+
+    {{!-- {{#each this.model as |item index|}}
         {{#if item.checkedoutto}}
-            {{!-- var itemTitle = item.partname + "- Unavailable"; --}}
+            var itemTitle = item.partname + "- Unavailable";
             {{#accordion.item value=index title=item.partname disabled="true"}}
                 {{item.description}} 
             {{/accordion.item}}
@@ -24,7 +57,7 @@
             {{#accordion.item value=index title=item.partname}}
                 {{item.description}}<br>
                 <hr>
-                <div class="d-inline-block quantity"><strong>Available: </strong> 5</div> {{!-- TODO: Determine how to check quantity --}}
+                <div class="d-inline-block quantity"><strong>Available: </strong> 5</div> TODO: Determine how to check quantity
                 <div class="d-inline-block float-right">
                     ${{item.price}} &nbsp;&nbsp;&nbsp;<button class="btn btn-primary" type="submit" {{action "addToCart" item}}>Add To Cart</button>
                 </div> 
@@ -34,6 +67,6 @@
         <div class="row text-center">
             Sorry, there are no items to be displayed in this category :(
         </div>
-    {{/each}}
-{{/bs-accordion}}
+    {{/each}} --}}
+
 <br>

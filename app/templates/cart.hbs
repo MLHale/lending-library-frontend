@@ -4,43 +4,78 @@
   </h1>
 </div>
 
-<table class="table table-hover rounded">
-  <thead class="thead-light">
-    <tr>
-      <th scope="col" class="col-13"></th>
-      <th scope="col" class="col-12">Product</th>
-      <th scope="col">Price</th>
-      <th scope="col"></th>
-      <th scope="col">Quantity</th>
-      <th scope="col"></th>
-      <th scope="col">Subtotal</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each item as |item|}}
+{{#if this.cart.items.length}}
+  <table class="table table-hover rounded">
+    <thead class="thead-light">
       <tr>
-        <td><button type="button" class="btn btn-danger btn-sm" {{action "removeFromCart" item}}>Remove</button></td>
-        <td><strong>{{item.partname}}</strong></td>
-        <td>${{item.cost}}</td>
-        <td>&times;</td>
-        <td>
-          <select class="form-control" id="exampleSelect1" onchange={{action "modifyQuantity" item value="target.value"}}>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-            <option>7</option>
-            <option>8</option>
-            <option>9</option>
-            <option>10</option>
-          </select>
-        </td>
-        <td>&equals;</td>
-        <td>$89.97</td>
+        <th scope="col" class="col-13"></th>
+        <th scope="col" class="col-12">Product</th>
+        <th scope="col">Price</th>
+        <th scope="col"></th>
+        <th scope="col">Quantity</th>
+        <th scope="col"></th>
+        <th scope="col">Subtotal</th>
       </tr>
-    {{/each}}
+    </thead>
+    <tbody>
+      {{#each this.cart.items as |item|}}
+        <tr>
+          <td><button type="button" class="btn btn-danger btn-sm" {{action "remove" item}}>Remove</button></td>
+          <td><strong>{{item.partname}}</strong></td>
+          <td>${{item.price}}</td>
+          <td>&times;</td>
+          <td>
+            {{!-- onchange={{action "modifyQuantity" item value="target.value"}} --}}
+            <select class="form-control" id="exampleSelect1">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+            </select>
+          </td>
+          <td>&equals;</td>
+          <td>$89.97</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <hr style="margin-top: -15px;">
+  <div class="d-inline-block">
+    <button type="button" class="btn btn-outline-danger btn-sm" {{action "clear"}}>Clear Cart</button>
+  </div>
+
+  {{!-- {{#bs-modal-simple title="Clear Confirmation" closeTitle="Cancel" submitTitle="Clear" open=songToDelete}}
+  Are you sure you would like to clear {{this.cart.items.length}} items from your cart?
+  {{/bs-modal-simple}} --}}
+
+  <div class="d-inline-block float-right">
+    <h5 class="d-inline-block" style="margin-top: 7px;"><strong>Total: </strong>${{this.cart.total}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+    <button class="btn btn-success float-right">Checkout</button>
+  </div>
+
+{{else}}
+  <center>
+    <p>There are currently no items in your cart. Please visit the {{#link-to "library"}}library{{/link-to}} to view items you can check out.</p>  
+  </center>
+  {{/if}}
+
+
+
+
+
+
+
+
+
+
+{{!-- Example Table data --}}
     {{!-- <tr>
       <td><button type="button" class="btn btn-danger btn-sm" {{action "removeFromCart" item}}>Remove</button></td>
       <td><strong>Raspberry Pi</strong></td>
@@ -107,12 +142,3 @@
       <td>&equals;</td>
       <td>$18.75</td>
     </tr> --}}
-  </tbody>
-</table>
-
-
-<hr style="margin-top: -15px;">
-<div class="d-inline-block float-right">
-  <h5 class="d-inline-block" style="margin-top: 7px;"><strong>Total: </strong>$208.52&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
-  <button class="btn btn-success float-right">Checkout</button>
-</div>

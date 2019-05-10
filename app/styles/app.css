@@ -111,3 +111,8 @@
 .table > tbody > tr > td {
   vertical-align: middle;
 }
+
+/* To hide the scroll bar when expanding the bootstrap accordion */
+::-webkit-scrollbar {
+  display: none;
+}
