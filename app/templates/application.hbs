@@ -20,14 +20,6 @@
         {{#link-to "library"}}<a class="nav-link">Library</a>{{/link-to}}
       </li>
 
-      {{!-- <li class="nav-item">
-        {{#link-to "cart"}}<a class="nav-link">Cart</a>{{/link-to}}
-      </li>
-
-      <li class="nav-item">
-        {{#link-to "checkout"}}<a class="nav-link">Check Out</a>{{/link-to}}
-      </li> --}}
-
       <li class="nav-item">
         {{#link-to "login"}}<a class="nav-link">Login</a>{{/link-to}}
       </li>
@@ -36,15 +28,17 @@
     <span class="navbar-text">
       {{!-- {{#bs-popover triggerEvents="hover" title="What's in my cart?" placement="bottom"}}1. Raspberry Pi <br>2. Little Bits part<br>3. Other little Bits Part<br><br><button class="btn btn-primary">{{#link-to "cart"}}Go to cart{{/link-to}}</button>{{/bs-popover}} --}}
             
-      {{#link-to "cart"}}<a class="navbar-link">{{fa-icon "shopping-cart"}}&nbsp;&nbsp;Cart ({{this.cart.items.length}})</a>{{/link-to}}
+      {{#link-to "cart"}}<a class="navbar-link">{{fa-icon "shopping-cart"}}&nbsp;&nbsp;Cart {{#if this.cart.items.length}} ({{this.cart.items.length}}) {{/if}}</a>{{/link-to}}
     </span>
 
   </div>
 </nav>
-<div class="container">
+{{!-- <div class="container">
   <div class="row">
     <div class="col-md-12">
-      {{outlet}}
+      {{outlet}}                        <--- This was making things on the index page super horrible so I'm gonna comment it out and add it to the top of all the routes manually
     </div>
   </div>
-</div>
+</div> --}}
+
+{{outlet}}

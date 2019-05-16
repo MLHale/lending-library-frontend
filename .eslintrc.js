@@ -2,6 +2,7 @@ module.exports = {
   root: true,
   parserOptions: {
     ecmaVersion: 2017,
+    esversion: 6,
     sourceType: 'module'
   },
   plugins: [
