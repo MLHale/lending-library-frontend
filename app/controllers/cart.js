@@ -6,18 +6,14 @@ export default Controller.extend({
     actions: {
         remove(item) {
             this.cart.remove(item);
+            console.log("Removed from cart: " + item.partname);
         },
         clear() {
             this.cart.empty();
+            console.log("Cleared cart");
         },
+        modifyQuantity(item, value) {
+            console.log("Changed " + item.partname + " to " + value);
+        }
     }
-    
-    // actions: {
-    //     removeFromCart(item) {
-    //         console.log("Removed from cart: " + item.partname);
-    //     },
-    //     modifyQuantity(item, numItems) {
-    //         console.log("Modified quantity of " + item + " to: " + numItems);
-    //     }
-    // }
 });

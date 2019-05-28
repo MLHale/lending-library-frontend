@@ -5,7 +5,7 @@ export default DS.Model.extend({
     owner:DS.attr(),
     description:DS.attr('string'),
     checkedoutto:DS.attr(),
-    category:DS.attr(),
+    category:DS.belongsTo('category'),
     price:DS.attr()
 });
  

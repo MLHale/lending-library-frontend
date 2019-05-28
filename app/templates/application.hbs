@@ -20,14 +20,6 @@
         {{#link-to "library"}}<a class="nav-link">Library</a>{{/link-to}}
       </li>
 
-      {{!-- <li class="nav-item">
-        {{#link-to "cart"}}<a class="nav-link">Cart</a>{{/link-to}}
-      </li>
-
-      <li class="nav-item">
-        {{#link-to "checkout"}}<a class="nav-link">Check Out</a>{{/link-to}}
-      </li> --}}
-
       <li class="nav-item">
         {{#link-to "login"}}<a class="nav-link">Login</a>{{/link-to}}
       </li>
@@ -41,10 +33,12 @@
 
   </div>
 </nav>
-<div class="container">
+{{!-- <div class="container">
   <div class="row">
     <div class="col-md-12">
-      {{outlet}}
+      {{outlet}}                        <--- This was making things on the index page super horrible so I'm gonna comment it out and add it to the top of all the routes manually
     </div>
   </div>
-</div>
+</div> --}}
+
+{{outlet}}
