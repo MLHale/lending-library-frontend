@@ -2,7 +2,13 @@
     <div class="row">
         <div class="col-md-12">{{outlet}}
             <div class="jumbotron text-center">
-                <h1>Category Name Goes Here</h1>
+                {{!-- {{#each model.itemtypes as |itemtype|}}
+
+                    <h1>{{itemtype.category}}</h1>
+
+                    {{break}}
+                {{/each}} --}}
+                <h1>{{this.model.categoryname}}</h1>
             </div>
 
             <div class="alert alert-success" id="success-alert" style="display: none;">
@@ -13,9 +19,6 @@
             </div>
 
             <!-- Search form -->
-            {{!-- <div class="md-form mt-0">
-  <input class="form-control" type="text" placeholder="Search" aria-label="Search">
-</div> --}}
             <div class="input-group md-form form-sm form-2 pl-0">
                 <input class="form-control my-0 py-1" type="text" placeholder="Search" aria-label="Search">
                 <div class="input-group-append">
@@ -26,29 +29,28 @@
 
             {{!-- {{#list-pagination paginateBy=12 items=this.model as |items|}} --}}
             {{#bs-accordion as |accordion|}}
-            {{#each model.items as |item index|}}
-            {{#if item.checkedoutto}}
-            {{!-- var itemTitle = item.partname + "- Unavailable"; --}}
-            {{#accordion.item value=index title=item.partname disabled="true"}}
-            {{item.description}}
-            {{/accordion.item}}
-            {{else}}
-            {{#accordion.item value=index title=item.partname}}
-            {{item.description}}<br>
-            <hr>
-            <div class="d-inline-block quantity"><strong>Available: </strong> 5</div>
-            {{!-- TODO: Determine how to check quantity --}}
-            <div class="d-inline-block float-right">
-                ${{item.price}} &nbsp;&nbsp;&nbsp;<button class="btn btn-primary" type="submit"
-                    {{action "add" item}}>Add To Cart</button>
-            </div>
-            {{/accordion.item}}
-            {{/if}}
-            {{else}}
-            <div class="row text-center">
-                Sorry, there are no items to be displayed in this category :(
-            </div>
-            {{/each}}
+                {{#each model.itemtypes as |itemtype index|}}
+                    {{#if itemtype.checkedoutto}}
+                        {{!-- var itemTitle = item.partname + "- Unavailable"; --}}
+                        {{#accordion.item value=index title=itemtype.partname disabled="true"}}
+                            {{itemtype.description}}
+                        {{/accordion.item}}
+                    {{else}}
+                    {{#accordion.item value=index title=itemtype.partname}}
+                        {{itemtype.description}}<br>
+                        <hr>
+                        <div class="d-inline-block quantity"><strong>Available: </strong> {{itemtype.items.length}}</div>
+                        {{!-- TODO: Determine how to check quantity --}}
+                        <div class="d-inline-block float-right">
+                            <button class="btn btn-primary" type="submit" {{action "add" itemtype}}>Add To Cart</button>
+                        </div>
+                    {{/accordion.item}}
+                    {{/if}} 
+                {{else}}
+                    <div class="row text-center">
+                        Sorry, there are no items to be displayed in this category :(
+                    </div>
+                {{/each}}
             {{/bs-accordion}}
             {{!-- {{/list-pagination}} --}}
             <br>

@@ -4,6 +4,6 @@ export default DS.Model.extend({
     categoryname:DS.attr(),
     description:DS.attr(),
     image:DS.attr(),
-    items:DS.hasMany('item')
+    itemtypes:DS.hasMany('itemtype')
 });
  

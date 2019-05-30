@@ -1,9 +1,9 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-12">{{outlet}}
+    <div class="col-md-12">
+      {{outlet}}
       <div class="jumbotron text-center">
-        <h1>Shopping Cart<<br>
-        </h1>
+        <h1>Shopping Cart<br></h1>
       </div>
 
       {{#if this.cart.items.length}}
@@ -50,7 +50,7 @@
   {{/bs-modal-simple}} --}}
 
       <div class="d-inline-block float-right">
-        <button class="btn btn-success float-right">Checkout</button>
+        <button class="btn btn-success float-right" {{action "checkout"}}>Checkout</button>
       </div>
 
       {{else}}

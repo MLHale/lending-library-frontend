@@ -15,6 +15,7 @@ Router.map(function() {
   this.route('cart', { path: '/cart' });
   this.route('checkout', { path: '/checkout' });
   this.route('login', { path: '/login' });
+  this.route('return');
 });
 
 export default Router;

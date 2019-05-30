@@ -3,25 +3,6 @@ import { later } from '@ember/runloop';
 
 export default Route.extend({
   getData(){
-    // var items = A([]);
-    // return $.get('/api').then(function(events){
-    //   events.forEach(function(event){
-    //     // console.log(event);
-    //     items.addObject({
-    //       id: event.pk,
-    //       eventtype: event.fields.eventtype,
-    //       requestor: event.fields.requestor,
-    //       timestamp: event.fields.timestamp,
-    //       userid: event.fields.userid,
-    //       img: 'img/event-icon.jpg',
-    //       link: 'index'
-    //     });
-    //   });
-    //   return items.reverse()
-    // }, function(msg){//error
-    //   console.log('Error loading events:');
-    //   console.log(msg.statusText);
-    // });
     return this.store.findAll('checkout').reverseObjects();
   },
 	model() {

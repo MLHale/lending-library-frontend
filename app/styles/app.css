@@ -3,6 +3,10 @@
   --input-padding-y: .75rem;
 }
 
+html, body {
+  height: 100%;
+}
+
 .card-signin {
   border: 0;
   border-radius: 1rem;
@@ -160,10 +164,10 @@
 }
 
 .banner {
-  width: 100vw; 
+  width: 102vw;
   margin: 0 auto;
-  /* margin-left: -375px !important;
-  margin-top: -25px !important; */
+  margin-top: -1.5rem;
+  margin-left: -1rem;
 }
 
 /*
