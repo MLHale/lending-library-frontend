@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            {{outlet}}
+            <div class="jumbotron text-center">
+                <h1>Fulfill Orders<br></h1>
+            </div>
+
+            {{#list-pagination paginateBy=12 items=filteredCheckouts as |tickets|}}
+                <div class="row">
+                    {{#each tickets as |ticket|}}
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card text-center h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ticket.firstname}} {{ticket.lastname}}</h5>
+                                <p class="card-text">{{moment-format ticket.createdon "dddd, MMMM Do"}} at {{moment-format ticket.createdon "h:mm a"}}</p> 
+                                {{!-- ticket.createdon --}}
+                                <p class="card-text">{{ticket.items.length}} items</p>
+                                {{#link-to "fulfill.fulfill-order" ticket}}
+                                    <a class="btn btn-primary" style="color: white;">Fulfill Order</a>
+                                {{/link-to}}
+                                
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            {{/list-pagination}}
+
+        </div>
+    </div>
+</div>

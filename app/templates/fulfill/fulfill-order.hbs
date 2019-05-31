@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            {{outlet}}
+            <div class="jumbotron text-center">
+                <h1>{{this.model.firstname}} {{this.model.lastname}}<br></h1><br>
+                <p style="margin-bottom: -10px;"><strong>Ordered On:</strong> {{moment-format this.model.createdon "dddd, MMMM Do, YYYY"}}</p>
+            </div>
+
+            <div class="alert alert-success" id="success-alert" style="display: none;">
+                <button type="button" class="close" data-dismiss="alert" {{action "hideAlert"}}>x</button>
+                <strong>Success! </strong>
+                The order has been fulfilled successfully.
+            </div>
+
+            <div class="card text-center" style="width: 100%;">
+                <div class="card-body" style="width: 100%;">
+                    
+                    <h3 class="card-title">Items needed:</h3>
+                    <hr>
+
+                    {{#each this.model.items as |item|}}
+                        <p class="card-text">{{item.itemtype.category.categoryname}} &raquo; <p class="text-primary" style="display: inline-block;">{{item.itemtype.partname}}</p></p>
+                    {{/each}}
+
+                    <a style="color: white;" class="btn btn-primary" {{action "complete" this.model}}>Complete Order</a>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

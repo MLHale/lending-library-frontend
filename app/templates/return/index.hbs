@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            {{outlet}}
+            <div class="jumbotron text-center">
+                <h1>Return Items<br></h1>
+            </div>
+
+            {{#list-pagination paginateBy=12 items=filteredCheckouts as |tickets|}}
+                <div class="row">
+                    {{#each tickets as |ticket|}}
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card text-center h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ticket.firstname}} {{ticket.lastname}}</h5>
+                                <p class="card-text"><strong>Ordered on: </strong>{{moment-format ticket.createdon "dddd, MMMM Do, YYYY"}}</p>
+                                
+                                {{#link-to "return.return-items" ticket}}
+                                    <a class="btn btn-primary" style="color: white;">Return Items</a>
+                                {{/link-to}}
+                                
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            {{/list-pagination}}
+
+        </div>
+    </div>
+</div>
+
+
+
+{{!-- <p class="card-text"><strong>Fulfilled: </strong>{{#if ticket.fulfilledon}} <p style="color: green; display: inline-block;">Yes</p> {{else}} <p style="color: red; display: inline-block;">No</p> {{/if}}</p>
+                                        <p class="card-text"><strong>Returned: </strong>{{#if ticket.returnedon}} <p style="color: green; display: inline-block;">Yes</p> {{else}} <p style="color: red; display: inline-block;">No</p> {{/if}}</p> --}}
+                                         
+
+                                                                             {{!-- <div class="card-footer text-muted"> 
+                                        2 days ago
+                                    </div> --}}

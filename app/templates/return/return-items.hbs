@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            {{outlet}}
+            <div class="jumbotron text-center">
+                <h1>{{this.model.firstname}} {{this.model.lastname}}<br></h1><br>
+                <p><strong>Created On:</strong> {{moment-format this.model.createdon "dddd, MMMM Do, YYYY"}}</p>
+                <p style="margin-bottom: -40px;"><strong>Fulfilled On:</strong>{{#if this.model.fulfilledon}} <p style="color: green; display: inline-block;">{{moment-format this.model.fulfilledon "dddd, MMMM Do, YYYY"}}</p> {{else}} <p style="color: red; display: inline-block;">Not yet fulfilled</p> {{/if}}</p>
+            </div>
+
+
+
+            <div class="card text-center" style="width: 100%;">
+                <div class="card-body" style="width: 100%;">
+                    
+                    <h5 class="card-title">Item Check-in</h5>
+                    {{!-- <p class="card-text"><strong>Created on: </strong>{{moment-format this.model.createdon 'dddd, MMMM Do, YYYY'}}</p> --}}
+            
+                    {{#each this.model.items as |item|}}
+                        <p class="card-text">{{item.itemtype.partname}}</p>
+                    {{/each}}
+                    <br>
+                    <a href="#" class="btn btn-primary" {{action "finish" this.model}}>Mark as returned</a>
+                </div>
+                {{!-- <div class="card-footer text-muted">
+                    2 days ago
+                </div> --}}
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+{{!-- What happens When overdue? Fine? --}}
+{{!-- Possibly email alert saying return date is coming up --}}
+{{!-- Order placed page after checkout --}}
+{{!-- Ember Data for cart --}}
+{{!-- Not all records show up on return page, only first 10 --}}
