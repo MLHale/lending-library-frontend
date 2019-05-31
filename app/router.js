@@ -7,15 +7,27 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
-  this.route('tasks');
-  this.route('about');
-  this.route('library', { path: '/library' }, function() {
-    this.route('library-items', { path: '/:category_id' });
-  });
+  this.route('about', { path: '/about' });
   this.route('cart', { path: '/cart' });
   this.route('checkout', { path: '/checkout' });
   this.route('login', { path: '/login' });
-  this.route('return');
+
+  this.route('library', { path: '/library' }, function() {
+    this.route('library-items', { path: '/:category_id' });
+  });
+
+  this.route('return', { path: '/return' }, function() {
+    this.route('return-items', { path: '/:checkout_id' });
+  });
+
+  this.route('fulfill', { path: '/fulfill' }, function() {
+    this.route('fulfill-order', { path: '/:checkout_id' });
+  });
+
+  this.route('manage', { path: '/manage' }, function() {
+    this.route('manage-order', { path: '/:checkout_id' });
+  });
+  this.route('dashboard');
 });
 
 export default Router;

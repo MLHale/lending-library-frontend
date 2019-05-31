@@ -14,9 +14,6 @@ export default Controller.extend({
         },
         modifyQuantity(item, value) {
             console.log("Changed " + item.partname + " to " + value);
-        },
-        checkout() {
-            console.log("Checking out!");
         }
     }
 });

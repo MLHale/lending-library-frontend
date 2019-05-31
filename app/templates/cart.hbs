@@ -50,7 +50,7 @@
   {{/bs-modal-simple}} --}}
 
       <div class="d-inline-block float-right">
-        <button class="btn btn-success float-right" {{action "checkout"}}>Checkout</button>
+        {{#link-to "checkout"}}<button class="btn btn-success float-right">Proceed to Checkout</button>{{/link-to}}
       </div>
 
       {{else}}
