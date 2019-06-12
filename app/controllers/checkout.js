@@ -4,6 +4,7 @@ import { inject as service } from '@ember/service';
 export default Controller.extend({
     checkedOut: false,
     cart: service('shopping-cart'),
+    auth: service('auth-manager'),
     actions: {
         checkout() {
             let newCheckout = this.store.createRecord('checkout', {

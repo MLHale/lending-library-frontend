@@ -16,7 +16,7 @@ export default Controller.extend({
             //     thing.get('router').transitionTo('fulfill');
             // }
 
-            checkout.set('fulfilledon', new Date().toISOString());
+            checkout.set('fulfilledon', new Date());
             checkout.save();
 
             // $("#success-alert")

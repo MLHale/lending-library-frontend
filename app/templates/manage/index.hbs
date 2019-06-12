@@ -1,1 +1,41 @@
-{{outlet}}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            {{outlet}}
+            <div class="jumbotron text-center">
+                <h1>Manage Orders<br></h1>
+            </div>
+
+            {{#if this.model.length}}
+
+                {{#list-pagination paginateBy=12 items=this.model as |orders|}}
+                    <div class="row">
+                        {{#each orders as |order|}}
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="card text-center h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{order.firstname}} {{order.lastname}}</h5>
+                                    <p class="card-text">{{moment-format order.createdon "dddd, MMMM Do"}} at {{moment-format order.createdon "h:mm a"}}</p> 
+                                    <p class="card-text" style="margin-top: -10px; margin-bottom: -10px;"><strong>Fulfilled: </strong>{{#if ticket.fulfilledon}} <p style="color: green; display: inline-block;">Yes</p> {{else}} <p style="color: red; display: inline-block;">No</p> {{/if}}</p>
+                                    <p class="card-text" style="margin-bottom: -10px;"><strong>Returned: </strong>{{#if ticket.returnedon}} <p style="color: green; display: inline-block;">Yes</p> {{else}} <p style="color: red; display: inline-block;">No</p> {{/if}}</p>
+                                    <p class="card-text">{{order.items.length}} items</p>
+                                    {{#link-to "manage.manage-order" order}}
+                                        <a class="btn btn-primary" style="color: white;">Manage Order</a>
+                                    {{/link-to}}
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+                {{/list-pagination}}
+
+            {{else}}
+                <center style="margin-top: 10vh;">
+                    <p>There are currently no orders created in the system.</p>
+                </center>
+            {{/if}}
+
+        </div>
+    </div>
+</div>

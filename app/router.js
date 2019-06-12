@@ -28,6 +28,7 @@ Router.map(function() {
     this.route('manage-order', { path: '/:checkout_id' });
   });
   this.route('dashboard');
+  this.route('register');
 });
 
 export default Router;

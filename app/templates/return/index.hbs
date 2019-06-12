@@ -2,29 +2,39 @@
     <div class="row">
         <div class="col-md-12">
             {{outlet}}
+
             <div class="jumbotron text-center">
                 <h1>Return Items<br></h1>
             </div>
 
-            {{#list-pagination paginateBy=12 items=filteredCheckouts as |tickets|}}
-                <div class="row">
-                    {{#each tickets as |ticket|}}
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card text-center h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ticket.firstname}} {{ticket.lastname}}</h5>
-                                <p class="card-text"><strong>Ordered on: </strong>{{moment-format ticket.createdon "dddd, MMMM Do, YYYY"}}</p>
-                                
-                                {{#link-to "return.return-items" ticket}}
-                                    <a class="btn btn-primary" style="color: white;">Return Items</a>
-                                {{/link-to}}
-                                
+            {{#if filteredCheckouts.length}}
+
+                {{#list-pagination paginateBy=12 items=filteredCheckouts as |tickets|}}
+                    <div class="row">
+                        {{#each tickets as |ticket|}}
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="card text-center h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ticket.firstname}} {{ticket.lastname}}</h5>
+                                    <p class="card-text"><strong>Ordered on: </strong>{{moment-format ticket.createdon "dddd, MMMM Do, YYYY"}}</p>
+                                    
+                                    {{#link-to "return.return-items" ticket}}
+                                        <a class="btn btn-primary" style="color: white;">Return Items</a>
+                                    {{/link-to}}
+                                    
+                                </div>
                             </div>
                         </div>
+                        {{/each}}
                     </div>
-                    {{/each}}
-                </div>
-            {{/list-pagination}}
+                {{/list-pagination}}
+
+            {{else}}
+                <center style="margin-top: 10vh;">
+                    <p>There are currently no currently checked out items to be returned.</p> 
+                    <p>To manage a past order, head to the {{#link-to "manage.index"}}manage orders{{/link-to}} section to viewand modify past and present orders.</p>
+                </center>
+            {{/if}}
 
         </div>
     </div>

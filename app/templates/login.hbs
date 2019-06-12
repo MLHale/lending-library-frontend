@@ -4,38 +4,59 @@
       <div class="jumbotron text-center">
         <h1>Login</h1><br>
         <p>Sign in to your account with the UNO Lending Library to proceed.</p><br>
+        {{!-- <button {{action "logout"}}>Log out</button> --}}
+
+        {{#if auth.errorMsg}}
+          <p style="color: red;">Incorrect Username or Password</p>
+        {{/if}}
+
+        {{!-- {{#if auth.isLoggedIn}}
+          <p style="color: green;">Successfully logged in!</p>
+        {{/if}} --}}
 
         <form>
           <div class="form-row align-items-center">
             <div class="col-lg-7" style="margin: 0 auto; float: none;">
-              <label class="sr-only" for="inlineFormInputGroup">Email Address</label>
+              <label class="sr-only" for="inlineFormInputGroup">Username</label>
               <div class="input-group mb-2">
                 <div class="input-group-prepend">
-                  <div class="input-group-text">{{fa-icon "user"}}&nbsp;</div>
+                  <div class="input-group-text">&nbsp;{{fa-icon "user"}}&nbsp;</div>
                 </div>
-                <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Email Address">
+                {{input type="text" class="form-control" value=auth.username id="username" enter="login" placeholder="Username" autofocus="autofocus"}}
               </div>
             </div>
           </div>
           <div class="form-row align-items-center">
             <div class="col-lg-7" style="margin: 0 auto; float: none;">
-              <label class="sr-only" for="inlineFormInputGroup">Passwords</label>
+              <label class="sr-only" for="inlineFormInputGroup">Password</label>
               <div class="input-group mb-2">
                 <div class="input-group-prepend">
-                  <div class="input-group-text">{{fa-icon "key"}}</div>
+                  <div class="input-group-text">&nbsp;{{fa-icon "lock"}}&nbsp;</div>
                 </div>
-                <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Password">
+                {{input type="password" class="form-control" value=auth.password id="password" enter="login" placeholder="Password"}}
               </div>
             </div>
           </div>
+          {{!-- <div class="form-row align-items-center">
+            <div class="input-group">
+              {{input type="checkbox" checked=auth.remember}}
+              Remember me on this computer
+            </div>
+          </div> --}}
           <br>
           <div class="form-horizontal form-group form-group-lg row">
             <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-3"
               style="margin: 0 auto; float: none;">
-              <button class="btn btn-primary btn-lg btn-block">Login</button>
+              <button class="btn btn-primary btn-lg btn-block" {{action "login"}}>Login</button>
             </div>
           </div>
+          <div>
+            <p style="text-align:center;">Need an account? {{#link-to "register"}}Register Now.{{/link-to}}</p>
+          </div>
         </form>
+
+
+       
 
         {{!-- <div class="form-horizontal form-group form-group-lg row align-items-center">
     <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-1 col-md-5 col-md-offset-2">
