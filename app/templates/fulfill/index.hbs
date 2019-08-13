@@ -3,7 +3,14 @@
         <div class="col-md-12">
             {{outlet}}
             <div class="jumbotron text-center">
-                <h1>Fulfill Orders<br></h1>
+                <h1>Fulfill Orders</h1>
+
+                <nav aria-label="breadcrumb" style="margin-bottom: -60px;">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">{{#link-to "dashboard"}}Home{{/link-to}}</li>
+                        <li class="breadcrumb-item active" aria-current="page">Fulfill</li>
+                    </ol>
+                </nav>
             </div>
 
             {{#if filteredCheckouts.length}}

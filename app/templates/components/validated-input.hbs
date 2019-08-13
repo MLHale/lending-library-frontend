@@ -1,0 +1,24 @@
+<div class="form-group">
+  <div class="input-group mb-3">
+    <div class="input-group-prepend" style="text-align: center;">
+      <span class="input-group-text" style="width: 110px; display: table; margin: 0 auto;" id={{valuePath}}>{{title}}</span>
+    </div>
+    {{input type=type value=value placeholder=placeholder class="form-control input-validation-style" name=valuePath aria-label=title aria-describedby="{{valuepath}}"}}
+    {{#if isValid}}
+      <span class="valid-input fa fa-check"></span>
+    {{/if}}
+  </div>
+  <div class="input-error">
+    {{#if showErrorMessage}}
+      <div class="error">
+        {{v-get model valuePath "message"}}
+      </div>
+    {{/if}}
+
+    {{#if showWarningMessage}}
+      <div class="warning">
+        {{v-get model valuePath "warningMessage"}}
+      </div>
+    {{/if}}
+  </div>
+</div>

@@ -4,7 +4,14 @@
             {{outlet}}
 
             <div class="jumbotron text-center">
-                <h1>Return Items<br></h1>
+                <h1>Return Items</h1>
+
+                <nav aria-label="breadcrumb" style="margin-bottom: -60px;">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">{{#link-to "dashboard"}}Home{{/link-to}}</li>
+                        <li class="breadcrumb-item active" aria-current="page">Returns</li>
+                    </ol>
+                </nav>
             </div>
 
             {{#if filteredCheckouts.length}}
@@ -17,7 +24,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{ticket.firstname}} {{ticket.lastname}}</h5>
                                     <p class="card-text"><strong>Ordered on: </strong>{{moment-format ticket.createdon "dddd, MMMM Do, YYYY"}}</p>
-                                    
+                                    <p class="card-text">{{ticket.items.length}} items</p>
                                     {{#link-to "return.return-items" ticket}}
                                         <a class="btn btn-primary" style="color: white;">Return Items</a>
                                     {{/link-to}}

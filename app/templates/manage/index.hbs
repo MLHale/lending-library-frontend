@@ -3,7 +3,14 @@
         <div class="col-md-12">
             {{outlet}}
             <div class="jumbotron text-center">
-                <h1>Manage Orders<br></h1>
+                <h1>Manage Orders</h1>
+
+                <nav aria-label="breadcrumb" style="margin-bottom: -60px;">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">{{#link-to "dashboard"}}Home{{/link-to}}</li>
+                        <li class="breadcrumb-item active" aria-current="page">Manage</li>
+                    </ol>
+                </nav>
             </div>
 
             {{#if this.model.length}}
@@ -16,8 +23,8 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{order.firstname}} {{order.lastname}}</h5>
                                     <p class="card-text">{{moment-format order.createdon "dddd, MMMM Do"}} at {{moment-format order.createdon "h:mm a"}}</p> 
-                                    <p class="card-text" style="margin-top: -10px; margin-bottom: -10px;"><strong>Fulfilled: </strong>{{#if ticket.fulfilledon}} <p style="color: green; display: inline-block;">Yes</p> {{else}} <p style="color: red; display: inline-block;">No</p> {{/if}}</p>
-                                    <p class="card-text" style="margin-bottom: -10px;"><strong>Returned: </strong>{{#if ticket.returnedon}} <p style="color: green; display: inline-block;">Yes</p> {{else}} <p style="color: red; display: inline-block;">No</p> {{/if}}</p>
+                                    <p class="card-text" style="margin-top: -10px; margin-bottom: -10px;"><strong>Fulfilled: </strong>{{#if order.fulfilledon}} <p style="color: green; display: inline-block;">Yes</p> {{else}} <p style="color: red; display: inline-block;">No</p> {{/if}}</p>
+                                    <p class="card-text" style="margin-bottom: -10px;"><strong>Returned: </strong>{{#if order.returnedon}} <p style="color: green; display: inline-block;">Yes</p> {{else}} <p style="color: red; display: inline-block;">No</p> {{/if}}</p>
                                     <p class="card-text">{{order.items.length}} items</p>
                                     {{#link-to "manage.manage-order" order}}
                                         <a class="btn btn-primary" style="color: white;">Manage Order</a>

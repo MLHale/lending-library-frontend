@@ -4,7 +4,6 @@ import $ from 'jquery';
 
 export default Service.extend({
 	store: service('store'),
-	constants: service('constants'),
 	router: service(),
 
 	//field vars
@@ -46,11 +45,11 @@ export default Service.extend({
 						// transition after the profile is loaded
 						auth.set('profile',profile);
 						auth.set('password', '');
-						if(profile.get('roles').admin) {
-							auth.get('router').transitionTo('dashboard');
-						} else {
-							auth.get('router').transitionTo('library.index');
-						}
+						// if(profile.get('roles').admin) {
+						// 	auth.get('router').transitionTo('dashboard');
+						// } else {
+							auth.get('router').transitionTo('library.index');     // TODO: Fix this
+						// }
 					}
 				);
 				auth.set('isLoggedIn', true);
@@ -129,11 +128,11 @@ export default Service.extend({
 						auth.set('profile',profile);
 						if (auth.get('router._router.currentPath')==='login'){
 							// transition if on the login page
-							if(profile.get('roles').admin) {
-								auth.get('router').transitionTo('dashboard');
-							} else {
-								auth.get('router').transitionTo('library.index');
-							}
+							// if(profile.get('roles').admin) {
+							// 	auth.get('router').transitionTo('dashboard');
+							// } else {
+								auth.get('router').transitionTo('library.index');     // TODO: Fix this
+							// }
 						}
 					}
 				);

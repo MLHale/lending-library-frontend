@@ -5,6 +5,14 @@
             <div class="jumbotron text-center">
                 <h1>{{this.model.firstname}} {{this.model.lastname}}<br></h1><br>
                 <p style="margin-bottom: -10px;"><strong>Ordered On:</strong> {{moment-format this.model.createdon "dddd, MMMM Do, YYYY"}}</p>
+
+                <nav aria-label="breadcrumb" style="margin-bottom: -60px;">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">{{#link-to "dashboard"}}Home{{/link-to}}</li>
+                        <li class="breadcrumb-item">{{#link-to "fulfill.index"}}Fullfill{{/link-to}}</li>
+                        <li class="breadcrumb-item active" aria-current="page">{{this.model.firstname}} {{this.model.lastname}}</li>
+                    </ol>
+                </nav>
             </div>
 
             <div class="alert alert-success" id="success-alert" style="display: none;">

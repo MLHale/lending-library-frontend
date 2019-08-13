@@ -1,6 +1,5 @@
 <div class="container">
   <div class="row">
-    {{!-- Make more mobile friendly--}}
     <div class="col-md-12">
       <div class="jumbotron text-center">
 
@@ -12,92 +11,36 @@
           <h5 style="text-align: left; margin-bottom: 20px;">Login Information</h5>
           <div class="row">
             <div class="col">
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"
-                    id="email">&nbsp;Username&nbsp;</span>
-                </div>
-                {{input type="text" value=email class="form-control" placeholder="JohnDoe1970" aria-label="Username" aria-describedby="username" required="true"}}
-              </div>
+              {{validated-input model=model valuePath="username" placeholder="JohnDoe1980" didValidate=didValidate title="Username" value=username}}
             </div>
             <div class="col">
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"
-                    id="email">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                </div>
-                {{input type="text" value=email class="form-control" placeholder="JohnDoe@gmail.com" aria-label="Email" aria-describedby="email" required="true"}}
-              </div>
+              {{validated-input type="email" model=model valuePath="email" placeholder="JohnDoe@gmail.com" didValidate=didValidate title="Email" value=email}}
             </div>
           </div>
           <div class="row">
             <div class="col">
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="password">&nbsp;&nbsp;Password&nbsp;</span>
-                </div>
-                {{input type="password" value=password class="form-control" placeholder="•••••••••••" aria-label="Password" aria-describedby="password" required="true"}}
-              </div>
+              {{validated-input type="password" model=model valuePath="password" placeholder="•••••••••••" didValidate=didValidate title="Password" value=password}}
             </div>
             <div class="col">
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="confirm">&nbsp;&nbsp;Confirm&nbsp;&nbsp;&nbsp;</span>
-                </div>
-                {{input type="password" value=confirm class="form-control" placeholder="•••••••••••" aria-label="Confirm" aria-describedby="confirm" required="true"}}
-              </div>
+              {{validated-input type="password" model=model valuePath="passwordConfirmation" placeholder="•••••••••••" didValidate=didValidate title="Confirm"}}
             </div>
           </div>
           <br>
-          {{!-- <hr> --}}
           <h5 style="text-align: left; margin-bottom: 20px;">Personal Information</h5>
           <div class="row">
             <div class="col">
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="first">First Name</span>
-                </div>
-                {{input type="text" value=first class="form-control" placeholder="John" aria-label="First" aria-describedby="first" required="true"}}
-              </div>
+              {{validated-input model=model valuePath="firstname" placeholder="John" didValidate=didValidate title="First Name" value=first}}
             </div>
             <div class="col">
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="last">Last Name</span>
-                </div>
-                {{input type="text" value=last class="form-control" placeholder="Doe" aria-label="Last" aria-describedby="last" required="true"}}
-              </div>
+              {{validated-input model=model valuePath="lastname" placeholder="Doe" didValidate=didValidate title="Last Name" value=last}}
             </div>
           </div>
           <div class="row">
             <div class="col">
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="address">&nbsp;&nbsp;Address&nbsp;&nbsp;</span>
-                </div>
-                {{input type="text" value=address class="form-control" placeholder="1234 South Monroe Street" aria-label="Address" aria-describedby="address" required="true"}}
-              </div>
+              {{validated-input model=model.profile valuePath="address" placeholder="1234 S. Monroe Street" didValidate=didValidate title="Address" value=address}}
             </div>
             <div class="col">
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="phone">&nbsp;&nbsp;&nbsp;&nbsp;Phone&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                </div>
-                {{input type="tel" value=phone class="form-control" placeholder="(402) 867-5309" aria-label="Phone" aria-describedby="phone" required="true"}}
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="students">&nbsp;Students&nbsp;&nbsp;</span>
-                </div>
-                {{input type="number" value=students min="1" max="999" class="form-control" placeholder="47" aria-label="Students" aria-describedby="students" required="true"}}
-              </div>
-            </div>
-            <div class="col">
-              &nbsp;
+              {{validated-input model=model.profile valuePath="phonenumber" placeholder="(402) 867-5309" didValidate=didValidate title="Phone" value=phone}}
             </div>
           </div>
           <br>
@@ -105,7 +48,7 @@
           <div class="form-horizontal form-group form-group-lg row">
             <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-3"
               style="margin: 0 auto; float: none;">
-              <button type="button" class="btn btn-primary btn-lg btn-block" {{action "register"}}>Register</button>
+              <button type="button" class="btn btn-primary btn-lg btn-block" {{action "register"}} disabled={{v-get model "isInvalid"}}>Register</button>
             </div>
           </div>
         </form>

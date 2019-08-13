@@ -7,10 +7,13 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
-  this.route('about', { path: '/about' });
-  this.route('cart', { path: '/cart' });
-  this.route('checkout', { path: '/checkout' });
-  this.route('login', { path: '/login' });
+  this.route('about');
+  this.route('cart');
+  this.route('checkout');
+  this.route('login');
+  this.route('dashboard');
+  this.route('register');
+  this.route('account');
 
   this.route('library', { path: '/library' }, function() {
     this.route('library-items', { path: '/:category_id' });
@@ -27,8 +30,7 @@ Router.map(function() {
   this.route('manage', { path: '/manage' }, function() {
     this.route('manage-order', { path: '/:checkout_id' });
   });
-  this.route('dashboard');
-  this.route('register');
+  this.route('register2');
 });
 
 export default Router;

@@ -6,7 +6,7 @@
         <h1>Shopping Cart<br></h1>
       </div>
 
-      {{#if this.cart.items.length}}
+      {{#if this.cart.cart.length}}
       <table class="table table-hover rounded">
         <thead class="thead-light">
           <tr>
@@ -16,23 +16,19 @@
           </tr>
         </thead>
         <tbody>
-          {{#each this.cart.items as |item|}}
+          {{#each this.cart.cart as |cartitem|}}
           <tr>
-            <td><button type="button" class="btn btn-danger btn-sm" {{action "remove" item}}>Remove</button></td>
-            <td><strong>{{item.partname}}</strong></td>
+            <td><button type="button" class="btn btn-danger btn-sm" {{action "remove" cartitem.itemtype}}>Remove</button></td>
+            <td><strong>{{cartitem.itemtype.partname}}</strong></td>
             <td>
-              {{!-- onchange={{action "modifyQuantity" item value="target.value"}} --}}
-              <select class="form-control" id="exampleSelect1" onchange={{action "modifyQuantity" item target.value}}>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
+              <select class="form-control" id={{one-word cartitem.itemtype.partname}} onchange={{action "modifyQuantity" cartitem.itemtype}} style="text-align-last:center;">
+                {{#n-times times=10 as |index|}}
+                  {{#if (eq index cartitem.quantity)}}
+                    <option value={{index}} selected="true">{{index}}</option>
+                  {{else}}
+                    <option value={{index}}>{{index}}</option>
+                  {{/if}}
+                {{/n-times}}
               </select>
             </td>
           </tr>
@@ -42,22 +38,39 @@
 
       <hr style="margin-top: -15px;">
       <div class="d-inline-block">
-        <button type="button" class="btn btn-outline-danger btn-sm" {{action "clear"}}>Clear Cart</button>
+        <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" {{action "confirm"}}>Clear Cart</button>
       </div>
 
-      {{!-- {{#bs-modal-simple title="Clear Confirmation" closeTitle="Cancel" submitTitle="Clear" open=songToDelete}}
-  Are you sure you would like to clear {{this.cart.items.length}} items from your cart?
-  {{/bs-modal-simple}} --}}
+      {{!-- {{#bs-modal-simple open=confirm title="Confirm" renderInPlace=true onSubmit=(action "clear") }}
+        Are you sure you would like to empty your cart and the ____ items in it?
+      {{/bs-modal-simple}} --}}
+
+      <BsModal @open={{confirm}} @onSubmit={{action "clear"}} as |Modal|>
+        <Modal.header>
+          <h4 class="modal-title">{{fa-icon "exclamation-circle"}}&nbsp;Confirm</h4>
+        </Modal.header>
+        <Modal.body>
+          Are you sure you would like to clear your cart and everything inside of it?
+        </Modal.body>
+        <Modal.footer as |footer|>
+          <BsButton @onClick={{action Modal.close}} @type="basic">Cancel</BsButton>
+          <BsButton @onClick={{action Modal.submit}} @type="danger">Clear Cart</BsButton>
+        </Modal.footer>
+      </BsModal>
+
+      {{!-- {{#bs-modal-simple title="Clear Confirmation" closeTitle="Cancel" submitTitle="Clear" open=true}}
+        Are you sure you would like to clear {{this.cart.items.length}} items from your cart?
+      {{/bs-modal-simple}} --}}
 
       <div class="d-inline-block float-right">
         {{#link-to "checkout"}}<button class="btn btn-success float-right">Proceed to Checkout</button>{{/link-to}}
       </div>
 
       {{else}}
-      <center>
-        <p>There are currently no items in your cart. Please visit the {{#link-to "library"}}library{{/link-to}} to view
-          items you can check out.</p>
-      </center>
+        <center>
+          <p>There are currently no items in your cart. Please visit the {{#link-to "library"}}library{{/link-to}} to view
+            items you can check out.</p>
+        </center>
       {{/if}}
     </div>
   </div>

@@ -1,5 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-  <a class="navbar-brand" href="/">{{fa-icon "book"}} Lending Library </a>
+  {{#link-to "index" class="navbar-brand"}}{{fa-icon "book"}} Lending Library {{/link-to}}
+  {{!-- <a class="navbar-brand" href="/">{{fa-icon "book"}} Lending Library </a> --}}
   <button
     class="navbar-toggler"
     type="button"
@@ -19,20 +20,36 @@
       <li class="nav-item">
         {{#link-to "library"}}<a class="nav-link">Library</a>{{/link-to}}
       </li>
-
-      <li class="nav-item">
-        {{#link-to "login"}}<a class="nav-link">Login</a>{{/link-to}}
-      </li>
     </ul>
+
+    <ul class="navbar-nav justify-content-end">
+      {{#if auth.isLoggedIn}}
+        {{!-- <li class="nav-item dropdown">
+          {{#link-to "account"}}<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">My Account</a>{{/link-to}}
+          <div class="dropdown-menu">
+            {{#link-to "account"}}<a class="dropdown-item" href="#">Manage Account</a>{{/link-to}}
+            <a class="dropdown-item" {{action "logout"}}>Logout</a>
+            <div class="dropdown-divider"></div>
+          </div>
+        </li> --}}
+        <li class="nav-item">
+          {{#link-to "account"}}<a class="nav-link">Account</a>{{/link-to}}
+        </li>
+      {{else}}
+        <li class="nav-item">
+          {{#link-to "login" class="nav-link"}}Login{{/link-to}}
+        </li>
+      {{/if}}
+
+      {{#link-to "cart"}}<a class="nav-link">{{fa-icon "shopping-cart"}}&nbsp;Cart {{#if this.cart.cart.length}} ({{this.cart.cart.length}}) {{/if}}</a>{{/link-to}}
     
-    <span class="navbar-text">
-      {{!-- {{#bs-popover triggerEvents="hover" title="What's in my cart?" placement="bottom"}}1. Raspberry Pi <br>2. Little Bits part<br>3. Other little Bits Part<br><br><button class="btn btn-primary">{{#link-to "cart"}}Go to cart{{/link-to}}</button>{{/bs-popover}} --}}
-            
-      {{#link-to "cart"}}<a class="navbar-link">{{fa-icon "shopping-cart"}}&nbsp;&nbsp;Cart {{#if this.cart.items.length}} ({{this.cart.items.length}}) {{/if}}</a>{{/link-to}}
-    </span>
+    </ul>
 
   </div>
 </nav>
+
+
+
 {{!-- <div class="container">
   <div class="row">
     <div class="col-md-12">

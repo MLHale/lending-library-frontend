@@ -3,7 +3,13 @@
         <div class="col-md-12">
             {{outlet}}
             <div class="jumbotron text-center">
-                <h1>Dashboard<br></h1>
+                <h1>Dashboard</h1>
+
+                {{!-- <nav aria-label="breadcrumb" style="margin-bottom: -60px;">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">Home</li>
+                    </ol>
+                </nav> --}}
             </div>
 
             <div class="row">
@@ -37,7 +43,7 @@
                     <div class="card text-center h-100">
                         <div class="card-body">
                             <h4 class="card-title">Return Orders</h4>
-                            <p class="card-text">__ orders due today</p>
+                            <p class="card-text">{{returnOrders.length}} orders to be returned</p>
                             {{#link-to "return"}}
                                 <a class="btn btn-primary" style="color: white;">Return Orders</a>
                             {{/link-to}}

@@ -5,7 +5,6 @@ export default Route.extend({
     model() {
         return RSVP.hash({
             checkouts: this.store.findAll('checkout'),
-        //   albums: this.store.findAll('album')
         });
     }
 });

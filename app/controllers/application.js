@@ -3,4 +3,5 @@ import { inject as service } from '@ember/service';
 
 export default Controller.extend({
     cart: service('shopping-cart'),
+    auth: service('auth-manager'),
 });

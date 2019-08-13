@@ -6,25 +6,55 @@
                 <h1>Checkout<br></h1>
             </div>
 
+            {{!-- {{#if this.checkedOut}}
+                <div class="alert alert-success" role="alert">
+                    <strong>Success!</strong> Your order has successfully been placed.
+                </div>
+            {{/if}}
+
+            {{#if this.checkedOut}}
+                <div class="alert alert-danger" role="alert">
+                    <strong>Error!</strong> Please fill in all form data below.
+                </div>
+            {{/if}} --}}
+            <div class="alert alert-success" id="success-alert" style="display: none;">
+                <button type="button" class="close" data-dismiss="alert" {{action "hideSuccess"}}>x</button>
+                <strong>Success! </strong>
+                Your order has successfully been placed! 
+                {{!-- You can check on the status of your order at any time in the {{#link-to "account"}}My Account{{/link-to}} section. --}}
+            </div>
+
+            <div class="alert alert-danger" id="danger-alert" style="display: none;">
+                <button type="button" class="close" data-dismiss="alert" {{action "hideDanger"}}>x</button>
+                <strong>Error! </strong>
+                {{this.errorMsg}}
+            </div>
+
             <form class="form-horizontal">
                 {{!-- <h5 style="text-align: left; margin-bottom: 10px;">Personal Information</h5> --}}
                 <div class="row">
                     <div class="col">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="first">First Name</span>
+                                <span class="input-group-text">First Name</span>
                             </div>
                             {{#if auth.isLoggedIn}}
-                                {{input type="text" value=first class="form-control" placeholder="John" aria-label="First" aria-describedby="first" required="true"}}
+                                {{input type="text" id="first" value=auth.user.firstname class="form-control" aria-label="First" aria-describedby="first" disabled="true"}}
+                            {{else}}
+                                {{input type="text" id="first" class="form-control" placeholder="John" aria-label="First" aria-describedby="first"}}
                             {{/if}}
                         </div>
                     </div>
                     <div class="col">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="last">Last Name</span>
+                                <span class="input-group-text">Last Name</span>
                             </div>
-                            {{input type="text" value=last class="form-control" placeholder="Doe" aria-label="Last" aria-describedby="last" required="true"}}
+                            {{#if auth.isLoggedIn}}
+                                {{input type="text" id="last" value=auth.user.lastname class="form-control" aria-label="Last" aria-describedby="last" disabled="true"}}
+                            {{else}}
+                                {{input type="text" id="last" class="form-control" placeholder="Doe" aria-label="Last" aria-describedby="last"}}
+                            {{/if}}
                         </div>
                     </div>
                 </div>
@@ -32,17 +62,25 @@
                     <div class="col">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="email">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <span class="input-group-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email&nbsp;&nbsp;&nbsp;&nbsp;</span>
                             </div>
-                            {{input type="email" value=email class="form-control" placeholder="johndoe@gmail.com" aria-label="Email" aria-describedby="email" required="true"}}
+                            {{#if auth.isLoggedIn}}
+                                {{input type="email" id="email" value=auth.user.email class="form-control" aria-label="Email" aria-describedby="email" disabled="true"}}
+                            {{else}}
+                                {{input type="email" id="email" value=email class="form-control" placeholder="johndoe@gmail.com" aria-label="Email" aria-describedby="email"}}
+                            {{/if}}
                         </div>
                     </div>
                     <div class="col">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="phone">&nbsp;&nbsp;&nbsp;&nbsp;Phone&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <span class="input-group-text">&nbsp;&nbsp;&nbsp;&nbsp;Phone&nbsp;&nbsp;&nbsp;&nbsp;</span>
                             </div>
-                            {{input type="tel" value=phone class="form-control" placeholder="(402) 867-5309" aria-label="Phone" aria-describedby="phone" required="true"}}
+                            {{#if auth.isLoggedIn}}
+                                {{input type="tel" id="phone" value=auth.profile.phonenumber class="form-control" aria-label="Phone" aria-describedby="phone" disabled="true"}}
+                            {{else}}
+                                {{input type="tel" id="phone" class="form-control" placeholder="(402) 867-5309" aria-label="Phone" aria-describedby="phone"}}
+                            {{/if}}
                         </div>
                     </div>
                 </div>
@@ -50,17 +88,21 @@
                     <div class="col">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="address">&nbsp;&nbsp;Address&nbsp;&nbsp;</span>
+                                <span class="input-group-text">&nbsp;&nbsp;Address&nbsp;&nbsp;</span>
                             </div>
-                            {{input type="text" value=address class="form-control" placeholder="1234 South Monroe Street" aria-label="Address" aria-describedby="address" required="true"}}
+                            {{#if auth.isLoggedIn}}
+                                {{input type="text" id="address" value=auth.profile.address class="form-control" aria-label="Address" aria-describedby="address" disabled="true"}}
+                            {{else}}
+                                {{input type="text" id="address" class="form-control" placeholder="1234 South Monroe Street" aria-label="Address" aria-describedby="address"}}
+                            {{/if}}
                         </div>
                     </div>
                     <div class="col">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="students">&nbsp;Students&nbsp;&nbsp;</span>
+                                <span class="input-group-text">&nbsp;Students&nbsp;&nbsp;</span>
                             </div>
-                            {{input type="number" value=students min="1" max="999" class="form-control" placeholder="47" aria-label="Students" aria-describedby="students" required="true"}}
+                            {{input type="number" id="students" value=students min="1" max="99" class="form-control" placeholder="47" aria-label="Students" aria-describedby="students"}}
                         </div>
                     </div>
                 </div>
@@ -70,18 +112,18 @@
             <div class="card text-center" style="width: 100%;">
                 <div class="card-body" style="width: 100%;">
                     
-                    <h4 class="card-title">Items in Cart:</h4>
+                    <h4 class="card-title">Review Cart:</h4>
                     <hr>
 
-                    {{#each this.cart.items as |item|}}
-                        <p class="card-text">{{item.category.categoryname}} &raquo; <p class="text-primary" style="display: inline-block;">{{item.partname}}</p></p>
+                    {{#each this.cart.cart as |cartitem|}}
+                        <p class="card-text">{{cartitem.itemtype.category.categoryname}} &raquo; <p class="text-primary" style="display: inline-block;">{{cartitem.itemtype.partname}} ({{cartitem.quantity}})</p></p>
                     {{/each}}
 
                 </div>
             </div>
             <br>
 
-            <button type="submit" class="btn btn-success" style="float: right;">Checkout &raquo;</button>
+            <button type="submit" class="btn btn-success" style="float: right;" {{action "checkout"}}>Checkout &raquo;</button>
 
         </div>
     </div>

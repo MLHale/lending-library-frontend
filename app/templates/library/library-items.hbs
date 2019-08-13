@@ -12,15 +12,21 @@
             </div>
 
             <div class="alert alert-success" id="success-alert" style="display: none;">
-                <button type="button" class="close" data-dismiss="alert" {{action "hideAlert"}}>x</button>
+                <button type="button" class="close" data-dismiss="alert" {{action "hideSuccess"}}>x</button>
                 <strong>Success! </strong>
                 Item has been successfully added to your {{#link-to "cart" class="alert-link"}}shopping
                 cart{{/link-to}}.
             </div>
 
+            <div class="alert alert-danger" id="danger-alert" style="display: none;">
+                <button type="button" class="close" data-dismiss="alert" {{action "hideDanger"}}>x</button>
+                <strong>Error! </strong>
+                {{this.errorMsg}}
+            </div>
+
             <!-- Search form -->
             <div class="input-group md-form form-sm form-2 pl-0">
-                <input class="form-control my-0 py-1" type="text" placeholder="Search" aria-label="Search">
+                {{input class="form-control my-0 py-1" type="text" placeholder="Search" aria-label="Search" value=search}}
                 <div class="input-group-append">
                     <span class="input-group-text lighten-3" id="basic-text1">{{fa-icon "search"}}</span>
                 </div>
@@ -29,7 +35,7 @@
 
             {{!-- {{#list-pagination paginateBy=12 items=this.model as |items|}} --}}
             {{#bs-accordion as |accordion|}}
-                {{#each model.itemtypes as |itemtype index|}}
+                {{#each filtered as |itemtype index|}}
                     {{#if itemtype.checkedoutto}}
                         {{!-- var itemTitle = item.partname + "- Unavailable"; --}}
                         {{#accordion.item value=index title=itemtype.partname disabled="true"}}
@@ -47,9 +53,9 @@
                     {{/accordion.item}}
                     {{/if}} 
                 {{else}}
-                    <div class="row text-center">
-                        Sorry, there are no items to be displayed in this category :(
-                    </div>
+                    <center>
+                        <p>Sorry, there are no items to be displayed in this category :(</p>
+                    </center>
                 {{/each}}
             {{/bs-accordion}}
             {{!-- {{/list-pagination}} --}}

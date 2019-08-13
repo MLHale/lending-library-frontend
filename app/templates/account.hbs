@@ -1,0 +1,104 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            {{outlet}}
+            <div class="jumbotron text-center">
+                <h1>My Account</h1><br>
+                <h4 class="lead">{{auth.user.firstname}} {{auth.user.lastname}}</h4><br>
+                <button type="button" class="btn btn-outline-danger btn-sm" {{action "logout"}}>Log Out</button>
+            </div>
+
+            <div class="alert alert-success" id="success-alert" style="display: none;">
+                <button type="button" class="close" data-dismiss="alert" {{action "hideSuccess"}}>x</button>
+                <strong>Success! </strong>
+                Your profile has been saved successfully.
+            </div>
+
+            <form class="form-horizontal">
+                {{!-- <h5 style="text-align: left; margin-bottom: 10px;">Account Information</h5> --}}
+                <div class="row">
+                    <div class="col">
+                        {{validated-input model=auth.user valuePath="firstname" placeholder="John" didValidate=didValidate title="First Name"}}
+                    </div>
+                    <div class="col">
+                        {{validated-input model=auth.user valuePath="lastname" placeholder="Doe" didValidate=didValidate title="Last Name"}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{validated-input type="email" model=auth.user valuePath="email" placeholder="JohnDoe@gmail.com" didValidate=didValidate title="Email"}}
+                    </div>
+                    <div class="col">
+                        {{validated-input model=auth.profile valuePath="phonenumber" placeholder="(402) 867-5309" didValidate=didValidate title="Phone"}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{validated-input model=auth.profile valuePath="address" placeholder="1234 S. Monroe Street" didValidate=didValidate title="Address"}}
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-success" style="float: right;" {{action "save"}} disabled={{v-get model "isInvalid"}}>Save</button>
+                    </div>
+                </div>
+                
+                
+                <br>
+            </form>
+
+            <hr style="margin-top: -10px; margin-bottom: 20px;">
+
+            <h5 style="text-align: left; margin-bottom: 10px;">My Orders</h5>
+            {{#if auth.user.profile.checkouts}}
+                <div class="row">
+                    {{#each auth.user.profile.checkouts as |order|}}
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="card text-center h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{order.firstname}} {{order.lastname}}</h5>
+                                    <p class="card-text">{{moment-format order.createdon "dddd, MMMM Do"}}</p>   {{!-- at {{moment-format order.createdon "h:mm a"}} --}}
+                                    <p class="card-text" style="margin-top: -10px; margin-bottom: -10px;"><strong>Fulfilled: </strong>{{#if order.fulfilledon}} <p style="color: green; display: inline-block;">Yes</p> {{else}} <p style="color: red; display: inline-block;">No</p> {{/if}}</p>
+                                    <p class="card-text" style="margin-bottom: -10px;"><strong>Returned: </strong>{{#if order.returnedon}} <p style="color: green; display: inline-block;">Yes</p> {{else}} <p style="color: red; display: inline-block;">No</p> {{/if}}</p>
+                                    <p class="card-text">{{order.items.length}} items</p>
+                                    {{#link-to "manage.manage-order" order}}
+                                        <a class="btn btn-primary" style="color: white;">View Order</a>
+                                    {{/link-to}}
+                                </div>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            {{else}}
+                {{!-- <center> --}}
+                    <p>You do not have any orders associated with your account.</p>
+                {{!-- </center> --}}
+            {{/if}}
+            
+
+            
+            <br><br><br>
+            
+            {{#link-to "dashboard"}}Dashboard Link {{/link-to}}
+            {{!-- If the account has active orders --}}
+            {{!-- {{#if this.model.user.orders.length}}  
+                <div class="row">
+                    {{#each this.model.user.orders as |order|}}
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card text-center h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">{{order.firstname}} {{order.lastname}}</h5>
+                                <p class="card-text">{{moment-format order.createdon "dddd, MMMM Do"}} at {{moment-format order.createdon "h:mm a"}}</p> 
+                                <p class="card-text" style="margin-top: -10px; margin-bottom: -10px;"><strong>Fulfilled: </strong>{{#if ticket.fulfilledon}} <p style="color: green; display: inline-block;">Yes</p> {{else}} <p style="color: red; display: inline-block;">No</p> {{/if}}</p>
+                                <p class="card-text" style="margin-bottom: -10px;"><strong>Returned: </strong>{{#if ticket.returnedon}} <p style="color: green; display: inline-block;">Yes</p> {{else}} <p style="color: red; display: inline-block;">No</p> {{/if}}</p>
+                                <p class="card-text">{{order.items.length}} items</p>
+                                {{#link-to "manage.manage-order" order}}
+                                    <a class="btn btn-primary" style="color: white;">Manage Order</a>
+                                {{/link-to}}
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            {{/if}} --}}
+        </div>
+    </div>
+</div>

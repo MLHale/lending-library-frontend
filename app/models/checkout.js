@@ -6,6 +6,7 @@ export default DS.Model.extend({
     address:DS.attr('string'),
     phonenumber:DS.attr('string'),
     numberofstudents:DS.attr(),
+    profile:DS.belongsTo('profile'),
     createdon:DS.attr(),
     fulfilledon:DS.attr(),
     returnedon:DS.attr(),

@@ -22,7 +22,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">&nbsp;{{fa-icon "user"}}&nbsp;</div>
                 </div>
-                {{input type="text" class="form-control" value=auth.username id="username" enter="login" placeholder="Username" autofocus="autofocus"}}
+                {{input type="text" class="form-control" value=auth.username id="username" enter=(action "login") placeholder="Username" autofocus="autofocus"}}
               </div>
             </div>
           </div>
@@ -33,7 +33,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">&nbsp;{{fa-icon "lock"}}&nbsp;</div>
                 </div>
-                {{input type="password" class="form-control" value=auth.password id="password" enter="login" placeholder="Password"}}
+                {{input type="password" class="form-control" value=auth.password id="password" enter=(action "login") placeholder="Password"}}
               </div>
             </div>
           </div>
