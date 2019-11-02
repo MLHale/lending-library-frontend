@@ -9,11 +9,7 @@ export default Controller.extend({
     didValidate: false,
     
     init: function() {
-        this._super(...arguments)
-
-        if(!(this.get('auth').get('isLoggedIn'))){
-            this.transitionToRoute('login');
-        }
+        this._super(...arguments);
     },
     actions:{
 		logout(){
@@ -22,28 +18,56 @@ export default Controller.extend({
         
         save() {
             var controller = this;
-            controller.get('model').validate().then(({ validations }) => {
-                controller.set('didValidate', true);
-                if (validations.get('isValid')) {
-    
-                    console.log("Saving information for " + controller.get('first') + " " + controller.get('last'));
-    
-                    controller.get('model').save();
-
-                    controller.setProperties({
-                        showAlert: false,
-                        isRegistered: true,
-                    });
-
-                    $("#success-alert")
-                    .fadeTo(5000, 500)
-                    .slideDown(500, function() {
-                        $("#success-alert").slideUp(500);
-                    });
-                } else {
-                    controller.set('showAlert', true);
+            controller.get('model.user').validate().then(({ validations }) => {
+                console.log(validations);
+                if(validations.get('errors').get('length') == 1 && validations.get('error').get('message') == "Password can't be blank"){
+                    console.log('Saved the user model');
+                    controller.get('model.user').save();
                 }
             });
+
+            controller.get('model.profile').validate().then(({ validations }) => {
+                console.log(validations);
+                if(validations.get('isValid')){
+                    console.log('Saved the user profile');
+                    controller.get('model.profile').save();
+                }
+            });
+
+
+
+            // controller.get('model.profile').validate().then(({ validations }) => {
+            //     console.log(validations);
+            //     if (validations.get('isValid')) {
+            //         controller.get('model.user').validate().then(({ validations_user }) => {
+            //             controller.set('didValidate', true);
+            //             if (validations_user.get('errors')) {
+    
+                            console.log("Saving information for " + controller.get('first') + " " + controller.get('last'));
+    
+                            controller.get('model.user').save();
+                            controller.get('model.profile').save();
+
+                            controller.setProperties({
+                                showAlert: false,
+                                isRegistered: true,
+                            });
+
+                            $("#success-alert")
+                            .fadeTo(5000, 500)
+                            .slideDown(500, function() {
+                                $("#success-alert").slideUp(500);
+                            });
+            //             } else {
+            //                 console.log(validations_user);
+            //                 controller.set('showAlert', true);
+            //             }
+            //         });
+            //     } else {
+            //         console.log(validations_profile);
+            //         controller.set('showAlert', true);
+            //     }
+            // });
         }
 	}
 });

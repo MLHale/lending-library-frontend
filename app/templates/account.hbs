@@ -18,23 +18,23 @@
                 {{!-- <h5 style="text-align: left; margin-bottom: 10px;">Account Information</h5> --}}
                 <div class="row">
                     <div class="col">
-                        {{validated-input model=auth.user valuePath="firstname" placeholder="John" didValidate=didValidate title="First Name"}}
+                        {{validated-input model=model.user valuePath="firstname" placeholder="John" didValidate=didValidate title="First Name"}}
                     </div>
                     <div class="col">
-                        {{validated-input model=auth.user valuePath="lastname" placeholder="Doe" didValidate=didValidate title="Last Name"}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        {{validated-input type="email" model=auth.user valuePath="email" placeholder="JohnDoe@gmail.com" didValidate=didValidate title="Email"}}
-                    </div>
-                    <div class="col">
-                        {{validated-input model=auth.profile valuePath="phonenumber" placeholder="(402) 867-5309" didValidate=didValidate title="Phone"}}
+                        {{validated-input model=model.user valuePath="lastname" placeholder="Doe" didValidate=didValidate title="Last Name"}}
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
-                        {{validated-input model=auth.profile valuePath="address" placeholder="1234 S. Monroe Street" didValidate=didValidate title="Address"}}
+                        {{validated-input type="email" model=model.user valuePath="email" placeholder="JohnDoe@gmail.com" didValidate=didValidate title="Email"}}
+                    </div>
+                    <div class="col">
+                        {{validated-input model=model.profile valuePath="phonenumber" placeholder="(402) 867-5309" didValidate=didValidate title="Phone"}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{validated-input model=model.profile valuePath="address" placeholder="1234 S. Monroe Street" didValidate=didValidate title="Address"}}
                     </div>
                     <div class="col">
                         <button class="btn btn-success" style="float: right;" {{action "save"}} disabled={{v-get model "isInvalid"}}>Save</button>
@@ -70,6 +70,7 @@
             {{else}}
                 {{!-- <center> --}}
                     <p>You do not have any orders associated with your account.</p>
+                    <p>You can browse our library of items to check out {{#link-to "library.index"}}here{{/link-to}}.</p>
                 {{!-- </center> --}}
             {{/if}}
             

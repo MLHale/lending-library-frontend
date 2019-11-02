@@ -4,7 +4,10 @@ import ArrayProxy from '@ember/array/proxy';
 
 export default Service.extend({
 
+  // { itemtype: <Itemtype>, quantity: <int>, available: <int> }
   cart: null,
+
+
 
   init() {
     this._super(...arguments);
@@ -27,7 +30,7 @@ export default Service.extend({
       item.set('0.quantity', parseInt(item.get('0.quantity') + 1));
     } else {
       console.log('Added ' + itemtype.get('partname') + ' to cart.');
-      this.get('cart').pushObject({'itemtype' : itemtype, 'quantity' : 1});
+      this.get('cart').pushObject({'itemtype': itemtype, 'quantity': 1, available: itemtype.get('items.length')});
     }
 
     localStorage.setItem('cart', JSON.stringify(this.get('cart').toArray()));
@@ -83,8 +86,6 @@ export default Service.extend({
 
   getQuantity(itemtype) {
     let item = this.get('cart').filterBy('itemtype.partname', itemtype.get('partname'));
-    console.log(item)
-    console.log(itemtype.partname + " quantity in cart: " + item.get("0.quantity"));
     return (item.length) ? item.get('0.quantity') : 0;
   },
 

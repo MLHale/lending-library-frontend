@@ -10,6 +10,8 @@ export default Controller.extend({
         if(!(this.get('auth').get('isLoggedIn'))){
             this.transitionToRoute('login');
         }
+
+        console.log(this.get('model').get('items'));
     },
 
     actions: {

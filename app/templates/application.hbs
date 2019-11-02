@@ -39,6 +39,10 @@
         <li class="nav-item">
           {{#link-to "login" class="nav-link"}}Login{{/link-to}}
         </li>
+
+        <li class="nav-item">
+          {{#link-to "register" class="nav-link"}}Register{{/link-to}}
+        </li>
       {{/if}}
 
       {{#link-to "cart"}}<a class="nav-link">{{fa-icon "shopping-cart"}}&nbsp;Cart {{#if this.cart.cart.length}} ({{this.cart.cart.length}}) {{/if}}</a>{{/link-to}}

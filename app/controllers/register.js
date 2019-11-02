@@ -7,65 +7,70 @@ export default Controller.extend({
   showAlert: false,
   isRegistered: false,
   didValidate: false,
-
+  validationErrorMsg: '',
   actions: {
     register() {
-        var controller = this;
-        controller.get('model').validate().then(({ validations }) => {
-            controller.set('didValidate', true);
-            if (validations.get('isValid')) {
+      var controller = this;
+      controller.get('model').validate().then(({ validations }) => {
+        controller.set('didValidate', true);
+        if (validations.get('isValid')) {
 
-                console.log("Registering " + controller.get('first') + " " + controller.get('last') + " as: " + controller.get('username'));
+          console.log("Registering " + controller.get('first') + " " + controller.get('last') + " as: " + controller.get('username'));
 
-                var requestdata = {
-					'username': controller.get('username'),
-					'password': controller.get('password'),
-					'email': controller.get('email'),
-					'firstname': controller.get('first'),
-					'lastname': controller.get('last'),
-					'address': controller.get('address'),
-					'phone': controller.get('phone'),
-                };
-                
-                $.post('../api/register/', requestdata, function(response){
-					var errMsg = '';
-					if(response.data.status ==="error"){
-                        
-						if(response.data.username){
-							errMsg = response.data.username;
-						} else if(response.data.email){
-							errMsg = response.data.email;
-						} else {
-							errMsg = "An unknown error occured. Please try again";
-                        }
-                        
-                        controller.set('validationErrorMsg', errMsg);
-                        controller.setProperties({
-                            showAlert: true,
-                            isRegistered: false,
-                        });
+          var requestdata = {
+            'username': controller.get('username'),
+            'password': controller.get('password'),
+            'email': controller.get('email'),
+            'firstname': controller.get('first'),
+            'lastname': controller.get('last'),
+            'address': controller.get('address'),
+            'phone': controller.get('phone'),
+          };
 
-					} else {
+          $.post('../api/register/', requestdata, function (response) {
+            var errMsg = '';
+            if (response.data.status === "error") {
 
-						controller.get('auth').set('username',controller.get('username'))
-						controller.get('auth').set('password',controller.get('password'))
+              if (response.data.username) {
+                errMsg = response.data.username;
+              } else if (response.data.email) {
+                errMsg = response.data.email;
+              } else {
+                errMsg = "An unknown error occured. Please try again";
+              }
 
-                        controller.setProperties({
-                            showAlert: false,
-                            isRegistered: true,
-                        });
+              controller.set('validationErrorMsg', errMsg);
+              console.log(errMsg);
+              controller.setProperties({
+                showAlert: true,
+                isRegistered: false,
+              });
 
-						controller.transitionToRoute('login');
-					}
-				});
             } else {
-                controller.set('showAlert', true);
+
+              controller.get('auth').set('username', controller.get('username'))
+              controller.get('auth').set('password', controller.get('password'))
+
+              controller.setProperties({
+                showAlert: false,
+                isRegistered: true,
+              });
+
+              controller.transitionToRoute('login');
             }
-        });
+          });
+        } else {
+          controller.set('showAlert', true);
+        }
+      });
     },
 
     toggleProperty(p) {
       this.toggleProperty(p);
+    },
+
+    hide() {
+      this.set('showAlert', false);
     }
   }
 });

@@ -7,6 +7,15 @@
         <p style="margin-bottom: 0px;">Creating an account will allow for you to see the progress of</p>
         <p>orders with the Lending Library, and makes checking out tech much easier.</p><br>
 
+        {{#if showAlert}}
+          <div class="alert alert-danger" id="danger-alert">
+            <button type="button" class="close" data-dismiss="alert" {{action "hide"}}>x</button>
+            <strong>Error! </strong>
+            {{this.validationErrorMsg}}
+          </div>
+
+        {{/if}}
+
         <form class="form-horizontal">
           <h5 style="text-align: left; margin-bottom: 20px;">Login Information</h5>
           <div class="row">

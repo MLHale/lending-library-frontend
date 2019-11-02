@@ -6,7 +6,6 @@ export default Route.extend({
 	},
 	actions: {
 		willTransition: function() {
-            console.log('Going away...');
             var appController = this.controllerFor('cart');
             appController.set('confirm', false);
         }

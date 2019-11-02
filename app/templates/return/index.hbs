@@ -19,6 +19,8 @@
                 {{#list-pagination paginateBy=12 items=filteredCheckouts as |tickets|}}
                     <div class="row">
                         {{#each tickets as |ticket|}}
+                        {{!-- TODO: Remove this --}}
+                        {{log ticket}} 
                         <div class="col-lg-4 col-md-6 mb-4">
                             <div class="card text-center h-100">
                                 <div class="card-body">

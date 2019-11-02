@@ -13,6 +13,7 @@ export default Component.extend({
     validation: null,
     showValidations: false,
     didValidate: false,
+    disabled: false,
 
     notValidating: not('validation.isValidating').readOnly(),
     hasContent: notEmpty('value').readOnly(),

@@ -3,7 +3,7 @@
     <div class="input-group-prepend" style="text-align: center;">
       <span class="input-group-text" style="width: 110px; display: table; margin: 0 auto;" id={{valuePath}}>{{title}}</span>
     </div>
-    {{input type=type value=value placeholder=placeholder class="form-control input-validation-style" name=valuePath aria-label=title aria-describedby="{{valuepath}}"}}
+    {{input type=type value=value placeholder=placeholder class="form-control input-validation-style" name=valuePath aria-label=title aria-describedby="{{valuepath}}" disabled=disabled}}
     {{#if isValid}}
       <span class="valid-input fa fa-check"></span>
     {{/if}}
