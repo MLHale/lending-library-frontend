@@ -8,6 +8,10 @@
     height: 100%;
   }
   
+  .display-none {
+    display: none;
+  }
+
   .error {
     color: red;
   }
@@ -23,6 +27,18 @@
     // font-size: 12px;
     color: #646262;
   } 
+
+  .passwordToggle {
+    position: absolute;
+    right: 15px;
+    top: 7px;
+    color: #646262;
+    z-index: 100;
+  }
+
+  .passwordToggle:hover{
+    color: black;
+  }
 
   .input-validation-style {
     border-top-right-radius: 0.25rem !important;
@@ -215,5 +231,3 @@
   }
   
   .overflow-hidden { overflow: hidden; }
-  
-@import "ember-bootstrap/bootstrap";

@@ -5,7 +5,7 @@
             <div class="jumbotron text-center">
                 <h1>{{this.model.firstname}} {{this.model.lastname}}<br></h1><br>
                 <p><strong>Created On:</strong> {{moment-format this.model.createdon "dddd, MMMM Do, YYYY"}}</p>
-                <p style="margin-bottom: -40px;"><strong>Fulfilled On:</strong>{{#if this.model.fulfilledon}} <p style="color: green; display: inline-block;">{{moment-format this.model.fulfilledon "dddd, MMMM Do, YYYY"}}</p> {{else}} <p style="color: red; display: inline-block;">Not yet fulfilled</p> {{/if}}</p>
+                <p style="margin-bottom: -40px;"><strong>Fulfilled On:</strong>{{#if this.model.fulfilledon}} <p class="text-success d-inline-block">{{moment-format this.model.fulfilledon "dddd, MMMM Do, YYYY"}}</p> {{else}} <p class="text-danger d-inline-block">Not yet fulfilled</p> {{/if}}</p>
             
                 <nav aria-label="breadcrumb" style="margin-bottom: -60px;">
                     <ol class="breadcrumb">
@@ -18,8 +18,8 @@
 
 
 
-            <div class="card text-center" style="width: 100%;">
-                <div class="card-body" style="width: 100%;">
+            <div class="card text-center w-100">
+                <div class="card-body w-100">
                     
                     <h4 class="card-title">Item Check-in</h4><br>
                     {{!-- <p class="card-text"><strong>Created on: </strong>{{moment-format this.model.createdon 'dddd, MMMM Do, YYYY'}}</p> --}}

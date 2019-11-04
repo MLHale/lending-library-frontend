@@ -27,9 +27,18 @@ export default Controller.extend({
             this.set('confirm', false);
             console.log("Cleared cart");
         },
+        close() {
+            this.set('confirm', false);
+        },
+        setQuantity(itemtype, quantity) {
+            // this.cart.setQuantity(itemtype, $(("#" + itemtype.partname.replace(/\s+/g, ''))).val());
+            this.cart.setQuantity(itemtype, quantity);
+        },
+
+        // Deprecated
         modifyQuantity(itemtype) {
             this.cart.setQuantity(itemtype, $(("#" + itemtype.partname.replace(/\s+/g, ''))).val());
-        },
+        }
 
     }
 });

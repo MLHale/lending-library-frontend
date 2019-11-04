@@ -15,16 +15,16 @@ export default Controller.extend({
         controller.set('didValidate', true);
         if (validations.get('isValid')) {
 
-          console.log("Registering " + controller.get('first') + " " + controller.get('last') + " as: " + controller.get('username'));
+          console.log("Registering " + controller.get('model.firstname') + " " + controller.get('model.lastname') + " as: " + controller.get('model.username'));
 
           var requestdata = {
-            'username': controller.get('username'),
-            'password': controller.get('password'),
-            'email': controller.get('email'),
-            'firstname': controller.get('first'),
-            'lastname': controller.get('last'),
-            'address': controller.get('address'),
-            'phone': controller.get('phone'),
+            'username': controller.get('model.username'),
+            'password': controller.get('model.password'),
+            'email': controller.get('model.email'),
+            'firstname': controller.get('model.firstname'),
+            'lastname': controller.get('model.lastname'),
+            'address': controller.get('model.profile.address'),
+            'phone': controller.get('model.profile.phonenumber'),
           };
 
           $.post('../api/register/', requestdata, function (response) {

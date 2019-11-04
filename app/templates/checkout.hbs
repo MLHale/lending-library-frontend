@@ -18,14 +18,14 @@
                 </div>
             {{/if}} --}}
 
-            <div class="alert alert-success" id="success-alert" style="display: none;">
+            <div class="alert alert-success display-none" id="success-alert">
                 <button type="button" class="close" data-dismiss="alert" {{action "hideSuccess"}}>x</button>
                 <strong>Success! </strong>
                 Your order has successfully been placed! 
                 {{!-- You can check on the status of your order at any time in the {{#link-to "account"}}My Account{{/link-to}} section. --}}
             </div>
 
-            <div class="alert alert-danger" id="danger-alert" style="display: none;">
+            <div class="alert alert-danger display-none" id="danger-alert">
                 <button type="button" class="close" data-dismiss="alert" {{action "hideDanger"}}>x</button>
                 <strong>Error! </strong>
                 {{this.errorMsg}}
@@ -183,21 +183,21 @@
                 <br>
             </form> --}}
 
-            <div class="card text-center" style="width: 100%;">
-                <div class="card-body" style="width: 100%;">
+            <div class="card text-center w-100">
+                <div class="card-body w-100">
                     
                     <h4 class="card-title">Review Cart:</h4>
                     <hr>
 
                     {{#each this.cart.cart as |cartitem|}}
-                        <p class="card-text">{{cartitem.itemtype.category.categoryname}} &raquo; <p class="text-primary" style="display: inline-block;">{{cartitem.itemtype.partname}} ({{cartitem.quantity}})</p></p>
+                        <p class="card-text">{{cartitem.itemtype.category.categoryname}} &raquo; <p class="text-primary d-inline-block">{{cartitem.itemtype.partname}} ({{cartitem.quantity}})</p></p>
                     {{/each}}
 
                 </div>
             </div>
             <br>
 
-            <button type="submit" class="btn btn-success" style="float: right;" {{action "checkout"}} disabled={{v-get this.model.newCheckout "isInvalid"}}>Checkout &raquo;</button>
+            <button type="submit" class="btn btn-success float-right" {{action "checkout"}} disabled={{v-get this.model.newCheckout "isInvalid"}}>Checkout &raquo;</button>
 
         </div>
     </div>

@@ -1,6 +1,6 @@
 import { helper } from '@ember/component/helper';
 
-export function oneWord([str, ...rest]) {
+export function oneWord([str,]) {
   return str.replace(/\s+/g, '');
 }
 

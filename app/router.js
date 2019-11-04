@@ -30,7 +30,6 @@ Router.map(function() {
   this.route('manage', { path: '/manage' }, function() {
     this.route('manage-order', { path: '/:checkout_id' });
   });
-  this.route('register2');
 });
 
 export default Router;

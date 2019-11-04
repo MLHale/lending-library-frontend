@@ -7,16 +7,16 @@
         {{!-- <button {{action "logout"}}>Log out</button> --}}
 
         {{#if auth.errorMsg}}
-          <p style="color: red;">Incorrect Username or Password</p>
+          <p class="text-danger">Incorrect Username or Password</p>
         {{/if}}
 
         {{!-- {{#if auth.isLoggedIn}}
-          <p style="color: green;">Successfully logged in!</p>
+          <p class="text-success">Successfully logged in!</p>
         {{/if}} --}}
 
         <form>
           <div class="form-row align-items-center">
-            <div class="col-lg-7" style="margin: 0 auto; float: none;">
+            <div class="col-lg-7 float-none m-auto">
               <label class="sr-only" for="inlineFormInputGroup">Username</label>
               <div class="input-group mb-2">
                 <div class="input-group-prepend">
@@ -27,13 +27,21 @@
             </div>
           </div>
           <div class="form-row align-items-center">
-            <div class="col-lg-7" style="margin: 0 auto; float: none;">
+            <div class="col-lg-7 float-none m-auto">
               <label class="sr-only" for="inlineFormInputGroup">Password</label>
               <div class="input-group mb-2">
                 <div class="input-group-prepend">
                   <div class="input-group-text">&nbsp;{{fa-icon "lock"}}&nbsp;</div>
                 </div>
-                {{input type="password" class="form-control" value=auth.password id="password" enter=(action "login") placeholder="Password"}}
+                
+                {{input type=passwordHiddenValue class="form-control input-validation-style" value=auth.password id="password" enter=(action "login") placeholder="Password"}}
+                
+                {{#if passwordHidden}}
+                  <span class="passwordToggle" style="z-index: 100;" {{action "togglePasswordHidden"}}>{{fa-icon "eye"}}</span>
+                {{else}}
+                  <span class="passwordToggle" {{action "togglePasswordHidden"}}>{{fa-icon "eye-slash"}}</span>
+                {{/if}}
+
               </div>
             </div>
           </div>
@@ -45,8 +53,7 @@
           </div> --}}
           <br>
           <div class="form-horizontal form-group form-group-lg row">
-            <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-3"
-              style="margin: 0 auto; float: none;">
+            <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-3 float-none m-auto">
               <button class="btn btn-primary btn-lg btn-block" {{action "login"}}>Login</button>
             </div>
           </div>

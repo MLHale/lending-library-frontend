@@ -33,26 +33,32 @@ export default Controller.extend({
 
                     newCheckout.save().then(function(){
                         controller.get('cart').get('cart').forEach(cartitem => {
-                            // for(var i = 0; i < cartitem.get('quantity'); i++){
-                                controller.store.query('item', {'checkedoutby': null, 'itemtype.partname': cartitem.itemtype.partname}).then(function(item){
-                                    console.log("---------------------");
-                                    console.log("Item:");
+                            // for(var i = 0; i < cartitem.quantity; i++){
+                                controller.store.query('item', { 'checkedoutto': undefined, 'itemtype.partname': cartitem.itemtype.partname } ).then(function(item){
+                                    console.log("Result from query: ");
                                     console.log(item);
-                                    console.log("---------------------");
-                                    console.log("Item Owner:");
-                                    console.log(item.get('owner'));
-                                    console.log("---------------------");
-                                    let selectedItem = item;
-                                    console.log("Pre-assignment:");
-                                    console.log(selectedItem.get('checkedoutto'));
-                                    console.log("---------------------");
+                                    let selectedItem = item.get('firstObject');
+                                    console.log(selectedItem.get('itemtype.partname') + ' (id ' + selectedItem.get('id') + ') owned by ' + selectedItem.get('checkedoutto.firstname') + ' now assigned to checkout id ' + newCheckout.get('id'));
+                                    
+                                    // console.log()
+                                    // console.log("---------------------");
+                                    // console.log("Item:");
+                                    // console.log(item.get('firstObject'));
+                                    // console.log("---------------------");
+                                    // console.log("Item Owner:");
+                                    // console.log(item.get('firstObject.owner'));
+                                    // console.log("---------------------");
+                                    // let selectedItem = item.get('firstObject');
+                                    // console.log("Pre-assignment:");
+                                    // console.log(selectedItem.get('checkedoutto'));
+                                    // console.log("---------------------");
                                     selectedItem.set('checkedoutto', newCheckout);
-                                    console.log("Post-assignment:");
-                                    console.log(selectedItem.get('checkedoutto'));
-                                    console.log("---------------------");
-                                    console.log("Checkout ID:");
-                                    console.log(newCheckout.get('id'));
-                                    console.log("---------------------");
+                                    // console.log("Post-assignment:");
+                                    // console.log(selectedItem.get('checkedoutto'));
+                                    // console.log("---------------------");
+                                    // console.log("Checkout ID:");
+                                    // console.log(newCheckout.get('id'));
+                                    // console.log("---------------------");
                                     selectedItem.save();
                                 });
                             // }

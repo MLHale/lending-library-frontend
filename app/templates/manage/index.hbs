@@ -23,11 +23,11 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{order.firstname}} {{order.lastname}}</h5>
                                     <p class="card-text">{{moment-format order.createdon "dddd, MMMM Do"}} at {{moment-format order.createdon "h:mm a"}}</p> 
-                                    <p class="card-text" style="margin-top: -10px; margin-bottom: -10px;"><strong>Fulfilled: </strong>{{#if order.fulfilledon}} <p style="color: green; display: inline-block;">Yes</p> {{else}} <p style="color: red; display: inline-block;">No</p> {{/if}}</p>
-                                    <p class="card-text" style="margin-bottom: -10px;"><strong>Returned: </strong>{{#if order.returnedon}} <p style="color: green; display: inline-block;">Yes</p> {{else}} <p style="color: red; display: inline-block;">No</p> {{/if}}</p>
+                                    <p class="card-text" style="margin-top: -10px; margin-bottom: -10px;"><strong>Fulfilled: </strong>{{#if order.fulfilledon}} <p class="text-success d-inline-block">Yes</p> {{else}} <p class="text-danger d-inline-block">No</p> {{/if}}</p>
+                                    <p class="card-text" style="margin-bottom: -10px;"><strong>Returned: </strong>{{#if order.returnedon}} <p class="text-success d-inline-block">Yes</p> {{else}} <p class="text-danger d-inline-block">No</p> {{/if}}</p>
                                     <p class="card-text">{{order.items.length}} items</p>
                                     {{#link-to "manage.manage-order" order}}
-                                        <a class="btn btn-primary" style="color: white;">Manage Order</a>
+                                        <a class="btn btn-primary text-white">Manage Order</a>
                                     {{/link-to}}
                                     
                                 </div>

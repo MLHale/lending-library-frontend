@@ -5,8 +5,8 @@
             <div class="jumbotron text-center">
                 <h1>{{this.model.firstname}} {{this.model.lastname}}<br></h1><br>
                 <p><strong>Ordered:</strong> {{moment-format this.model.createdon "dddd, MMMM Do, YYYY"}}</p>
-                <p style="margin-top: -10px; margin-bottom: -10px;"><strong>Fulfilled: </strong>{{#if this.model.fulfilledon}} <p style="color: green; display: inline-block;">Yes</p>{{else}} <p style="color: red; display: inline-block;">No</p> {{/if}}</p>
-                <p style="margin-bottom: -30px;"><strong>Returned: </strong>{{#if this.model.returnedon}} <p style="color: green; display: inline-block;">Yes</p> {{else}} <p style="color: red; display: inline-block;">No</p> {{/if}}</p>
+                <p style="margin-top: -10px; margin-bottom: -10px;"><strong>Fulfilled: </strong>{{#if this.model.fulfilledon}} <p class="text-success d-inline-block">Yes</p>{{else}} <p class="text-danger d-inline-block">No</p> {{/if}}</p>
+                <p style="margin-bottom: -30px;"><strong>Returned: </strong>{{#if this.model.returnedon}} <p class="text-success d-inline-block">Yes</p> {{else}} <p class="text-danger d-inline-block">No</p> {{/if}}</p>
             
                 <nav aria-label="breadcrumb" style="margin-bottom: -60px;">
                     <ol class="breadcrumb">
@@ -17,17 +17,17 @@
                 </nav>
             </div>
 
-            {{!-- <div class="card text-center" style="width: 100%;">
-                <div class="card-body" style="width: 100%;">
+            {{!-- <div class="card text-center w-100">
+                <div class="card-body w-100">
                     
                     <h3 class="card-title">Items needed:</h3>
                     <hr>
 
                     {{#each this.model.items as |item|}}
-                        <p class="card-text">{{item.itemtype.category.categoryname}} &raquo; <p class="text-primary" style="display: inline-block;">{{item.itemtype.partname}}</p></p>
+                        <p class="card-text">{{item.itemtype.category.categoryname}} &raquo; <p class="text-primary d-inline-block">{{item.itemtype.partname}}</p></p>
                     {{/each}}
 
-                    <a style="color: white;" class="btn btn-primary" {{action "complete" this.model}}>Complete Order</a>
+                    <a class="btn btn-primary text-white" {{action "complete" this.model}}>Complete Order</a>
                 </div>
             </div> --}}
 
@@ -95,19 +95,19 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">&nbsp;&nbsp;&nbsp;Missing&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;Parts&nbsp;&nbsp;</span>
                             </div>
-                            {{textarea type="text" value=this.model.missingparts class="form-control" aria-label="Missing Parts" height="150px" style="height: 150px;" }}
+                            {{textarea type="text" value=this.model.missingparts class="form-control" aria-label="Missing Parts" height="150px" }}
                         </div>
                     </div>
                 </div><br>
                 
-                {{!-- <div class="card text-center" style="width: 100%;">
-                    <div class="card-body" style="width: 100%;">
+                {{!-- <div class="card text-center w-100">
+                    <div class="card-body w-100">
                         
                         <h4 class="card-title">Items in Cart:</h4>
                         <hr>
 
                         {{#each this.cart.items as |item|}}
-                            <p class="card-text">{{item.category.categoryname}} &raquo; <p class="text-primary" style="display: inline-block;">{{item.partname}}</p></p>
+                            <p class="card-text">{{item.category.categoryname}} &raquo; <p class="text-primary d-inline-block">{{item.partname}}</p></p>
                         {{/each}}
 
                     </div>
@@ -116,21 +116,21 @@
 
                 
                 
-                {{!-- <div class="card text-center" style="width: 100%;">
-                    <div class="card-body" style="width: 100%;">
+                {{!-- <div class="card text-center w-100">
+                    <div class="card-body w-100">
                         
                         <h4 class="card-title">Items in Cart:</h4>
                         <hr>
 
                         {{#each this.cart.items as |item|}}
-                            <p class="card-text">{{item.category.categoryname}} &raquo; <p class="text-primary" style="display: inline-block;">{{item.partname}}</p></p>
+                            <p class="card-text">{{item.category.categoryname}} &raquo; <p class="text-primary d-inline-block">{{item.partname}}</p></p>
                         {{/each}}
 
                     </div>
                 </div> --}}
                 <br>
 
-                <button type="submit" class="btn btn-success" style="float: right;">Update Order</button>
+                <button type="submit" class="btn btn-success float-right">Update Order</button>
             </form>
         </div>
     </div>

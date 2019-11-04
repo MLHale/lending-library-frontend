@@ -9,18 +9,7 @@ export default Controller.extend({
     queryParams: ['search'], 
     search: '',
     errorMsg: '',
-    // filteredItemTypes: computed('filter', function() {
-    //     const filterTerm = this.get('filter');
-    //     var model = this.get('model.itemtypes');
 
-    //     // var filtered = model.filterBy('partname', filterTerm);
-    //     var filtered = model.filter( function(itemType) {
-    //         console.log(itemType);
-    //         return itemType.get('partname').indexOf(filterTerm) !== -1;
-    //     });
-
-    //     return filtered;
-    // }),
     filtered: computed('search', 'model.itemtypes', function() { 
         const itemtypes = this.get('model.itemtypes'); 
         const search = this.get('search').toLowerCase(); 

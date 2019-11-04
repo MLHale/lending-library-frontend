@@ -1,18 +1,15 @@
-import { computed, observer } from '@ember/object';
 import Controller from '@ember/controller';
 
 export default Controller.extend({
+  itemsAvailable: 0,
+  init: function() {
+    this._super(...arguments)
 
-  isDisabled: false,
-
-  emailAddress: 'test@testunomahaconnection.com.net.fail',
-
-  actualEmailAddress: computed('emailAddress', function() {
-    console.log('actualEmailAddress function is called: ', this.get('emailAddress'));
-  }),
-
-  emailAddressChanged: observer('emailAddress', function() {
-    console.log('observer is called', this.get('emailAddress'));
-  })
+    let controller = this;
+    controller.store.findAll('item').then((ret) => {
+      controller.set('itemsAvailable', ret.get('_length'));
+    });
+  },
+  
 
 });

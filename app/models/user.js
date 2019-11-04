@@ -9,7 +9,7 @@ const Validations = buildValidations(
           validator('presence', true),
           validator('length', {
             min: 5,
-            max: 15
+            max: 32
           })
         ]
       },
@@ -20,7 +20,7 @@ const Validations = buildValidations(
         validators: [
           validator('presence', true),
           validator('length', {
-            min: 4,
+            min: 5,
           })
         ]
       },
