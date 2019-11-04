@@ -5,7 +5,7 @@
             <div class="jumbotron text-center">
                 <h1>Manage Orders</h1>
 
-                <nav aria-label="breadcrumb" style="margin-bottom: -60px;">
+                <nav aria-label="breadcrumb" local-class="nav-bc">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">{{#link-to "dashboard"}}Home{{/link-to}}</li>
                         <li class="breadcrumb-item active" aria-current="page">Manage</li>
@@ -23,8 +23,8 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{order.firstname}} {{order.lastname}}</h5>
                                     <p class="card-text">{{moment-format order.createdon "dddd, MMMM Do"}} at {{moment-format order.createdon "h:mm a"}}</p> 
-                                    <p class="card-text" style="margin-top: -10px; margin-bottom: -10px;"><strong>Fulfilled: </strong>{{#if order.fulfilledon}} <p class="text-success d-inline-block">Yes</p> {{else}} <p class="text-danger d-inline-block">No</p> {{/if}}</p>
-                                    <p class="card-text" style="margin-bottom: -10px;"><strong>Returned: </strong>{{#if order.returnedon}} <p class="text-success d-inline-block">Yes</p> {{else}} <p class="text-danger d-inline-block">No</p> {{/if}}</p>
+                                    <p class="card-text" local-class="fulfilled-text"><strong>Fulfilled: </strong>{{#if order.fulfilledon}} <p class="text-success d-inline-block">Yes</p> {{else}} <p class="text-danger d-inline-block">No</p> {{/if}}</p>
+                                    <p class="card-text" local-class="returned-text"><strong>Returned: </strong>{{#if order.returnedon}} <p class="text-success d-inline-block">Yes</p> {{else}} <p class="text-danger d-inline-block">No</p> {{/if}}</p>
                                     <p class="card-text">{{order.items.length}} items</p>
                                     {{#link-to "manage.manage-order" order}}
                                         <a class="btn btn-primary text-white">Manage Order</a>
@@ -38,7 +38,7 @@
                 {{/list-pagination}}
 
             {{else}}
-                <center style="margin-top: 10vh;">
+                <center local-class="center-message">
                     <p>There are currently no orders created in the system.</p>
                 </center>
             {{/if}}

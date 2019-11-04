@@ -37,9 +37,9 @@
                 {{input type=passwordHiddenValue class="form-control input-validation-style" value=auth.password id="password" enter=(action "login") placeholder="Password"}}
                 
                 {{#if passwordHidden}}
-                  <span class="passwordToggle" style="z-index: 100;" {{action "togglePasswordHidden"}}>{{fa-icon "eye"}}</span>
+                  <span local-class="passwordToggle" {{action "togglePasswordHidden"}}>{{fa-icon "eye"}}</span>
                 {{else}}
-                  <span class="passwordToggle" {{action "togglePasswordHidden"}}>{{fa-icon "eye-slash"}}</span>
+                  <span local-class="passwordToggle" {{action "togglePasswordHidden"}}>{{fa-icon "eye-slash"}}</span>
                 {{/if}}
 
               </div>
@@ -57,8 +57,8 @@
               <button class="btn btn-primary btn-lg btn-block" {{action "login"}}>Login</button>
             </div>
           </div>
-          <div>
-            <p style="text-align:center;">Need an account? {{#link-to "register"}}Register Now.{{/link-to}}</p>
+          <div class="mt-10">
+            <p class="text-center">Need an account? {{#link-to "register"}}Register Now.{{/link-to}}</p>
           </div>
         </form>
 

@@ -11,20 +11,20 @@
                 <h1>{{this.model.categoryname}}</h1>
             </div>
 
-            <div class="alert alert-success display-none" id="success-alert">
+            <div class="alert alert-success" local-class="display-none" id="success-alert">
                 <button type="button" class="close" data-dismiss="alert" {{action "hideSuccess"}}>x</button>
                 <strong>Success! </strong>
                 Item has been successfully added to your {{#link-to "cart" class="alert-link"}}shopping
                 cart{{/link-to}}.
             </div>
 
-            <div class="alert alert-danger display-none" id="danger-alert">
+            <div class="alert alert-danger" local-class="display-none" id="danger-alert">
                 <button type="button" class="close" data-dismiss="alert" {{action "hideDanger"}}>x</button>
                 <strong>Error! </strong>
                 {{this.errorMsg}}
             </div>
 
-            <!-- Search form -->
+            {{!-- Search form --}}
             <div class="input-group md-form form-sm form-2 pl-0">
                 {{input class="form-control my-0 py-1" type="text" placeholder="Search" aria-label="Search" value=search}}
                 <div class="input-group-append">
@@ -45,7 +45,7 @@
                     {{#accordion.item value=index title=itemtype.partname}}
                         {{itemtype.description}}<br>
                         <hr>
-                        <div class="d-inline-block quantity"><strong>Available: </strong> {{itemtype.items.length}}</div>
+                        <div class="d-inline-block" local-class="quantity"><strong>Available: </strong> {{itemtype.items.length}}</div>
                         {{!-- TODO: Determine how to check quantity --}}
                         <div class="d-inline-block float-right">
                             <button class="btn btn-primary" type="submit" {{action "add" itemtype}}>Add To Cart</button>

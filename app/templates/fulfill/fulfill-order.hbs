@@ -4,9 +4,9 @@
             {{outlet}}
             <div class="jumbotron text-center">
                 <h1>{{this.model.firstname}} {{this.model.lastname}}<br></h1><br>
-                <p style="margin-bottom: -10px;"><strong>Ordered On:</strong> {{moment-format this.model.createdon "dddd, MMMM Do, YYYY"}}</p>
+                <p local-class="ordered-text"><strong>Ordered On:</strong> {{moment-format this.model.createdon "dddd, MMMM Do, YYYY"}}</p>
 
-                <nav aria-label="breadcrumb" style="margin-bottom: -60px;">
+                <nav aria-label="breadcrumb" local-class="nav-bc">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">{{#link-to "dashboard"}}Home{{/link-to}}</li>
                         <li class="breadcrumb-item">{{#link-to "fulfill.index"}}Fullfill{{/link-to}}</li>
@@ -15,7 +15,7 @@
                 </nav>
             </div>
 
-            <div class="alert alert-success display-none" id="success-alert">
+            <div class="alert alert-success" local-class="display-none" id="success-alert">
                 <button type="button" class="close" data-dismiss="alert" {{action "hideAlert"}}>x</button>
                 <strong>Success! </strong>
                 The order has been fulfilled successfully.

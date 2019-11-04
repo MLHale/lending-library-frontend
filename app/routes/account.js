@@ -4,12 +4,12 @@ import RSVP from 'rsvp';
 
 export default Route.extend({
     auth: service('auth-manager'),
-    async afterModel() {
+    beforeModel() {
       let route = this;
 
-      let loggedIn = await this.get('auth').get('isLoggedIn');
+      let loggedIn = this.get('auth.isLoggedIn');
       console.log(loggedIn);
-      if(!(this.get('auth').get('isLoggedIn'))){
+      if(!(this.get('auth.isLoggedIn'))){
         route.transitionTo('login');
       }
     },

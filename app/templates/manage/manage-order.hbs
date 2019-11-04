@@ -5,10 +5,10 @@
             <div class="jumbotron text-center">
                 <h1>{{this.model.firstname}} {{this.model.lastname}}<br></h1><br>
                 <p><strong>Ordered:</strong> {{moment-format this.model.createdon "dddd, MMMM Do, YYYY"}}</p>
-                <p style="margin-top: -10px; margin-bottom: -10px;"><strong>Fulfilled: </strong>{{#if this.model.fulfilledon}} <p class="text-success d-inline-block">Yes</p>{{else}} <p class="text-danger d-inline-block">No</p> {{/if}}</p>
-                <p style="margin-bottom: -30px;"><strong>Returned: </strong>{{#if this.model.returnedon}} <p class="text-success d-inline-block">Yes</p> {{else}} <p class="text-danger d-inline-block">No</p> {{/if}}</p>
+                <p local-class="fulfilled-text"><strong>Fulfilled: </strong>{{#if this.model.fulfilledon}} <p class="text-success d-inline-block">Yes</p>{{else}} <p class="text-danger d-inline-block">No</p> {{/if}}</p>
+                <p local-class="returned-text"><strong>Returned: </strong>{{#if this.model.returnedon}} <p class="text-success d-inline-block">Yes</p> {{else}} <p class="text-danger d-inline-block">No</p> {{/if}}</p>
             
-                <nav aria-label="breadcrumb" style="margin-bottom: -60px;">
+                <nav aria-label="breadcrumb" local-class="nav-bc">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">{{#link-to "dashboard"}}Home{{/link-to}}</li>
                         <li class="breadcrumb-item">{{#link-to "manage.index"}}Manage{{/link-to}}</li>

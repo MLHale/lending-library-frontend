@@ -8,13 +8,13 @@
                 <button type="button" class="btn btn-outline-danger btn-sm" {{action "logout"}}>Log Out</button>
             </div>
 
-            <div class="alert alert-success display-none" id="success-alert">
+            <div class="alert alert-success" local-class="display-none" id="success-alert">
                 <button type="button" class="close" data-dismiss="alert" {{action "hideSuccess"}}>x</button>
                 <strong>Success! </strong>
                 Your profile has been saved successfully.
             </div>
 
-            <div class="alert alert-danger display-none" id="danger-alert">
+            <div class="alert alert-danger" local-class="display-none" id="danger-alert">
                 <button type="button" class="close" data-dismiss="alert" {{action "hideDanger"}}>x</button>
                 <strong>Error! </strong>
                 {{this.errorMsg}}
@@ -50,9 +50,9 @@
                 <br>
             </form>
 
-            <hr style="margin-top: -10px; margin-bottom: 20px;">
+            <hr local-class="line">
 
-            <h5 style="text-align: left; margin-bottom: 10px;">My Orders</h5>
+            <h5 class="mb-10">My Orders</h5>
             {{#if auth.user.profile.checkouts}}
                 <div class="row">
                     {{#each auth.user.profile.checkouts as |order|}}
@@ -61,8 +61,8 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{order.firstname}} {{order.lastname}}</h5>
                                     <p class="card-text">{{moment-format order.createdon "dddd, MMMM Do"}}</p>   {{!-- at {{moment-format order.createdon "h:mm a"}} --}}
-                                    <p class="card-text" style="margin-top: -10px; margin-bottom: -10px;"><strong>Fulfilled: </strong>{{#if order.fulfilledon}} <p class="text-success d-inline-block">Yes</p> {{else}} <p class="text-danger d-inline-block">No</p> {{/if}}</p>
-                                    <p class="card-text" style="margin-bottom: -10px;"><strong>Returned: </strong>{{#if order.returnedon}} <p class="text-success d-inline-block">Yes</p> {{else}} <p class="text-danger d-inline-block">No</p> {{/if}}</p>
+                                    <p class="card-text" local-class="fulfilled-text"><strong>Fulfilled: </strong>{{#if order.fulfilledon}} <p class="text-success d-inline-block">Yes</p> {{else}} <p class="text-danger d-inline-block">No</p> {{/if}}</p>
+                                    <p class="card-text" local-class="returned-text"><strong>Returned: </strong>{{#if order.returnedon}} <p class="text-success d-inline-block">Yes</p> {{else}} <p class="text-danger d-inline-block">No</p> {{/if}}</p>
                                     <p class="card-text">{{order.items.length}} items</p>
                                     {{#link-to "manage.manage-order" order}}
                                         <a class="btn btn-primary text-white">View Order</a>

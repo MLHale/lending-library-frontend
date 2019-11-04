@@ -4,7 +4,7 @@
       <div class="jumbotron text-center">
 
         <h1>Register</h1><br>
-        <p style="margin-bottom: 0px;">Creating an account will allow for you to see the progress of</p>
+        <p class="mb-0">Creating an account will allow for you to see the progress of</p>
         <p>orders with the Lending Library, and makes checking out tech much easier.</p><br>
 
         {{#if showAlert}}
@@ -17,7 +17,7 @@
         {{/if}}
 
         <form class="form-horizontal">
-          <h5 style="text-align: left; margin-bottom: 20px;">Login Information</h5>
+          <h5 class="mb-20 text-left">Login Information</h5>
           <div class="row">
             <div class="col">
               {{validated-input model=model valuePath="username" placeholder="JohnDoe1980" didValidate=didValidate title="Username" value=username}}
@@ -35,7 +35,7 @@
             </div>
           </div>
           <br>
-          <h5 style="text-align: left; margin-bottom: 20px;">Personal Information</h5>
+          <h5 class="mb-20 text-left">Personal Information</h5>
           <div class="row">
             <div class="col">
               {{validated-input model=model valuePath="firstname" placeholder="John" didValidate=didValidate title="First Name" value=first}}

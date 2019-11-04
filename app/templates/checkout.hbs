@@ -18,14 +18,14 @@
                 </div>
             {{/if}} --}}
 
-            <div class="alert alert-success display-none" id="success-alert">
+            <div class="alert alert-success" local-class="display-none" id="success-alert">
                 <button type="button" class="close" data-dismiss="alert" {{action "hideSuccess"}}>x</button>
                 <strong>Success! </strong>
                 Your order has successfully been placed! 
                 {{!-- You can check on the status of your order at any time in the {{#link-to "account"}}My Account{{/link-to}} section. --}}
             </div>
 
-            <div class="alert alert-danger display-none" id="danger-alert">
+            <div class="alert alert-danger" local-class="display-none" id="danger-alert">
                 <button type="button" class="close" data-dismiss="alert" {{action "hideDanger"}}>x</button>
                 <strong>Error! </strong>
                 {{this.errorMsg}}

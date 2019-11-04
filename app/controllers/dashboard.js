@@ -7,11 +7,11 @@ export default Controller.extend({
     returnOrders: filterBy('model.checkouts', 'returnedon', null),
     auth: service('auth-manager'),
     init: function() {
-        this._super(...arguments)
+        this._super(...arguments);
 
         // TODO: Check for admin privelages here
-        if(!(this.get('auth').get('isLoggedIn'))){
-            this.transitionToRoute('login');
-        }
+        // if(!(this.get('auth').get('isLoggedIn'))){
+        //     this.transitionToRoute('login');
+        // }
     },
 });

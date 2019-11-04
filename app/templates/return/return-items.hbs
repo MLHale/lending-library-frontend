@@ -5,9 +5,9 @@
             <div class="jumbotron text-center">
                 <h1>{{this.model.firstname}} {{this.model.lastname}}<br></h1><br>
                 <p><strong>Created On:</strong> {{moment-format this.model.createdon "dddd, MMMM Do, YYYY"}}</p>
-                <p style="margin-bottom: -40px;"><strong>Fulfilled On:</strong>{{#if this.model.fulfilledon}} <p class="text-success d-inline-block">{{moment-format this.model.fulfilledon "dddd, MMMM Do, YYYY"}}</p> {{else}} <p class="text-danger d-inline-block">Not yet fulfilled</p> {{/if}}</p>
+                <p local-class="fulfilled-text"><strong>Fulfilled On:</strong>{{#if this.model.fulfilledon}} <p class="text-success d-inline-block">{{moment-format this.model.fulfilledon "dddd, MMMM Do, YYYY"}}</p> {{else}} <p class="text-danger d-inline-block">Not yet fulfilled</p> {{/if}}</p>
             
-                <nav aria-label="breadcrumb" style="margin-bottom: -60px;">
+                <nav aria-label="breadcrumb" local-class="nav-bc">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">{{#link-to "dashboard"}}Home{{/link-to}}</li>
                         <li class="breadcrumb-item">{{#link-to "return.index"}}Return{{/link-to}}</li>
@@ -35,23 +35,23 @@
                         <tbody>
                             {{#each this.model.items as |item|}}
                                 <tr>
-                                    <td><strong>{{item.itemtype.partname}}</strong></td>
-                                    <td>
-                                    {{!-- onchange={{action "modifyQuantity" itemtype value="target.value"}} --}}
-                                    {{!-- value="select-{{item.itemtype.id}}" --}}
-                                    <select name="select-{{item.itemtype.id}}" class="form-control" id="select-{{item.itemtype.id}}" style="text-align-last:center;"> 
-                                        <option value="0" selected="true">0</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                        <option value="10">10</option>
-                                    </select>
+                                    <td class="align-middle"><strong>{{item.itemtype.partname}}</strong></td>
+                                    <td class="align-middle">
+                                        {{!-- onchange={{action "modifyQuantity" itemtype value="target.value"}} --}}
+                                        {{!-- value="select-{{item.itemtype.id}}" --}}
+                                        <select name="select-{{item.itemtype.id}}" class="form-control" id="select-{{item.itemtype.id}}" local-class="quantity-select"> 
+                                            <option value="0" selected="true">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                        </select>
                                     </td>
                                 </tr>
                             {{/each}}

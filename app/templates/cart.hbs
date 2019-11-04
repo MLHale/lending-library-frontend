@@ -18,10 +18,10 @@
         <tbody>
           {{#each this.cart.cart as |cartitem|}}
           <tr>
-            <td><button type="button" class="btn btn-danger btn-sm" {{action "remove" cartitem.itemtype}}>Remove</button></td>
-            <td><strong>{{cartitem.itemtype.partname}}</strong></td>
-            <td>
-              <select class="form-control" id={{one-word cartitem.itemtype.partname}} onchange={{action "modifyQuantity" cartitem.itemtype}} style="text-align-last:center;">
+            <td class="align-middle"><button type="button" class="btn btn-danger btn-sm" {{action "remove" cartitem.itemtype}}>Remove</button></td>
+            <td class="align-middle"><strong>{{cartitem.itemtype.partname}}</strong></td>
+            <td class="align-middle">
+              <select class="form-control" id={{one-word cartitem.itemtype.partname}} onchange={{action "modifyQuantity" cartitem.itemtype}} local-class="quantity-select">
                 {{#each (range 1 cartitem.available) as |index|}}
                   {{#if (eq index cartitem.quantity)}}
                     <option value={{index}} selected="true">{{index}}</option>
@@ -36,7 +36,7 @@
         </tbody>
       </table>
 
-      <hr style="margin-top: -15px;">
+      <hr local-class="line">
       <div class="d-inline-block">
         <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" {{action "confirm"}}>Clear Cart</button>
       </div>

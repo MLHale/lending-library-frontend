@@ -5,7 +5,7 @@
             <div class="jumbotron text-center">
                 <h1>Fulfill Orders</h1>
 
-                <nav aria-label="breadcrumb" style="margin-bottom: -60px;">
+                <nav aria-label="breadcrumb" local-class="nav-bc">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">{{#link-to "dashboard"}}Home{{/link-to}}</li>
                         <li class="breadcrumb-item active" aria-current="page">Fulfill</li>
@@ -37,7 +37,7 @@
                 {{/list-pagination}}
 
             {{else}}
-                <center style="margin-top: 10vh;">
+                <center local-class="center-message">
                     <p>There are currently no pending orders to fulfill. </p>
                     <p>To manage a past order, head to the {{#link-to "manage.index"}}manage orders{{/link-to}} section to view and modify past and present orders.</p>
                 </center>
