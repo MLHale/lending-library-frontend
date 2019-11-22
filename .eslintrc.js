@@ -1,9 +1,17 @@
 module.exports = {
   root: true,
   parserOptions: {
+<<<<<<< HEAD
     ecmaVersion: 2017,
     esversion: 6,
     sourceType: 'module'
+=======
+    ecmaVersion: 2018,
+    sourceType: 'module',
+    ecmaFeatures: {
+      legacyDecorators: true
+    }
+>>>>>>> 0399676... message
   },
   plugins: [
     'ember'
