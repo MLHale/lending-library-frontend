@@ -33,8 +33,23 @@ export default Controller.extend({
 
                     newCheckout.save().then(function(){
                         controller.get('cart').get('cart').forEach(cartitem => {
-                            // for(var i = 0; i < cartitem.quantity; i++){
-                                controller.store.query('item', { 'checkedoutto': undefined, 'itemtype.partname': cartitem.itemtype.partname } ).then(function(item){
+                            for(var i = 0; i < cartitem.quantity; i++){
+                                controller.get('store').query('item', { 'itemtype.partname': cartitem.itemtype.partname } ).then(results => results.filter((item) => {
+                                    return item.checkedoutto.content === null;
+                                })).then((res) => {
+                                    if(res.length > 0) {
+                                        let selectedItem = res.get('firstObject');
+                                        console.log(selectedItem.get('itemtype.partname') + ' (id ' + selectedItem.get('id') + ') owned by ' + selectedItem.get('checkedoutto.firstname') + ' now assigned to checkout id ' + newCheckout.get('id'));
+                                        selectedItem.set('checkedoutto', newCheckout);
+                                        selectedItem.save();
+                                    } else {
+                                        console.log("You have too many items in your cart that we do not have enough inventory to fill. Please check your order again.")
+                                    }
+                                });
+
+                                /** 
+
+                                controller.store.query('item', { 'checkedoutto': null, 'itemtype.partname': cartitem.itemtype.partname } ).then(function(item){
                                     console.log("Result from query: ");
                                     console.log(item);
                                     let selectedItem = item.get('firstObject');
@@ -61,11 +76,13 @@ export default Controller.extend({
                                     // console.log("---------------------");
                                     selectedItem.save();
                                 });
-                            // }
+
+                                */
+                            }
                         });
                     });
 
-                    // this.cart.empty();
+                    this.cart.empty();
 
                     $("#success-alert")
                     .fadeTo(5000, 500)

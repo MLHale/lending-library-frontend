@@ -1,7 +1,7 @@
 import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
-
 export default Route.extend({
+
   model() {
     return RSVP.hash({
       categories: this.store.findAll('category'),
@@ -11,6 +11,7 @@ export default Route.extend({
   },
 
   setupController(controller, model) {
+    this._super(...arguments);
     controller.setProperties({
       showAlert: false,
       isRegistered: false,
@@ -18,6 +19,7 @@ export default Route.extend({
       didValidate: false
     });
     controller.set('model', model);
-    this._super(...arguments);
-  }
+
+  },
+
 });

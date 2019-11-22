@@ -21,7 +21,6 @@
                             {{#link-to "fulfill"}}
                                 <a class="btn btn-primary text-white">Fulfill Orders</a>
                             {{/link-to}}
-                            
                         </div>
                     </div>
                 </div>
@@ -30,11 +29,10 @@
                     <div class="card text-center h-100">
                         <div class="card-body">
                             <h4 class="card-title">Manage Orders</h4>
-                            <p class="card-text">{{this.model.checkouts.length}} total orders</p>
+                            <p class="card-text">{{model.length}} total orders</p>
                             {{#link-to "manage"}}
                                 <a class="btn btn-primary text-white">Manage Orders</a>
                             {{/link-to}}
-                            
                         </div>
                     </div>
                 </div>
@@ -47,7 +45,6 @@
                             {{#link-to "return"}}
                                 <a class="btn btn-primary text-white">Return Orders</a>
                             {{/link-to}}
-                            
                         </div>
                     </div>
                 </div>

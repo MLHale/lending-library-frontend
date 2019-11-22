@@ -1,19 +1,9 @@
 import Controller from '@ember/controller';
 import { inject } from '@ember/service';
 import $ from 'jquery';
-import { inject as service } from '@ember/service';
 
 export default Controller.extend({
     router: inject(),
-    auth: service('auth-manager'),
-    init: function() {
-        this._super(...arguments)
-  
-        // TODO: Check for admin privelages here
-        if(!(this.get('auth').get('isLoggedIn'))){
-            this.transitionToRoute('login');
-        }
-    },
     actions: {
         complete(checkout) {
 

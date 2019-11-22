@@ -42,11 +42,11 @@ const Validations = buildValidations(
     }
 );
 
-export default DS.Model.extend(Validations, {
+export default DS.Model.extend({
     username: DS.attr('string'),
     firstname: DS.attr('string'),
     lastname: DS.attr('string'),
     email: DS.attr('string'),
     profile:DS.belongsTo('profile'),
-
+    issuperuser: DS.attr('boolean'),
 });

@@ -1,23 +1,15 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import RSVP from 'rsvp';
 
 export default Route.extend({
     auth: service('auth-manager'),
-    beforeModel() {
-      let route = this;
 
-      let loggedIn = this.get('auth.isLoggedIn');
-      console.log(loggedIn);
-      if(!(this.get('auth.isLoggedIn'))){
+    async beforeModel() {
+      let route = this;
+      let loggedIn = await route.get('auth').getLoginStatus();
+      if(!(loggedIn.data.isauthenticated)){
         route.transitionTo('login');
       }
-    },
-    model() {
-      return RSVP.hash({
-        user: this.get('auth').get('user'),
-        profile: this.get('auth').get('profile'),
-      });
     },
     
     setupController(controller) {

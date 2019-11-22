@@ -32,6 +32,12 @@
             <div class="dropdown-divider"></div>
           </div>
         </li> --}}
+        {{#if auth.user.issuperuser}}
+          <li class="nav-item">
+            {{#link-to "dashboard"}}<a class="nav-link">Admin Dashboard</a>{{/link-to}}
+          </li>
+        {{/if}}
+
         <li class="nav-item">
           {{#link-to "account"}}<a class="nav-link">Account</a>{{/link-to}}
         </li>

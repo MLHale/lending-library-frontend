@@ -1,8 +1,11 @@
 import Service from '@ember/service';
 import { A } from '@ember/array';
 import ArrayProxy from '@ember/array/proxy';
+import { inject as service } from '@ember/service';
 
 export default Service.extend({
+
+  store: service(),
 
   // { itemtype: <Itemtype>, quantity: <int>, available: <int> }
   cart: null,
@@ -12,6 +15,7 @@ export default Service.extend({
   init() {
     this._super(...arguments);
     this.set('cart', (localStorage.getItem('cart')) ? ArrayProxy.create({ content: A(JSON.parse(localStorage.getItem('cart')))}) : ArrayProxy.create({ content: A([])}));
+    this._updateAvailable();
     this._updateLength();
   },
 
@@ -31,20 +35,54 @@ export default Service.extend({
     
   },
 
+  _updateAvailable() {
+    let service = this;
+    let cart = JSON.parse(localStorage.getItem('cart'));
+    if(cart != null) {
+      for(let i = 0; i < cart.length; i++) {
+        // let quantity = cart[i].quantity;
+        service.get('store').query('item', { 'itemtype.partname': cart[i].itemtype.partname } ).then(results => results.filter((item) => {
+          return item.checkedoutto.content === null;
+        })).then((res) => {
+          console.log("There are " + res.length + " " + cart[i].itemtype.partname + "'s available ")
+          let item = service.get('cart').filterBy('itemtype.partname', cart[i].itemtype.partname);
+          item.set('0.available', res.length);
+          localStorage.setItem('cart', JSON.stringify(this.get('cart').toArray()));
+        });
+      }
+    }
+  },
+
   // Adds an item type to the cart
   add(itemtype) {
     let item = this.get('cart').filterBy('itemtype.partname', itemtype.get('partname'));
     
     if(item.length) {
-      console.log('Incremented ' + itemtype.get('partname') + ' quantity.');
-      item.set('0.quantity', parseInt(item.get('0.quantity') + 1));
+      if((item.get('0.quantity') + 1) <= item.get('0.available')){
+        item.set('0.quantity', parseInt(item.get('0.quantity') + 1));
+        localStorage.setItem('cart', JSON.stringify(this.get('cart').toArray()));
+        this._updateLength();
+      } else {
+        console.log('An unexpected error occured. You are not able to add more items then there are available into your cart.');
+      }
     } else {
-      console.log('Added ' + itemtype.get('partname') + ' to cart.');
-      this.get('cart').pushObject({'itemtype': itemtype, 'quantity': 1, available: itemtype.get('items.length')}); // TODO: FIX THIS
-    }
+      // TODO
+      console.log(itemtype.get('items').filter(function(item) {
+        return (item.get('checkedoutto.content') === null)? item : null;
+      }));
+      // this.get('store').query('item', { 'itemtype.partname': itemtype.get('partname'), 'checkedoutto.content': null }).then((res) => {
+      //   console.log(res)
+      // });
 
-    localStorage.setItem('cart', JSON.stringify(this.get('cart').toArray()));
-    this._updateLength();
+
+      this.get('store').query('item', { 'itemtype.partname': itemtype.get('partname') } ).then(results => results.filter((item) => {
+        return item.checkedoutto.content === null;
+      })).then((res) => {
+        this.get('cart').pushObject({'itemtype': itemtype, 'quantity': 1, 'available': res.length});
+        localStorage.setItem('cart', JSON.stringify(this.get('cart').toArray()));
+        this._updateLength();
+      });
+    }
   },
 
   // Removes an itemtype from the cart
@@ -59,14 +97,22 @@ export default Service.extend({
   setQuantity(itemtype, quantity) {
     let items = this.get('cart').filterBy('itemtype.partname', itemtype.partname);
     if(items.length) {
-      items.set('0.quantity', parseInt(quantity));
+      if(parseInt(quantity) <= items.get('0.available')){
+        items.set('0.quantity', parseInt(quantity));
+        localStorage.setItem('cart', JSON.stringify(this.get('cart').toArray()));
+        this._updateLength();
+      } else {
+        console.log('An unexpected error has occured. You are not able to add more items then there are available into your cart.');
+      }
     } else {
-      this.get('cart').pushObject({'itemtype' : itemtype, 'quantity' : quantity});
+      this.get('store').query('item', { 'itemtype.partname': itemtype.get('partname') } ).then(results => results.filter((item) => {
+        return item.checkedoutto.content === null;
+      })).then((res) => {
+        this.get('cart').pushObject({'itemtype' : itemtype, 'quantity' : quantity, 'available' : res.length});
+        localStorage.setItem('cart', JSON.stringify(this.get('cart').toArray()));
+        this._updateLength();
+      });
     }
-
-    localStorage.setItem('cart', JSON.stringify(this.get('cart').toArray()));
-    this._updateLength();
-    console.log('Set ' + itemtype.partname + ' quantity to ' + quantity + '.');
   },
 
   // Gets the quantity of an itemtype currently in the cart

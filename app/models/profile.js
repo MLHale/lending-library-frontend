@@ -21,7 +21,7 @@ const Validations = buildValidations(
     }
 );
 
-export default DS.Model.extend(Validations, {
+export default DS.Model.extend({
     user:DS.belongsTo('user'),
     address:DS.attr('string'),
     phonenumber:DS.attr('string'),

@@ -45,7 +45,9 @@
                     {{#accordion.item value=index title=itemtype.partname}}
                         {{itemtype.description}}<br>
                         <hr>
-                        <div class="d-inline-block" local-class="quantity"><strong>Available: </strong> {{itemtype.items.length}}</div>
+                        <div class="d-inline-block" local-class="quantity">
+                            <strong>Available: </strong> {{itemtype.availableitems}}
+                        </div>
                         {{!-- TODO: Determine how to check quantity --}}
                         <div class="d-inline-block float-right">
                             <button class="btn btn-primary" type="submit" {{action "add" itemtype}}>Add To Cart</button>

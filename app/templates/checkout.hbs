@@ -51,6 +51,7 @@
             </div> --}}
             <div class="row">
                 <div class="col">
+                    {{log auth.isLoggedIn}}
                     {{#if auth.isLoggedIn}}
                         {{validated-input model=this.model.newCheckout valuePath="firstname" placeholder="John" didValidate=didValidate title="First Name" value=auth.user.firstname disabled="true"}}
                     {{else}}

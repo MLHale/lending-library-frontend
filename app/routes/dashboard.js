@@ -1,10 +1,19 @@
 import Route from '@ember/routing/route';
-import RSVP from 'rsvp';
+import { inject as service } from '@ember/service';
 
 export default Route.extend({
+
+    auth: service('auth-manager'),
+
+    async beforeModel() {
+        let route = this;
+        let loggedIn = await route.get('auth').getLoginStatus();
+        if (!(loggedIn.data.isauthenticated) || !(loggedIn.data.issuperuser)) {
+            route.transitionTo('login');
+        }
+    },
+
     model() {
-        return RSVP.hash({
-            checkouts: this.store.findAll('checkout'),
-        });
+        return this.store.findAll('checkout');
     }
 });
