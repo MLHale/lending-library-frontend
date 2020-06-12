@@ -1,0 +1,21 @@
+select {
+  /* for Firefox */
+  -moz-appearance: none;
+  /* for Chrome */
+  -webkit-appearance: none;
+}
+
+/* For IE10 */
+select::-ms-expand {
+  display: none;
+}
+
+.prepend-center {
+  text-align: center;
+}
+
+.prepend-text {
+  width: 110px;
+  display: table;
+  margin: 0 auto;
+}

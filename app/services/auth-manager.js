@@ -31,24 +31,30 @@ export default Service.extend({
 		let auth = this;
 
 		auth.get('ajax').post('/api/session', { data: { username: username, password: password } }).then((resp) => {
+			console.log(resp);
 			if(resp.data.isauthenticated) {
 				// Successful Login
 				console.log('Login POST Request to /api/session/ was successful.');
 				auth.get('store').findRecord('profile', resp.data.profileid).then(
 					function(profile){
-						auth.set('user',profile.get('user'));
-
-						// transition after the profile is loaded
-						auth.set('profile',profile);
-						auth.set('password', '');
-						if(auth.get('user.issuperuser')) {
-							auth.get('router').transitionTo('dashboard');
-						} else {
-							auth.get('router').transitionTo('library.index');
-						}
+						auth.set('profile', profile);
+						
 					}
 				);
+				auth.get('store').findRecord('user', resp.data.userid).then(
+					function (user) {
+						auth.set('user', user);
+					}
+				);
+				
+				auth.set('password', '');
 				auth.set('isLoggedIn', true);
+
+				if (auth.get('user.issuperuser')) {
+					auth.get('router').transitionTo('dashboard');
+				} else {
+					auth.get('router').transitionTo('library.index');
+				}
 
 				if(remember){
 					//save username and pass to local storage

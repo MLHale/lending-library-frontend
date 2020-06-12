@@ -15,10 +15,11 @@ export default Controller.extend({
         },
         
         save() {
-            var controller = this;
+			// TODO: Validations not working
+			var controller = this;
             controller.get('model.user').validate().then(({ validations }) => {
                 if(validations.get('errors').get('length') == 1 && validations.get('error.message') == "Password can't be blank"){
-                    controller.get('model.user').save();
+					controller.get('model.user').save();
 
                     controller.get('model.profile').validate().then(({ validations }) => {
                         if(validations.get('isValid')){
@@ -44,7 +45,7 @@ export default Controller.extend({
                     $("#danger-alert")
                     .fadeTo(5000, 500)
                     .slideDown(500, function() {
-                        $("#danger-alert").slideUp(500);
+                        $("#danger-alert").slideUp(500); 
                     });
                 }
             });

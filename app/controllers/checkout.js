@@ -18,7 +18,10 @@ export default Controller.extend({
     actions: {
         checkout() {
             let controller = this;
-            let newCheckout = controller.get('model.newCheckout');
+			let newCheckout = controller.get('model.newCheckout');
+			
+			console.log(newCheckout);
+
 
             newCheckout.validate().then(({ validations }) => {
                 controller.set('didValidate', true);

@@ -42,7 +42,7 @@ const Validations = buildValidations(
     }
 );
 
-export default DS.Model.extend({
+export default DS.Model.extend(Validations, {
     username: DS.attr('string'),
     firstname: DS.attr('string'),
     lastname: DS.attr('string'),

@@ -18,7 +18,8 @@ export default Route.extend({
         });
     },
 
-    setupController(controller) {
+    setupController(controller, model) {
+		this._super(...arguments);
         controller.setProperties({
           showAlert: false,
           isRegistered: false,
@@ -26,7 +27,7 @@ export default Route.extend({
           didValidate: false
         });
     
-        this._super(...arguments);
+		controller.set('model', model);
     },
 
     actions: {

@@ -49,3 +49,136 @@
 .main-container {
   margin-top: 5vh;
 }
+
+.slide-rotate-bottom {
+  -webkit-animation: slideRotateBottom 2s;
+  /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: slideRotateBottom 2s;
+  /* Firefox < 16 */
+  -ms-animation: slideRotateBottom 2s;
+  /* Internet Explorer */
+  -o-animation: slideRotateBottom 2s;
+  /* Opera < 12.1 */
+  animation: slideRotateBottom 2s;
+}
+
+@keyframes slideRotateBottom {
+  from {
+    transform: translateY(25%);
+  }
+
+  to {
+    transform: translateY(0%) rotate(30deg);
+  }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes slideRotateBottom {
+  from {
+    transform: translateY(25%);
+  }
+
+  to {
+    transform: translateY(0%) rotate(30deg);
+  }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes slideRotateBottom {
+  from {
+    -webkit-transform: translateY(25%);
+  }
+
+  to {
+    -webkit-transform: translateY(0%) rotate(30deg);
+  }
+}
+
+/* Internet Explorer */
+@-ms-keyframes slideRotateBottom {
+  from {
+    transform: translateY(25%);
+  }
+
+  to {
+    transform: translateY(0%) rotate(30deg);
+  }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes slideRotateBottom {
+  from {
+    transform: translateY(25%);
+  }
+
+  to {
+    transform: translateY(0%) rotate(30deg);
+  }
+}
+
+.slide-rotate-top {
+  -webkit-animation: slideRotateTop 2s;
+  /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: slideRotateTop 2s;
+  /* Firefox < 16 */
+  -ms-animation: slideRotateTop 2s;
+  /* Internet Explorer */
+  -o-animation: slideRotateTop 2s;
+  /* Opera < 12.1 */
+  animation: slideRotateTop 2s;
+}
+
+@keyframes slideRotateTop {
+  from {
+    transform: translateY(-25%);
+  }
+
+  to {
+    transform: translateY(0%) rotate(30deg);
+  }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes slideRotateTop {
+  from {
+    transform: translateY(-25%);
+  }
+
+  to {
+    transform: translateY(0%) rotate(30deg);
+  }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes slideRotateTop {
+  from {
+    -webkit-transform: translateY(-25%);
+  }
+
+  to {
+    -webkit-transform: translateY(0%) rotate(30deg);
+  }
+}
+
+/* Internet Explorer */
+@-ms-keyframes slideRotateTop {
+  from {
+    transform: translateY(-25%);
+  }
+
+  to {
+    transform: translateY(0%) rotate(30deg);
+  }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes slideRotateTop {
+  from {
+    transform: translateY(-25%);
+  }
+
+  to {
+    transform: translateY(0%) rotate(30deg);
+  }
+}
+

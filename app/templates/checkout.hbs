@@ -33,71 +33,54 @@
 
 
             <form class="form-horizontal">
-            {{!-- <div class="row">
-                <div class="col">
-                {{validated-input model=this.model.newCheckout valuePath="username" placeholder="JohnDoe1980" didValidate=didValidate title="Username" value=username}}
-                </div>
-                <div class="col">
-                {{validated-input type="email" model=this.model.newCheckout valuePath="email" placeholder="JohnDoe@gmail.com" didValidate=didValidate title="Email" value=email}}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                {{validated-input type="password" model=this.model.newCheckout valuePath="password" placeholder="•••••••••••" didValidate=didValidate title="Password" value=password}}
-                </div>
-                <div class="col">
-                {{validated-input type="password" model=this.model.newCheckout valuePath="passwordConfirmation" placeholder="•••••••••••" didValidate=didValidate title="Confirm"}}
-                </div>
-            </div> --}}
-            <div class="row">
-                <div class="col">
-                    {{log auth.isLoggedIn}}
-                    {{#if auth.isLoggedIn}}
-                        {{validated-input model=this.model.newCheckout valuePath="firstname" placeholder="John" didValidate=didValidate title="First Name" value=auth.user.firstname disabled="true"}}
-                    {{else}}
-                        {{validated-input model=this.model.newCheckout valuePath="firstname" placeholder="John" didValidate=didValidate title="First Name"}}
-                    {{/if}}
-                </div>
+				<div class="row">
+					<div class="col">
+						{{#if auth.isLoggedIn}}
+							{{validated-input model=this.model.newCheckout valuePath="firstname" didValidate=didValidate title="First Name" value=auth.user.firstname disabled="true"}}
+						{{else}}
+							{{validated-input model=this.model.newCheckout valuePath="firstname" placeholder="John" didValidate=didValidate title="First Name"}}
+						{{/if}}
+					</div>
 
-                <div class="col">
-                    {{#if auth.isLoggedIn}}
-                        {{validated-input model=this.model.newCheckout valuePath="lastname" placeholder="Doe" didValidate=didValidate title="Last Name" value=auth.user.lastname disabled="true"}}
-                    {{else}}
-                        {{validated-input model=this.model.newCheckout valuePath="lastname" placeholder="Doe" didValidate=didValidate title="Last Name"}}
-                    {{/if}}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    {{#if auth.isLoggedIn}}
-                        {{validated-input model=this.model.newCheckout valuePath="email" placeholder="johndoe@gmail.com" didValidate=didValidate title="Email" value=auth.user.email disabled="true"}}
-                    {{else}}
-                        {{validated-input model=this.model.newCheckout valuePath="email" placeholder="johndoe@gmail.com" didValidate=didValidate title="Email"}}
-                    {{/if}}
-                </div>
+					<div class="col">
+						{{#if auth.isLoggedIn}}
+							{{validated-input model=this.model.newCheckout valuePath="lastname" didValidate=didValidate title="Last Name" value=auth.user.lastname disabled="true"}}
+						{{else}}
+							{{validated-input model=this.model.newCheckout valuePath="lastname" placeholder="Doe" didValidate=didValidate title="Last Name"}}
+						{{/if}}
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						{{#if auth.isLoggedIn}}
+							{{validated-input model=this.model.newCheckout valuePath="email" didValidate=didValidate title="Email" value=auth.user.email disabled="true"}}
+						{{else}}
+							{{validated-input model=this.model.newCheckout valuePath="email" placeholder="johndoe@gmail.com" didValidate=didValidate title="Email"}}
+						{{/if}}
+					</div>
 
-                <div class="col">
-                    {{#if auth.isLoggedIn}}
-                        {{validated-input model=this.model.newCheckout valuePath="phonenumber" placeholder="(402) 867-5309" didValidate=didValidate title="Phone" value=auth.profile.phonenumber disabled="true"}}
-                    {{else}}
-                        {{validated-input model=this.model.newCheckout valuePath="phonenumber" placeholder="(402) 867-5309" didValidate=didValidate title="Phone"}}
-                    {{/if}}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    {{#if auth.isLoggedIn}}
-                        {{validated-input model=this.model.newCheckout valuePath="address" placeholder="1234 S. Monroe Street" didValidate=didValidate title="Address" value=auth.profile.address disabled="true"}}
-                    {{else}}
-                        {{validated-input model=this.model.newCheckout valuePath="address" placeholder="1234 S. Monroe Street" didValidate=didValidate title="Address"}}
-                    {{/if}}
-                </div>
+					<div class="col">
+						{{#if auth.isLoggedIn}}
+							{{validated-input model=this.model.newCheckout valuePath="phonenumber" didValidate=didValidate title="Phone" value=auth.profile.phonenumber disabled="true"}}
+						{{else}}
+							{{validated-input model=this.model.newCheckout valuePath="phonenumber" placeholder="(402) 867-5309" didValidate=didValidate title="Phone"}}
+						{{/if}}
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						{{#if auth.isLoggedIn}}
+							{{validated-input model=this.model.newCheckout valuePath="address" didValidate=didValidate title="Address" value=auth.profile.address disabled="true"}}
+						{{else}}
+							{{validated-input model=this.model.newCheckout valuePath="address" placeholder="1234 S. Monroe Street" didValidate=didValidate title="Address"}}
+						{{/if}}
+					</div>
 
-                <div class="col">
-                    {{validated-input model=this.model.newCheckout valuePath="numberofstudents" placeholder="47" didValidate=didValidate title="Students" type="number"}}
-                </div>
-            </div>
-            <br>
+					<div class="col">
+						{{validated-input model=this.model.newCheckout valuePath="numberofstudents" placeholder="47" didValidate=didValidate title="Students" type="number"}}
+					</div>
+				</div>
+				<br>
 
             </form>
 

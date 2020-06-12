@@ -1,4 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+	<div class="container">
   {{#link-to "index" class="navbar-brand"}}{{fa-icon "book"}} Lending Library {{/link-to}}
   {{!-- <a class="navbar-brand" href="/">{{fa-icon "book"}} Lending Library </a> --}}
   <button
@@ -39,7 +40,7 @@
         {{/if}}
 
         <li class="nav-item">
-          {{#link-to "account"}}<a class="nav-link">Account</a>{{/link-to}}
+          {{#link-to "account"}}<a class="nav-link">My Account</a>{{/link-to}}
         </li>
       {{else}}
         <li class="nav-item">
@@ -56,6 +57,7 @@
     </ul>
 
   </div>
+</div>
 </nav>
 
 

@@ -52,6 +52,27 @@
               {{validated-input model=model.profile valuePath="phonenumber" placeholder="(402) 867-5309" didValidate=didValidate title="Phone" value=phone}}
             </div>
           </div>
+		  <div class="row">
+			  <div class="col">
+				<div class="input-group mb-3">
+					<div class="input-group-prepend" local-class="prepend-center">
+						<span class="input-group-text" local-class="prepend-text" for="organizationSelect">College</span>
+					</div>
+					<select class="custom-select" id="organizationSelect">
+						<option selected>Choose...</option>
+						{{#each model.profile.org as |organization|}}
+							<option value="1">{{organization}}</option>
+						{{/each}}
+						
+						<option value="2">Two</option>
+						<option value="3">Three</option>
+					</select>
+				</div>
+			  </div>
+			  <div class="col">
+
+			  </div>
+		  </div>
           <br>
 
           <div class="form-horizontal form-group form-group-lg row">

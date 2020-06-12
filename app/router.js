@@ -1,17 +1,10 @@
 import EmberRouter from '@ember/routing/router';
 import config from './config/environment';
 
-<<<<<<< HEAD
-const Router = EmberRouter.extend({
-  location: config.locationType,
-  rootURL: config.bURL
-});
-=======
 export default class Router extends EmberRouter {
   location = config.locationType;
-  rootURL = config.rootURL;
+  rootURL = config.bURL;
 }
->>>>>>> 0399676... message
 
 Router.map(function() {
   this.route('about');
@@ -36,5 +29,10 @@ Router.map(function() {
 
   this.route('manage', { path: '/manage' }, function() {
     this.route('manage-order', { path: '/:checkout_id' });
+  });
+  this.route('admin', function() {
+    this.route('fulfill');
+    this.route('manage');
+    this.route('return');
   });
 });
