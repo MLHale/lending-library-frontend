@@ -1,23 +1,24 @@
 <div class="form-group">
   <div class="input-group mb-3">
     <div class="input-group-prepend" local-class="prepend-center">
-      <span class="input-group-text" local-class="prepend-text" id={{valuePath}}>{{title}}</span>
+      <span class="input-group-text" local-class="prepend-text" id={{this.valuePath}}>{{this.title}}</span>
     </div>
-    {{input type=type value=value placeholder=placeholder class="form-control" local-class="input-validation-style" name=valuePath aria-label=title aria-describedby="{{valuepath}}" disabled=disabled}}
-    {{#if isValid}}
-      <span class="fa fa-check" local-class="valid-input"></span>
+
+    <Input @type={{this.type}} @value={{this.value}} placeholder={{this.placeholder}} class="form-control" local-class="input-validation-style" @name={{this.valuePath}} @aria-label={{this.title}} @aria-describedby="{{this.valuepath}}" @disabled={{this.disabled}} />
+    {{#if this.isValid}}
+		<FaIcon @icon="check" local-class="valid-input" />
     {{/if}}
   </div>
   <div class="input-error">
-    {{#if showErrorMessage}}
+    {{#if this.showErrorMessage}}
       <div class="text-danger">
-        {{v-get model valuePath "message"}}
+        {{v-get this.model this.valuePath "message"}}
       </div>
     {{/if}}
 
-    {{#if showWarningMessage}}
+    {{#if this.showWarningMessage}}
       <div class="text-warning">
-        {{v-get model valuePath "warningMessage"}}
+        {{v-get this.model this.valuePath "warningMessage"}}
       </div>
     {{/if}}
   </div>

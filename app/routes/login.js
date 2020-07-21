@@ -6,7 +6,7 @@ export default Route.extend({
 
     async beforeModel() {
       let route = this;
-      let loggedIn = await route.get('auth').getLoginStatus();
+      let loggedIn = await route.auth.getLoginStatus();
       if(loggedIn.data.isauthenticated){
         route.transitionTo('account');
       }

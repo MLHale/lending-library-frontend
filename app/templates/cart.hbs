@@ -3,7 +3,7 @@
     <div class="col-md-12">
       {{outlet}}
       <div class="jumbotron text-center">
-        <h1>Shopping Cart<br></h1>
+        <h1 class="mb-0">Shopping Cart<br></h1>
       </div>
 
       {{#if this.cart.cart.length}}
@@ -16,23 +16,28 @@
           </tr>
         </thead>
         <tbody>
-          {{#each this.cart.cart as |cartitem|}}
-          <tr>
-            <td class="align-middle"><button type="button" class="btn btn-danger btn-sm" {{action "remove" cartitem.itemtype}}>Remove</button></td>
-            <td class="align-middle"><strong>{{cartitem.itemtype.partname}}</strong></td>
-            <td class="align-middle">
-              <select class="form-control" id={{one-word cartitem.itemtype.partname}} onchange={{action "modifyQuantity" cartitem.itemtype}} local-class="quantity-select">
-                {{#each (range 1 cartitem.available) as |index|}}
-                  {{#if (eq index cartitem.quantity)}}
-                    <option value={{index}} selected="true">{{index}}</option>
-                  {{else}}
-                    <option value={{index}}>{{index}}</option>
-                  {{/if}}
-                {{/each}}
-              </select>
-            </td>
-          </tr>
-          {{/each}}
+			{{!-- <AnimatedContainer @tag="tbody" class="w-100"> --}}
+				{{!-- {{#animated-each this.cart.cart use=this.transition duration=10000 as |cartitem|}} --}}
+				{{#each this.cart.cart as |cartitem|}}
+					<tr>
+						<td class="align-middle"><button type="button" class="btn btn-danger btn-sm" {{action "remove" cartitem.itemtype}}>Remove</button></td>
+						<td class="align-middle"><strong>{{cartitem.itemtype.partname}}</strong></td>
+						<td class="align-middle">
+							<select class="form-control" id={{cartitem.id}}
+								onchange={{action "modifyQuantity" cartitem}} local-class="quantity-select">
+								{{#each (range 1 cartitem.available) as |index|}}
+									{{#if (eq index cartitem.quantity)}}
+										<option value={{index}} selected="true">{{index}}</option>
+									{{else}}
+										<option value={{index}}>{{index}}</option>
+									{{/if}}
+								{{/each}}
+							</select>
+						</td>
+					</tr>
+				{{/each}}
+				{{!-- {{/animated-each}} --}}
+			{{!-- </AnimatedContainer> --}}
         </tbody>
       </table>
 
@@ -42,11 +47,11 @@
       </div>
 
       <div class="d-inline-block float-right">
-        {{#link-to "checkout"}}<button class="btn btn-success float-right">Proceed to Checkout</button>{{/link-to}}
+        <LinkTo @route="checkout"><button type="button" class="btn btn-success float-right">Proceed to Checkout</button></LinkTo>
       </div>
 
 
-      <BsModal @open={{confirm}} as |Modal|>
+      <BsModal @open={{this.confirm}} as |Modal|>
         <Modal.header>
           <h4 class="modal-title">Confirm</h4>
         </Modal.header>
@@ -60,10 +65,10 @@
       </BsModal>
 
       {{else}}
-        <center>
-          <p>There are currently no items in your cart. Please visit the {{#link-to "library"}}library{{/link-to}} to view
+        <div class="text-center">
+          <p>There are currently no items in your cart. Please visit the <LinkTo @route="library">library</LinkTo> to view
             items you can check out.</p>
-        </center>
+        </div>
       {{/if}}
     </div>
   </div>

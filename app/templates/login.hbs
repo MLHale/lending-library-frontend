@@ -6,7 +6,7 @@
         <p>Sign in to your account with the UNO Lending Library to proceed.</p><br>
         {{!-- <button {{action "logout"}}>Log out</button> --}}
 
-        {{#if auth.errorMsg}}
+        {{#if this.auth.errorMsg}}
           <p class="text-danger">Incorrect Username or Password</p>
         {{/if}}
 
@@ -20,9 +20,9 @@
               <label class="sr-only" for="inlineFormInputGroup">Username</label>
               <div class="input-group mb-2">
                 <div class="input-group-prepend">
-                  <div class="input-group-text">&nbsp;{{fa-icon "user"}}&nbsp;</div>
+                  <div class="input-group-text">&nbsp;<FaIcon @icon="user" />&nbsp;</div>
                 </div>
-                {{input type="text" class="form-control" value=auth.username id="username" enter=(action "login") placeholder="Username" autofocus="autofocus"}}
+                <Input @type="text" class="form-control" @value={{this.auth.username}} @id="username" @enter={{action "login"}} placeholder="Username" @autofocus="autofocus" />
               </div>
             </div>
           </div>
@@ -31,26 +31,25 @@
               <label class="sr-only" for="inlineFormInputGroup">Password</label>
               <div class="input-group mb-2">
                 <div class="input-group-prepend">
-                  <div class="input-group-text">&nbsp;{{fa-icon "lock"}}&nbsp;</div>
+                  <div class="input-group-text">&nbsp;<FaIcon @icon="lock" />&nbsp;</div>
                 </div>
                 
-                {{input type=passwordHiddenValue class="form-control input-validation-style" value=auth.password id="password" enter=(action "login") placeholder="Password"}}
+                <Input @type={{this.passwordHiddenValue}} class="form-control input-validation-style" @value={{this.auth.password}} @id="password" @enter={{action "login"}} placeholder="Password" />
                 
-                {{#if passwordHidden}}
-                  <span local-class="passwordToggle" {{action "togglePasswordHidden"}} role="button">{{fa-icon "eye"}}</span>
+                {{#if this.passwordHidden}}
+                  <span local-class="passwordToggle" {{action "togglePasswordHidden"}} role="button"><FaIcon @icon="eye" /></span>
                 {{else}}
-                  <span local-class="passwordToggle" {{action "togglePasswordHidden"}} role="button">{{fa-icon "eye-slash"}}</span>
+                  <span local-class="passwordToggle" {{action "togglePasswordHidden"}} role="button"><FaIcon @icon="eye-slash" /></span>
                 {{/if}}
 
               </div>
             </div>
           </div>
-          {{!-- <div class="form-row align-items-center">
-            <div class="input-group">
-              {{input type="checkbox" checked=auth.remember}}
-              Remember me on this computer
-            </div>
-          </div> --}}
+          <div class="form-row align-items-center pt-3">
+			  <div class="col-lg-7 m-auto">
+				<Input @type="checkbox" @checked={{this.auth.remember}} class="mr-2" />Remember me on this computer
+			  </div>
+          </div>
           <br>
           <div class="form-horizontal form-group form-group-lg row">
             <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-3 float-none m-auto">
@@ -58,7 +57,7 @@
             </div>
           </div>
           <div class="mt-10">
-            <p class="text-center">Need an account? {{#link-to "register"}}Register Now.{{/link-to}}</p>
+            <p class="text-center">Need an account? <LinkTo @route="register">Register Now.</LinkTo></p>
           </div>
         </form>
 

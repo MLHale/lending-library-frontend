@@ -1,4 +1,4 @@
-import DS from 'ember-data';
+import Model, { belongsTo, attr, hasMany } from '@ember-data/model';
 import { validator, buildValidations } from 'ember-cp-validations';
 
 const Validations = buildValidations(
@@ -14,22 +14,23 @@ const Validations = buildValidations(
           allowBlank: false,
           type: 'phone'
         })
-      ],
+	  ],
+	  org: {
+		description: 'Organization',
+		validators: [
+		  validator('presence', true),
+		]
+	  },
     },
     {
       debounce: 500
     }
 );
 
-export default DS.Model.extend(Validations, {
-    user:DS.belongsTo('user'),
-    address:DS.attr('string'),
-    phonenumber:DS.attr('string'),
-
-    org:DS.attr(),
-    college:DS.attr(),
-    dept:DS.attr(),
-    otherdetails:DS.attr(),
-
-    checkouts:DS.hasMany('checkout'),
+export default Model.extend(Validations, {
+    user:belongsTo('user'),
+    address:attr('string'),
+    phonenumber:attr('string'),
+    org:attr('string'),
+    checkouts:hasMany('checkout'),
 });

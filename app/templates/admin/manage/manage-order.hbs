@@ -1,0 +1,156 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			{{outlet}}
+			<div class="jumbotron text-center">
+				<h1>{{this.model.firstname}} {{this.model.lastname}}<br></h1><br>
+				<p><strong>Ordered:</strong> {{moment-format this.model.createdon "dddd, MMMM Do, YYYY"}}</p>
+				<p local-class="fulfilled-text"><strong>Fulfilled: </strong>{{#if this.model.fulfilledon}}
+				<p class="text-success d-inline-block">Yes</p>{{else}} <p class="text-danger d-inline-block">No</p>
+				{{/if}}</p>
+				<p local-class="returned-text"><strong>Returned: </strong>{{#if this.model.returnedon}}
+				<p class="text-success d-inline-block">Yes</p> {{else}} <p class="text-danger d-inline-block">No</p>
+				{{/if}}</p>
+
+				<nav aria-label="breadcrumb" local-class="nav-bc">
+					<ol class="breadcrumb pt-4 justify-content-center">
+						<li class="breadcrumb-item">
+							<LinkTo @route="admin.index">Home</LinkTo>
+						</li>
+						<li class="breadcrumb-item">
+							<LinkTo @route="admin.manage.index">Manage</LinkTo>
+						</li>
+						<li class="breadcrumb-item active" aria-current="page">Order #{{this.model.id}}</li>
+					</ol>
+				</nav>
+			</div>
+
+			<BsAlert @type="success" @visible={{this.showSuccess}} @fadeDuration={{500}}>
+				<strong>Success!</strong> Changes have been saved.
+			</BsAlert>
+
+			<form class="form-horizontal" {{action "update" on="submit"}}>
+				<div class="row">
+					<div class="col-sm">
+						<h3 class="lead">Checkout Information:</h3>
+						<hr>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm">
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="first">First Name</span>
+							</div>
+							<Input @type="text" @value={{this.model.firstname}} class="form-control" placeholder="John"
+								@aria-label="First" @aria-describedby="first" required="true" />
+						</div>
+					</div>
+					<div class="col-sm">
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="last">Last Name</span>
+							</div>
+							<Input @type="text" @value={{this.model.lastname}} class="form-control" placeholder="Doe"
+								@aria-label="Last" @aria-describedby="last" required="true" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm">
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="address">&nbsp;&nbsp;Address&nbsp;&nbsp;</span>
+							</div>
+							<Input @type="text" @value={{this.model.address}} class="form-control"
+								placeholder="1234 South Monroe Street" @aria-label="Address" @aria-describedby="address"
+								required="true" />
+						</div>
+					</div>
+					<div class="col-sm">
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text"
+									id="phone">&nbsp;&nbsp;&nbsp;Phone&nbsp;&nbsp;&nbsp;&nbsp;</span>
+							</div>
+							<Input @type="tel" @value={{this.model.phonenumber}} class="form-control"
+								placeholder="(402) 867-5309" @aria-label="Phone" @aria-describedby="phone"
+								required="true" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm">
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="students">&nbsp;Students&nbsp;&nbsp;</span>
+							</div>
+							<Input @type="number" @value={{this.model.numberofstudents}} @min="1" @max="99"
+								class="form-control" placeholder="47" @aria-label="Students"
+								@aria-describedby="students" required="true" />
+						</div>
+					</div>
+					<div class="col-sm">
+						&nbsp;
+					</div>
+
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-sm">
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="fulfilled">Fulfilled</span>
+							</div>
+
+							<PikadayInput @value={{this.model.fulfilledon}} @format={{"MM/DD/YYYY"}} class="form-control" 
+								@aria-label="Fulfilled on" @aria-describedby="fulfilled" @onSelection={{action 'changeFulfilled'}}/>
+						</div>
+					</div>
+					<div class="col-sm">
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="returned">Returned</span>
+							</div>
+						
+							<PikadayInput @value={{this.model.returnedon}} @format={{"MM/DD/YYYY"}} class="form-control"
+								@aria-label="Returned on" @aria-describedby="returned" @onSelection={{action 'changeReturned'}}/>
+						</div>
+					</div>
+				</div>
+
+				<br>
+
+				{{#unless (eq this.model.missingparts.length this.model.items.length)}}
+					<h3 class="lead">Ordered Items:</h3>
+					<ul class="mb-4">
+						{{#each this.groupedItems as |item| }}
+							<li>{{item.type}} {{#if (gt item.contents.length 1)}}({{item.contents.length}}){{/if}}</li>
+						{{/each}}
+					</ul>
+				{{/unless}}
+
+
+				{{#unless this.model.missingparts}}
+					<button type="button" class="btn btn-outline-danger" {{action "remove"}}>Remove Order</button>
+				{{/unless}}
+				<button type="submit" class="btn btn-success float-right">Update Order</button>
+
+				{{#if this.model.missingparts}}
+					<h2 class="text-danger mt-3 mb-3">Missing Parts:</h2>
+					{{#each this.model.missingparts as |missingitem| }}
+						<div class="row ml-5 py-2">
+
+							<button type="button" class="btn btn-sm btn-outline-danger" {{action "notMissing" missingitem}}>Remove</button>
+							<h3 class="lead my-auto pl-3">{{missingitem.itemtype.partname}} (id #{{missingitem.id}})</h3>
+
+						</div>
+						
+					{{/each}}
+
+				{{/if}}
+
+            </form>
+        </div>
+    </div>
+</div>

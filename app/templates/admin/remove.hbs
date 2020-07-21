@@ -1,0 +1,108 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+
+			<div class="jumbotron text-center">
+				<h1>Remove Items</h1>
+
+				<nav aria-label="breadcrumb" class="breadcrumb-nav">
+					<ol class="breadcrumb pt-3 justify-content-center">
+						<li class="breadcrumb-item">
+							<LinkTo @route="admin.index">Home</LinkTo>
+						</li>
+						<li class="breadcrumb-item active" aria-current="page">Remove</li>
+					</ol>
+				</nav>
+			</div>
+
+			{{!-- <BsProgress class="mb-2" as |pg|>
+				<pg.bar @value={{this.currentStep}} @minValue={{1}} @maxValue={{2}} @showLabel={{false}} />
+			</BsProgress> --}}
+			
+			<BsAlert @type="danger" @visible={{this.showError}} @fadeDuration={{500}}>
+				<strong>Error!</strong> {{this.errorMsg}}
+			</BsAlert>
+
+			<BsAlert @type="success" @visible={{this.showSuccess}} @fadeDuration={{500}}>
+				<strong>Success!</strong> {{this.successMsg}}
+			</BsAlert>
+			
+			{{#animated-if (eq this.currentStep 1) use=this.transition}}
+				<div class="text-center">
+					<h3 class="mb-4 mt-5 text-center">Choose a Category...</h3>
+					<div class="row px-4">
+						{{#each this.model.categories as |category| }}
+						<div class="col-lg-4 col-md-6 mb-4">
+							<div class="card h-100" local-class="card-hover" {{action "selectCategory" category}}>
+								<div class="overlay-card" id={{category.id}}>
+									<svg id='checkmark-{{category.id}}' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+										<circle id='circle-{{category.id}}' cx="26" cy="26" r="25" fill="none" />
+										<path id='check-{{category.id}}' fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+									</svg>
+								</div>
+								<div class="card-body">
+									<h4 class="card-title text-dark">
+										{{category.categoryname}}
+									</h4>
+									<p class="card-text text-muted">{{category.description}}</p>
+								</div>
+							</div>
+						</div>
+						{{/each}}
+					</div>
+				</div>
+			{{/animated-if}}
+
+			{{#animated-if (eq this.currentStep 2) use=this.transition}}
+				<h3 class="mb-2 mt-5 text-center">Number of items to remove...</h3>
+				<p class="text-muted mb-5 text-center">Select the type of item, and how many you would like to remove.</p>
+				<div class="d-flex justify-content-center">
+					<div class="col-5 align-self-center">
+						<div class="row justify-content-center">
+							<button type="button" class="btn btn-lg text-muted" {{action "incrementQuantity"}}>
+								<FaIcon @icon="chevron-up" @size="3x" />
+							</button>
+						</div>
+						<div class="row justify-content-center">
+							<AnimatedContainer>
+								{{#animated-value this.removalQuantity rules=this.rules duration=75 as |v|}}
+								<h3 class="my-auto py-2">{{v}}</h3>
+								{{/animated-value}}
+							</AnimatedContainer>
+						</div>
+						<div class="row justify-content-center">
+							<button type="button" class="btn btn-lg text-muted" {{action "decrementQuantity"}}>
+								<FaIcon @icon="chevron-down" @size="3x" />
+							</button>
+						</div>
+					</div>
+					<div class="col-5 d-flex justify-content-center">
+						<ul class="list-group w-100">
+							{{#each this.itemtypesByCategory as |itemtype|}}
+							<li class="list-group-item list-group-item-action" id="{{itemtype.id}}"
+								{{action 'selectItemtype' itemtype}}>{{itemtype.partname}}</li>
+							{{/each}}
+						</ul>
+					</div>
+				</div>
+				<hr class="mt-5">
+				<div class="d-flex justify-content-between mt-2">
+					<button type="button" class="btn btn-outline-secondary" {{action "decrementStep"}}>&laquo; Previous Step</button>
+					<button type="button" class="btn btn-success" {{action "submit"}}>Submit</button>
+				</div>
+				
+			{{/animated-if}}
+
+			{{!-- Search form --}}
+			{{!-- <div class="input-group md-form form-sm form-2 pl-0">
+				<Input class="form-control my-0 py-1" @type="text" placeholder="Search" @aria-label="Search" @value={{search}} />
+				<div class="input-group-append">
+					<span class="input-group-text lighten-3" id="basic-text1"><FaIcon @icon="search" /></span>
+				</div>
+			</div> --}}
+			<br>
+
+		</div>
+	</div>
+</div>
+{{outlet}}

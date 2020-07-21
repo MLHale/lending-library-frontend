@@ -1,111 +1,113 @@
-{{outlet}}
-{{!-- <!-- Footer -->
-<footer class="container py-5">
-    <div class="row">
-        <div class="col-12 col-md">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="d-block mb-2">
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="14.31" y1="8" x2="20.05" y2="17.94"></line>
-                <line x1="9.69" y1="8" x2="21.17" y2="8"></line>
-                <line x1="7.38" y1="12" x2="13.12" y2="2.06"></line>
-                <line x1="9.69" y1="16" x2="3.95" y2="6.06"></line>
-                <line x1="14.31" y1="16" x2="2.83" y2="16"></line>
-                <line x1="16.62" y1="12" x2="10.88" y2="21.94"></line>
-            </svg>
-            <small class="d-block mb-3 text-muted">&copy; 2018 Matt Hale</small>
-        </div>
-        <div class="col-6 col-md">
-            <h5>Features</h5>
-            <ul class="list-unstyled text-small">
-                <li><a class="text-muted" href="#">Cool stuff</a></li>
-                <li><a class="text-muted" href="#">Random feature</a></li>
-                <li><a class="text-muted" href="#">Team feature</a></li>
-                <li><a class="text-muted" href="#">Stuff for developers</a></li>
-                <li><a class="text-muted" href="#">Another one</a></li>
-                <li><a class="text-muted" href="#">Last time</a></li>
-            </ul>
-        </div>
-        <div class="col-6 col-md">
-            <h5>Resources</h5>
-            <ul class="list-unstyled text-small">
-                <li><a class="text-muted" href="#">Resource</a></li>
-                <li><a class="text-muted" href="#">Resource name</a></li>
-                <li><a class="text-muted" href="#">Another resource</a></li>
-                <li><a class="text-muted" href="#">Final resource</a></li>
-            </ul>
-        </div>
-        <div class="col-6 col-md">
-            <h5>Resources</h5>
-            <ul class="list-unstyled text-small">
-                <li><a class="text-muted" href="#">Business</a></li>
-                <li><a class="text-muted" href="#">Education</a></li>
-                <li><a class="text-muted" href="#">Government</a></li>
-                <li><a class="text-muted" href="#">Gaming</a></li>
-            </ul>
-        </div>
-        <div class="col-6 col-md">
-            <h5>About</h5>
-            <ul class="list-unstyled text-small">
-                <li><a class="text-muted" href="#">Team</a></li>
-                <li><a class="text-muted" href="#">Locations</a></li>
-                <li><a class="text-muted" href="#">Privacy</a></li>
-                <li><a class="text-muted" href="#">Terms</a></li>
-            </ul>
-        </div>
-    </div>
-    <!-- Copyright -->
-    <div class="footer-copyright text-center py-3">© 2018-2019 Copyright:
-        <a href="https://www.mlhale.com"> Matt Hale</a>
-    </div>
-    <!-- Copyright -->
-</footer> --}}
-
 <div local-class="banner">
-    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-        <div class="col-md-5 p-lg-5 mx-auto my-5 fade-in">
+    <div class="position-relative overflow-hidden p-3 p-md-5 text-center bg-light">
+        <div class="col-md-5 p-lg-5 pr-0 mx-auto my-5 fade-in">
             <h1 class="display-4 font-weight-normal">Lending Library</h1>
-            <p class="lead font-weight-normal">The University of Nebraska at Omaha Technology Lending Library Project is aimed towards providing teaching materials to local teachers and professors alike.</p>
-            {{#link-to "library" class="btn btn-outline-secondary"}}Browse Library{{/link-to}}
+            <p class="lead font-weight-normal py-2">The University of Nebraska at Omaha Technology Lending Library Project is aimed towards providing teaching materials to local teachers and professors alike.</p>
+            <LinkTo @route="library" class="btn btn-outline-dark">Browse Library</LinkTo>
         </div>
         <div class="d-none d-md-block" local-class="slide-rotate-bottom product-device box-shadow"></div>
         <div class="d-none d-md-block" local-class="slide-rotate-top product-device product-device-2 box-shadow"></div>
     </div>
 </div>
 
-<div class="container" local-class="main-container">
-
-    <div class="row">
-      <div class="col-md-8 mb-5">
-        <h2>What We Do</h2>
-        <hr>
-        <p>The University of Nebraska at Omaha is looking to provide local area teachers and educators with the materials needed to enhance their students learning environment. </p>
-        <p>We have a growing library of {{this.itemsAvailable}} tech items currently available to be rented.</p>
-        {{!-- <a class="btn btn-primary btn-lg" href="#">Call to Action &raquo;</a> --}}
-      </div>
-      <div class="col-md-4 mb-5">
-        <h2>Contact Us</h2>
-        <hr>
-        <address>
-          <strong>Peter Kiewit Institute</strong>
-          <br>1110 South 67th Street
-          <br>Omaha, NE 68182
-          <br>
-        </address>
-        <address>
-          <abbr title="Phone">P:</abbr>
-          (402) 554-2800
-          <br>
-          <abbr title="Email">E:</abbr>
-          <a href="mailto:#">admin@aaronvigal.com</a>
-        </address>
-      </div>
-    </div>
+<div class="p-5 mt-0" local-class="mid-banner">
+	<div class="container">
+		<h5 class="my-auto text-center text-white py-5">We provide an expanding range of tech products to enhance students learning experiences</h5>
+	</div>
 </div>
 
-{{!-- <footer class="py-4 bg-dark fixed-bottom">
+<div class="container pt-5">
+	<h2 class="text-center pt-3">How it works</h2>
+	{{!-- <hr width="10%" class="bg-dark"> --}}
+	<div class="row mt-5">
+		<div class="col-md-3 col-sm-6 col-xs-12">
+			<div class="text-center">
+				<div class="mb-3">
+					<FaIcon @icon="user-circle" @size="4x" />
+				</div>
+				<h4>Register an Account</h4>
+				<p class="text-muted">We recommend you start by registering an account with Lending Library. Although this is not required, creating an account will let you keep track of the progress of your orders, as well as speed up the checkout process.</p>
+			</div>
+		</div>
+
+		<div class="col-md-3 col-sm-6 col-xs-12">
+			<div class="text-center">
+				<div class="mb-3">
+					<FaIcon @icon="shopping-cart" @size="4x" />
+				</div>
+				<h4>Place your Order</h4>
+				<p class="text-muted">You can find all of the items available to checkout on the <LinkTo @route="library.index">Library</LinkTo> page. Add the items you need to the cart, checkout, and you will get an email confirming your order shortly after.</p>
+			</div>
+		</div>
+
+		<div class="col-md-3 col-sm-6 col-xs-12">
+			<div class="text-center">
+				<div class="mb-3">
+					<FaIcon @icon="laptop" @size="4x" />
+				</div>
+				<h4>Receive your Tech</h4>
+				<p class="text-muted">Once your order has been fulfilled and is ready to be picked up, you'll get an email in your inbox letting you know it's ready. If you made an account, you can check the status of your order at any time on the <LinkTo @route="account">My Account</LinkTo> page.</p>
+			</div>
+		</div>
+
+		<div class="col-md-3 col-sm-6 col-xs-12">
+			<div class="text-center">
+				<div class="mb-3">
+					<FaIcon @icon="people-arrows" @size="4x" />
+				</div>
+				<h4>Return your Tech</h4>
+				<p class="text-muted">When you're done using the rented tech in your classroom, bring it back to UNO to be checked back into the library.</p>
+			</div>
+		</div>
+
+
+	</div>
+</div>
+
+<div class="bg-dark mt-5 py-4">
+	<div class="container text-white py-3">
+		<h3 class="py-3 text-white">Frequently Asked Questions</h3>
+		<BsAccordion as |Acc|>
+			<Acc.item @value={{1}} @title="How do I get my items? Are they delivered to me, or do I come pick them up?" class="bg-secondary">
+				<div class="container">
+					<p local-class="faq-description" class="mb-0">Once you have gotten the email that your order has been fulfilled, you can come to the
+						Peter Kewitt Instiute of technology to come pick up your items. </p>
+
+				</div>
+			</Acc.item>
+			<Acc.item @value={{2}} @title="I don't see a price on any of the items, is that correct?" class="bg-secondary">
+				<div class="container">
+					<p local-class="faq-description" class="mb-0">Correct! As part of our mission to provide our local schools with the tech they need to
+						educate their students, we would like to get our excess resources out to all the Nebraska schools or something like
+						that.</p>
+				</div>
+			</Acc.item>
+			<Acc.item @value={{3}} @title="When do I have to return the items by?" class="bg-secondary">
+				<div class="container">
+					<p local-class="faq-description" class="mb-0">With such a wide range of tech items in our library with many different use cases,
+						there is no set date on how long you can use the items. We just expect that you'll return the items when your
+						students are done using them.</p>
+				</div>
+			</Acc.item>
+		</BsAccordion>
+	</div>
+</div>
+
+<div class="p-5 mt-0" local-class="low-banner">
+	<div class="container">
+		<div class="my-auto py-5 text-center">
+			<h5 class="text-white">Ready to get started with lending library?</h5><br>
+			<LinkTo @route="register"><button class="btn btn-primary" type="button">Create an Account</button></LinkTo>
+			<span class="text-light">--or--</span>
+			<LinkTo @route="library.index"><button class="btn btn-primary" type="button">Browse the Library</button></LinkTo>
+		</div>
+		
+	</div>
+</div>
+
+<footer class="py-4 bg-dark">
     <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; University of Nebraska at Omaha 2019</p>
+        <p class="m-0 text-center text-white">Copyright &copy; University of Nebraska at Omaha 2020</p>
     </div>
-</footer> --}}
+</footer>
+{{outlet}}

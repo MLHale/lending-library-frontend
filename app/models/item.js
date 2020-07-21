@@ -1,9 +1,13 @@
-import DS from 'ember-data';
+import Model, { belongsTo } from '@ember-data/model';
 
-export default DS.Model.extend({
-    owner:DS.belongsTo('user'),
-    checkedoutto:DS.belongsTo('checkout', {defaultValue: null}),
-    itemtype:DS.belongsTo('itemtype'),
+export default Model.extend({
+    owner:belongsTo('user'),
+    checkedoutto:belongsTo('checkout', { defaultValue: null }),
+	itemtype:belongsTo('itemtype'),
+	missingpart: belongsTo('checkout', { 
+		defaultValue: null,
+		inverse: 'missingparts'
+	}),
 });
  
  

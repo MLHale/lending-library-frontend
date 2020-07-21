@@ -1,0 +1,53 @@
+{{!-- This is the card to display the order to the user --}}
+<div class="card text-center h-100">
+	<div class="card-body">
+
+		<h5 class="card-title">{{@order.firstname}} {{@order.lastname}}</h5>
+		<p class="card-text">{{moment-format @order.createdon "dddd, MMMM Do"}}</p>
+		{{!-- at {{moment-format order.createdon "h:mm a"}} --}}
+		<p class="card-text" local-class="fulfilled-text"><strong>Fulfilled: </strong>{{#if @order.fulfilledon}}
+		<p class="text-success d-inline-block">Yes</p> {{else}} <p class="text-danger d-inline-block">No</p> {{/if}}
+		</p>
+		<p class="card-text" local-class="returned-text"><strong>Returned: </strong>{{#if @order.returnedon}}
+		<p class="text-success d-inline-block">Yes</p> {{else}} <p class="text-danger d-inline-block">No</p> {{/if}}
+		</p>
+		<p class="card-text">{{@order.items.length}} item{{#unless (eq @order.items.length 1)}}s{{/unless}}</p>
+		<button type="button" class="btn btn-primary text-white" {{action "showOrder"}}>View Order</button>
+
+
+	</div>
+</div>
+
+{{!-- This is the corresponding modal to display further info if the user presses view order --}}
+<BsModalSimple @open={{this.showModal}} @size="md" @position="center" @title="Order #{{@order.id}}" @onHidden={{action 'hideOrder'}}>
+	<p><strong>Ordered by:</strong> {{@order.firstname}} {{@order.lastname}}</p>
+	<p><strong>Ordered on:</strong> {{moment-format @order.createdon "dddd, MMMM Do"}} at {{moment-format @order.createdon "hh:mm A"}}</p>
+	{{#if @order.fulfilledon}}
+		<p><strong>Fulfilled on:</strong> {{moment-format @order.fulfilledon "dddd, MMMM Do"}} at {{moment-format @order.fulfilledon "hh:mm A"}}</p>
+	{{else}}
+		<p>This order has not been fulfilled yet</p>
+	{{/if}}
+
+	{{#if @order.returnedon}}
+		<p><strong>Returned on:</strong> {{moment-format @order.createdon "dddd, MMMM Do"}} at {{moment-format @order.createdon "hh:mm A"}}</p>
+	{{else}}
+		<p>This order has not been returned yet</p>
+	{{/if}}
+
+	<h4 class="pt-3 pb-2">Items Ordered:</h4>
+	{{!-- {{#each @order.items as |item|}}
+		<p class="text-info">{{item.itemtype.partname}}</p>
+	{{/each}} --}}
+
+	<ul class="list-group mb-3">
+	{{#each this.groupedItems as |group|}}
+		<li class="list-group-item">{{group.type}} {{#if (gt group.contents.length 1)}}({{group.contents.length}}){{/if}}</li> 
+	{{/each}}
+	</ul>
+
+	{{#unless @order.fulfilledon}}
+		<button type="button" class="btn btn-sm btn-danger mt-3" {{action 'cancelOrder' @order}}>Cancel order</button>
+	{{/unless}}
+
+</BsModalSimple>
+{{yield}}

@@ -1,0 +1,48 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			{{outlet}}
+			<div class="jumbotron text-center">
+				<h1>Fulfill Orders</h1>
+
+				<nav aria-label="breadcrumb" class="breadcrumb-nav">
+					<ol class="breadcrumb pt-3 justify-content-center">
+						<li class="breadcrumb-item">
+							<LinkTo @route="admin.index">Home</LinkTo>
+						</li>
+						<li class="breadcrumb-item active" aria-current="page">Fulfill</li>
+					</ol>
+				</nav>
+			</div>
+
+			{{#if this.filteredCheckouts.length}}
+
+			<ListPagination @paginateBy={{9}} @items={{this.filteredCheckouts}} as |tickets|>
+				<div class="row">
+					{{#each tickets as |ticket|}}
+						<div class="col-lg-4 col-md-6 mb-4">
+							<div class="card text-center h-100">
+								<div class="card-body">
+									<h5 class="card-title">{{ticket.firstname}} {{ticket.lastname}}</h5>
+									<p class="card-text">{{moment-format ticket.createdon "dddd, MMMM Do"}} at
+										{{moment-format ticket.createdon "h:mm a"}}</p>
+									{{!-- ticket.createdon --}}
+									<p class="card-text">{{ticket.items.length}} items</p>
+									<LinkTo @route="admin.fulfill.fulfill-order" @model={{ticket}} class="btn btn-primary text-white">Fulfill Order</LinkTo>
+								</div>
+							</div>
+						</div>
+					{{/each}}
+				</div>
+			</ListPagination>
+
+			{{else}}
+				<div class="text-center">
+					<p>There are currently no pending orders to fulfill. </p>
+					<p>To manage a past order, head to the <LinkTo @route="admin.manage.index">manage orders</LinkTo> section to
+						view and modify past and present orders.</p>
+				</div>
+			{{/if}}
+		</div>
+	</div>
+</div>

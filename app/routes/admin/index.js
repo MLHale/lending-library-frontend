@@ -3,14 +3,21 @@ import { inject as service } from '@ember/service';
 
 export default Route.extend({
 	auth: service('auth-manager'),
-
+	store: service('store'),
 	async beforeModel() {
 		let route = this;
-		let loggedIn = await route.get('auth.user');
-		console.log(loggedIn)
-		// if (!(loggedIn)) {
-		// 	route.transitionTo('login');
-		// }
+		let status = await route.get('auth').getLoginStatus();
+		if(status.data.isauthenticated){
+			route.get('store').findRecord('user', status.data.userid).then(
+				function (user) {
+					if(!(user.get('issuperuser'))) {
+						route.transitionTo('login');
+					}
+				}
+			);
+		} else {
+			route.transitionTo('login');
+		}
 	},
 
 	model() {

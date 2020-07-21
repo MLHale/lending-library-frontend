@@ -1,5 +1,17 @@
 /* Library Index Page Stylig */
 
 .img-fit {
-  object-fit: cover
+  	object-fit: cover
+}
+
+.link-unstyled {
+	text-decoration: none !important;
+}
+
+.link-unstyled:hover {
+  text-decoration: none !important;
+}
+
+.card-hover:hover {
+  box-shadow: 8px 10px 28px -10px #ab98ab;
 }

@@ -1,0 +1,55 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			{{outlet}}
+			<div class="jumbotron text-center">
+				<h1>{{this.model.firstname}} {{this.model.lastname}}<br></h1><br>
+				<p><strong>Ordered On:</strong> {{!-- local-class="ordered-text" --}}
+					{{moment-format this.model.createdon "dddd, MMMM Do, YYYY"}}</p>
+
+				<nav aria-label="breadcrumb" class="breadcrumb-nav">
+					<ol class="breadcrumb pt-3 justify-content-center">
+						<li class="breadcrumb-item">
+							<LinkTo @route="admin.index">Home</LinkTo>
+						</li>
+						<li class="breadcrumb-item">
+							<LinkTo @route="admin.fulfill.index">Fullfill</LinkTo>
+						</li>
+						<li class="breadcrumb-item active" aria-current="page">Order #{{this.model.id}}</li>
+					</ol>
+				</nav>
+			</div>
+			
+			<BsAlert @type="success" @visible={{this.showSuccess}} @fadeDuration={{500}}>
+				<strong>Success!</strong> The order has been fulfilled successfully.
+			</BsAlert>
+
+			<BsAlert @type="danger" @visible={{this.showError}} @fadeDuration={{500}}>
+				<strong>Error!</strong> Please double check that you have included all of the items in the order.
+			</BsAlert>
+
+			<div class="card text-center w-100">
+				<div class="card-body q-100">
+
+					<h3 class="card-title">Items needed:</h3>
+					<hr>
+
+					<form>
+						{{#each this.groupedItems as |group|}}
+							<div class="d-flex justify-content-center align-items-center pb-3">
+								<input type="checkbox" class="mr-2" id={{group.type}} />
+								<label for={{group.type}} class="my-auto">{{group.category}} &raquo; <span class="text-primary d-inline-block">{{group.type}}
+									{{#if (gt group.contents.length 1)}}({{group.contents.length}}){{/if}}</span>
+								</label>
+							</div>
+						{{/each}}
+						<button type="button" class="btn btn-primary text-white" disabled={{this.model.fulfilledon}} {{action "complete" this.model}}>Complete Order</button>
+					</form>
+
+					
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>

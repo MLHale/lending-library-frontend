@@ -1,9 +1,9 @@
-import DS from 'ember-data';
+import Model, { attr, hasMany } from '@ember-data/model';
 
-export default DS.Model.extend({
-    categoryname:DS.attr(),
-    description:DS.attr(),
-    image:DS.attr(),
-    itemtypes:DS.hasMany('itemtype')
+export default Model.extend({
+    categoryname:attr(),
+    description:attr(),
+    image:attr(),
+    itemtypes:hasMany('itemtype')
 });
  

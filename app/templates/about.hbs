@@ -1,11 +1,17 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="jumbotron text-center">
+            {{!-- <div class="jumbotron text-center">
                 <h1>About</h1>
-            </div>
-            {{outlet}}
-            <center><img src="/static/ember/assets/uno_logo.png" alt="UNO logo" width="20%" class="pb-10"></center>
+            </div> --}}
+            
+            <img src="/static/ember/assets/ll-logo.png" alt="University of Nebraska Omaha" width="60%" class="pb-4 mx-auto d-block" local-class="image">
+
+			<h2 class="text-center pb-2">- Our Mission -</h2>
+			<h5 class="text-center pb-4">To provide local area teachers with the tools they need to educate their students</h5>
+			
+			<h2 class="text-center">About</h2>
+
             <br>The Lending Library App is a search-oriented library management app for maintaining the UNO lending
             library.<br>
 
@@ -24,3 +30,5 @@
         </div>
     </div>
 </div>
+
+{{outlet}}

@@ -1,23 +1,24 @@
-{{yield paginatedItems}}
+{{yield this.paginatedItems}}
+
 <div class="row center mt-20 mb-20">
     <div class="btn-toolbar mb-3 justify-content-between text-center m-auto" role="toolbar">
         <div class="btn-group" role="group" aria-label="First group">
-            {{#if showPrevious}}
-                <button {{action "previousClicked"}} type="button" class="btn btn-outline-secondary">{{previousText}}</button>
+            {{#if this.showPrevious}}
+                <button {{action "previousClicked"}} type="button" class="btn btn-outline-secondary">&laquo;</button>
             {{else}}
-                <button type="button" class="btn btn-outline-secondary" disabled>{{previousText}}</button>
+                <button type="button" class="btn btn-outline-secondary" disabled>&laquo;</button>
             {{/if}}
 
   
-            {{#each pageNumbers as |pageNumber|}}
+            {{#each this.pageNumbers as |pageNumber|}}
                 <button {{action "pageClicked" pageNumber}} type="button" class="btn btn-outline-primary">{{pageNumber}}</button>
             {{/each}}
 
 
-            {{#if showNext}}
-                <button {{action "nextClicked"}} type="button" class="btn btn-outline-secondary">{{nextText}}</button>
+            {{#if this.showNext}}
+                <button {{action "nextClicked"}} type="button" class="btn btn-outline-secondary">&raquo;</button>
             {{else}}
-                <button type="button" class="btn btn-outline-secondary" disabled>{{nextText}}</button>
+                <button type="button" class="btn btn-outline-secondary" disabled>&raquo;</button>
             {{/if}}
         </div>
     </div>

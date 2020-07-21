@@ -1,67 +1,53 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-12">{{outlet}}
+        <div class="col-md-12">
             <div class="jumbotron text-center">
-                {{!-- {{#each model.itemtypes as |itemtype|}}
-
-                    <h1>{{itemtype.category}}</h1>
-
-                    {{break}}
-                {{/each}} --}}
-                <h1>{{this.model.categoryname}}</h1>
+				<h1 class="mb-0">{{this.model.category.categoryname}}</h1>
             </div>
 
-            <div class="alert alert-success" local-class="display-none" id="success-alert">
-                <button type="button" class="close" data-dismiss="alert" {{action "hideSuccess"}}>x</button>
-                <strong>Success! </strong>
-                Item has been successfully added to your {{#link-to "cart" class="alert-link"}}shopping
-                cart{{/link-to}}.
-            </div>
+			<BsAlert @type="success" @visible={{this.showSuccess}} @fadeDuration={{500}}>
+				<strong>Success!</strong> Item has been successfully added to your <LinkTo @route="cart" class="alert-link">shopping cart</LinkTo>.
+			</BsAlert>
 
-            <div class="alert alert-danger" local-class="display-none" id="danger-alert">
-                <button type="button" class="close" data-dismiss="alert" {{action "hideDanger"}}>x</button>
-                <strong>Error! </strong>
-                {{this.errorMsg}}
-            </div>
+			<BsAlert @type="danger" @visible={{this.showError}} @fadeDuration={{500}}>
+				<strong>Error!</strong> You already have all of the available items of this type in your <LinkTo @route="cart" class="alert-link">shopping
+					cart</LinkTo>.
+			</BsAlert>
 
             {{!-- Search form --}}
             <div class="input-group md-form form-sm form-2 pl-0">
-                {{input class="form-control my-0 py-1" type="text" placeholder="Search" aria-label="Search" value=search}}
+                <Input class="form-control my-0 py-1" @type="text" placeholder="Search" @aria-label="Search" @value={{this.search}} />
                 <div class="input-group-append">
-                    <span class="input-group-text lighten-3" id="basic-text1">{{fa-icon "search"}}</span>
+                    <span class="input-group-text lighten-3" id="basic-text1"><FaIcon @icon="search" /></span>
                 </div>
             </div>
             <br>
 
-            {{!-- {{#list-pagination paginateBy=12 items=this.model as |items|}} --}}
-            {{#bs-accordion as |accordion|}}
-                {{#each filtered as |itemtype index|}}
-                   {{#if itemtype.checkedoutto}}
-                        {{!-- var itemTitle = item.partname + "- Unavailable"; --}}
-                        {{#accordion.item value=index title=itemtype.partname disabled="true"}}
-                            {{itemtype.description}}
-                        {{/accordion.item}}
-                    {{else}}
-                    {{#accordion.item value=index title=itemtype.partname}}
-                        {{itemtype.description}}<br>
-                        <hr>
-                        <div class="d-inline-block" local-class="quantity">
-                            <strong>Available: </strong> {{itemtype.availableitems}}
-                        </div>
-                        {{!-- TODO: Determine how to check quantity --}}
-                        <div class="d-inline-block float-right">
-                            <button class="btn btn-primary" type="submit" {{action "add" itemtype}}>Add To Cart</button>
-                        </div>
-                    {{/accordion.item}}
-                    {{/if}} 
-                {{else}}
-                    <center>
-                        <p>Sorry, there are no items to be displayed in this category :(</p>
-                    </center>
-                {{/each}}
-            {{/bs-accordion}}
-            {{!-- {{/list-pagination}} --}}
+			{{#if this.filtered}}
+				{{!-- <BsAccordion as |accordion|>
+					{{#animated-each this.filtered use=this.transition as |itemtype|}}
+						<AccordionItem @itemtype={{itemtype}} @accordion={{accordion}} @tagName='' @callSuccess={{action "callSuccess"}} @callDanger={{action "callDanger"}}></AccordionItem>
+					{{/animated-each}}
+				</BsAccordion> --}}
+
+				<ul class="list-group">
+					{{#animated-each this.filtered use=this.transition as |itemtype|}}
+						<LibraryItemRow @itemtype={{itemtype}} @tagName='' @callSuccess={{action "callSuccess"}}
+							@callDanger={{action "callDanger"}}></LibraryItemRow>
+					{{/animated-each}}
+				</ul>
+			{{else}}
+				<div class="text-center mt-4">
+					{{#if this.search}}
+						Sorry, there are no items found matching the search term &quot;<span class="text-secondary">{{this.search}}</span>&quot;.
+					{{else}}
+						Sorry, there are no item in this category yet. Please check back later.
+					{{/if}}
+				</div>
+			{{/if}}
+
             <br>
         </div>
     </div>
 </div>
+{{outlet}}

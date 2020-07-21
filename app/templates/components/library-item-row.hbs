@@ -1,0 +1,22 @@
+<li class="list-group-item" local-class="item-row">
+		<span class="align-middle"><strong>{{this.itemtype.partname}}</strong> <span class="text-muted d-none d-md-inline">&mdash;&nbsp;{{this.itemtype.description}}</span></span>
+		<div class="ml-auto">
+			<button class="btn btn-primary float-right" type="submit" {{action "add" this.itemtype}}
+				disabled={{eq this.available 0}}>Add To Cart</button>
+
+			<select class="form-control w-auto mr-2 float-right" id={{this.itemtype.id}} local-class="quantity-select">
+				{{#if this.available}}
+					{{#each (range 1 this.available) as |index|}}
+						{{#if (eq index 1)}}
+							<option value={{index}} selected="true">{{index}}</option>
+						{{else}}
+							<option value={{index}}>{{index}}</option>
+						{{/if}}
+					{{/each}}
+				{{else}}
+					<option value="0" selected="true" disabled="true">0</option>
+				{{/if}}
+			</select>
+		</div>
+</li>
+{{yield}}

@@ -1,1 +1,68 @@
-{{outlet}}
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="jumbotron text-center">
+				<h1>Admin Dashboard</h1>
+
+				<nav aria-label="breadcrumb" class="breadcrumb-nav">
+					<ol class="breadcrumb pt-3 justify-content-center">
+						<li class="breadcrumb-item active" aria-current="page">Home</li>
+					</ol>
+				</nav>
+			</div>
+
+			<div class="d-flex justify-content-center">
+				<div class="col-lg-4 col-md-6 mb-4">
+					<LinkTo @route="admin.add" class="card text-center" local-class="card-hover" @tagName='div'>
+						<div class="card-body">
+							<h4 class="card-title my-auto p-md-3">Add Items</h4>
+						</div>
+					</LinkTo>
+				</div>
+			
+				<div class="col-lg-4 col-md-6 mb-4">
+					<LinkTo @route="admin.remove" class="card text-center" local-class="card-hover" @tagName='div'>
+						<div class="card-body">
+							<h4 class="card-title my-auto p-md-3">Remove Items</h4>
+						</div>
+					</LinkTo>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-4 col-md-6 mb-4">
+					<div class="card text-center h-100">
+						<div class="card-body">
+							<h4 class="card-title">Fulfill Orders</h4>
+							<p class="card-text">{{this.pendingOrders.length}} pending order{{#unless (eq this.pendingOrders.length 1)}}s{{/unless}}</p>
+							<LinkTo @route="admin.fulfill" class="btn btn-primary text-white" @tagName='button' disabled={{not this.pendingOrders.length}}>Fulfill Orders</LinkTo>
+						</div>
+					</div>
+				</div>
+			
+				<div class="col-lg-4 col-md-6 mb-4">
+					<div class="card text-center h-100">
+						<div class="card-body">
+							<h4 class="card-title">Manage Orders</h4>
+							<p class="card-text">{{this.model.length}} total order{{#unless (eq this.model.length 1)}}s{{/unless}}</p>
+							<LinkTo @route="admin.manage" class="btn btn-primary text-white" @tagName='button' disabled={{not this.model.length}}>Manage Orders</LinkTo>
+						</div>
+					</div>
+				</div>
+			
+				<div class="col-lg-4 col-md-6 mb-4">
+					<div class="card text-center h-100">
+						<div class="card-body">
+							<h4 class="card-title">Return Orders</h4>
+							<p class="card-text">{{this.returnOrders.length}} order{{#unless (eq this.returnOrders.length 1)}}s{{/unless}} to be returned</p>
+							<LinkTo @route="admin.return" class="btn btn-primary text-white" @tagName='button' disabled={{not this.returnOrders.length}}>Return Orders</LinkTo>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			{{outlet}}
+			
+		</div>
+	</div>
+</div>

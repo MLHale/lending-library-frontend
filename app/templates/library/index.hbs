@@ -1,31 +1,31 @@
 <div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      {{outlet}}
-      <div class="jumbotron text-center">
-        <h1>Lending Library<br></h1>
-      </div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="jumbotron text-center">
+				<h1 class="mb-0">Lending Library<br></h1>
+			</div>
 
-      {{#list-pagination paginateBy=9 items=this.model as |categories|}}
-      <div class="row">
-        {{#each categories as |category|}}
-        <div class="col-lg-4 col-md-6 mb-4">
-          <div class="card h-100">
-            {{#link-to "library.library-items" category}}
-            <img alt="image" class="card-img-top" src={{category.image}} height="200vw" local-class="img-fit">
-            <div class="card-body">
-              <h4 class="card-title">
-                <p>{{category.categoryname}}</p>
-              </h4>
-              <p class="card-text">{{category.description}}</p>
-            </div>
-            {{/link-to}}
-          </div>
-        </div>
-        {{/each}}
-      </div>
-      {{/list-pagination}}
-
-    </div>
-  </div>
+			<ListPagination @paginateBy={{9}} @items={{this.model}} as |categories|>
+				<AnimatedContainer class="row">
+					{{#animated-each categories use=this.transition as |category|}}
+						<div class="col-lg-4 col-md-6 mb-4">
+							<div class="card" local-class="card-hover"> {{!-- h-100 for a more uniformed look --}}
+								<LinkTo @route="library.library-items" local-class="link-unstyled" @model={{category.id}}>
+									<img alt={{concat category.categoryname ' image'}} class="card-img-top"
+										src={{category.image}} height="200vw" local-class="img-fit">
+									<div class="card-body">
+										<h4 class="card-title text-dark">
+											{{category.categoryname}}
+										</h4>
+										<p class="card-text text-muted">{{category.description}}</p>
+									</div>
+								</LinkTo>
+							</div>
+						</div>
+					{{/animated-each}}
+				</AnimatedContainer>
+			</ListPagination>
+		</div>
+	</div>
 </div>
+{{outlet}}

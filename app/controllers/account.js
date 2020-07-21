@@ -1,75 +1,51 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
-import $ from 'jquery';
 
 export default Controller.extend({
-    auth: service('auth-manager'),
-    errorMsg: '',
+	auth: service('auth-manager'),
+	
+	showSuccess: false,
+	showError: false,
+	errorMsg: '',
+
     init: function() {
         this._super(...arguments);
         this.set('errorMsg', ''); 
     },
     actions:{
 		logout(){
-			this.get('auth').logout();
+			this.auth.logout();
         },
         
-        save() {
-			// TODO: Validations not working
-			var controller = this;
-            controller.get('model.user').validate().then(({ validations }) => {
-                if(validations.get('errors').get('length') == 1 && validations.get('error.message') == "Password can't be blank"){
-					controller.get('model.user').save();
+        async save() {
+			let controller = this;
+			let user = await controller.get('auth.user');
+			let profile = await controller.get('auth.profile');
 
-                    controller.get('model.profile').validate().then(({ validations }) => {
+            user.validate({ on: ['firstname', 'lastname', 'email'] }).then(({ validations }) => {
+                if(validations.get('isValid')){
+					user.save();
+
+					profile.validate({ on: ['phonenumber', 'address'] }).then(({ validations }) => {
                         if(validations.get('isValid')){
-                            controller.get('model.profile').save();
+							profile.save();
                             
-                            $("#success-alert")
-                            .fadeTo(5000, 500)
-                            .slideDown(500, function() {
-                                $("#success-alert").slideUp(500);
-                            });
-
+							this.toggleProperty('showSuccess');
+							setTimeout(() => { this.toggleProperty('showSuccess'); }, 5000);
                         } else {
-                            controller.set('errorMsg', validations.get('errors.1.message')); 
-                            $("#danger-alert")
-                            .fadeTo(5000, 500)
-                            .slideDown(500, function() {
-                                $("#danger-alert").slideUp(500);
-                            });
+							controller.set('errorMsg', validations.get('errors')[0].message); 
+							
+							this.toggleProperty('showError');
+							setTimeout(() => { this.toggleProperty('showError'); }, 5000);
                         }
                     });
                 } else {
-                    controller.set('errorMsg', validations.get('errors.1.message')); 
-                    $("#danger-alert")
-                    .fadeTo(5000, 500)
-                    .slideDown(500, function() {
-                        $("#danger-alert").slideUp(500); 
-                    });
+					controller.set('errorMsg', validations.get('errors')[0].message); 
+					
+					this.toggleProperty('showError');
+					setTimeout(() => { this.toggleProperty('showError'); }, 5000);
                 }
             });
-
-            
-
-            
-            //             } else {
-            //                 console.log(validations_user);
-            //                 controller.set('showAlert', true);
-            //             }
-            //         });
-            //     } else {
-            //         console.log(validations_profile);
-            //         controller.set('showAlert', true);
-            //     }
-            // });
-        },
-        hideSuccess() {
-            $("#success-alert").hide();
-        },
-
-        hideDanger() {
-            $("#danger-alert").hide();
-        }
+		},
 	}
 });

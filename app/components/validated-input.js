@@ -1,4 +1,11 @@
-import { not, notEmpty, and, or, readOnly, alias } from '@ember/object/computed';
+import {
+  not,
+  notEmpty,
+  and,
+  or,
+  readOnly,
+  alias
+} from '@ember/object/computed';
 import Component from '@ember/component';
 import { defineProperty } from '@ember/object';
 
@@ -13,7 +20,7 @@ export default Component.extend({
     validation: null,
     showValidations: false,
     didValidate: false,
-    disabled: false,
+	disabled: false,
 
     notValidating: not('validation.isValidating').readOnly(),
     hasContent: notEmpty('value').readOnly(),
@@ -43,14 +50,14 @@ export default Component.extend({
 
     init() {
         this._super(...arguments);
-        let valuePath = this.get('valuePath');
+        let valuePath = this.valuePath;
 
         defineProperty(
         this,
         'validation',
         readOnly(`model.validations.attrs.${valuePath}`)
         );
-        defineProperty(this, 'value', alias(`model.${valuePath}`));
+		defineProperty(this, 'value', alias(`model.${valuePath}`));
     },
 
     focusOut() {

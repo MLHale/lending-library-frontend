@@ -4,46 +4,41 @@
             {{outlet}}
             <div class="jumbotron text-center">
                 <h1>My Account</h1><br>
-                <h4 class="lead">{{auth.user.firstname}} {{auth.user.lastname}}</h4><br>
+                <h4 class="lead">{{this.auth.user.firstname}} {{this.auth.user.lastname}}</h4><br>
                 <button type="button" class="btn btn-outline-danger btn-sm" {{action "logout"}}>Log Out</button>
             </div>
 
-            <div class="alert alert-success" local-class="display-none" id="success-alert">
-                <button type="button" class="close" data-dismiss="alert" {{action "hideSuccess"}}>x</button>
-                <strong>Success! </strong>
-                Your profile has been saved successfully.
-            </div>
-
-            <div class="alert alert-danger" local-class="display-none" id="danger-alert">
-                <button type="button" class="close" data-dismiss="alert" {{action "hideDanger"}}>x</button>
-                <strong>Error! </strong>
-                {{this.errorMsg}}
-            </div>
+			<BsAlert @type="success" @visible={{this.showSuccess}} @fadeDuration={{500}}>
+				<strong>Success!</strong> Your profile has been saved successfully.
+			</BsAlert>
+			
+			<BsAlert @type="danger" @visible={{this.showError}} @fadeDuration={{500}}>
+				<strong>Error!</strong> {{this.errorMsg}}
+			</BsAlert>
 
             <form class="form-horizontal">
                 <div class="row">
-                    <div class="col">
-                        {{validated-input model=auth.user valuePath="firstname" placeholder="John" didValidate=didValidate title="First Name"}}
+                    <div class="col-sm">
+                        <ValidatedInput @model={{this.auth.user}} @valuePath="firstname" @placeholder="John" @didValidate={{this.didValidate}} @title="First Name" />
                     </div>
-                    <div class="col">
-                        {{validated-input model=auth.user valuePath="lastname" placeholder="Doe" didValidate=didValidate title="Last Name"}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        {{validated-input type="email" model=auth.user valuePath="email" placeholder="JohnDoe@gmail.com" didValidate=didValidate title="Email"}}
-                    </div>
-                    <div class="col">
-                        {{validated-input model=auth.profile valuePath="phonenumber" placeholder="(402) 867-5309" didValidate=didValidate title="Phone"}}
+                    <div class="col-sm">
+                        <ValidatedInput @model={{this.auth.user}} @valuePath="lastname" @placeholder="Doe" @didValidate={{this.didValidate}} @title="Last Name" />
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col">
-                        {{validated-input model=auth.profile valuePath="address" placeholder="1234 S. Monroe Street" didValidate=didValidate title="Address"}}
+                    <div class="col-sm">
+                        <ValidatedInput @type="email" @model={{this.auth.user}} @valuePath="email" @placeholder="JohnDoe@gmail.com" @didValidate={{this.didValidate}} @title="Email" />
                     </div>
-                    <div class="col">
-                        {{!-- TODO: fix vget --}}
-                        <button class="btn btn-success float-right" {{action "save"}} disabled={{v-get auth.profile "isInvalid"}}>Save</button>
+                    <div class="col-sm">
+                        <ValidatedInput @model={{this.auth.profile}} @valuePath="phonenumber" @placeholder="(402) 867-5309" @didValidate={{this.didValidate}} @title="Phone" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <ValidatedInput @model={{this.auth.profile}} @valuePath="address" @placeholder="1234 S. Monroe Street" @didValidate={{this.didValidate}} @title="Address" />
+                    </div>
+                    <div class="col-sm">
+                        <button type="button" class="btn btn-success float-right" disabled={{not (and (v-get this.auth.user 'firstname' 'isValid') (v-get this.auth.user 'lastname' 'isValid') (v-get this.auth.user 'email' 'isValid') (v-get this.auth.profile 'isValid'))}} {{action "save"}}>Save</button>
                     </div>
                 </div>
                 
@@ -53,31 +48,16 @@
 
             <hr local-class="line">
 
-            <h5 class="mb-10">My Orders</h5>
-            {{#if auth.user.profile.checkouts}}
+            <h3 class="mb-3 mt-3 text-center text-md-left">My Orders</h3>
+            {{#if this.auth.user.profile.checkouts}}
                 <div class="row">
-                    {{#each auth.user.profile.checkouts as |order|}}
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="card text-center h-100">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{order.firstname}} {{order.lastname}}</h5>
-                                    <p class="card-text">{{moment-format order.createdon "dddd, MMMM Do"}}</p>   {{!-- at {{moment-format order.createdon "h:mm a"}} --}}
-                                    <p class="card-text" local-class="fulfilled-text"><strong>Fulfilled: </strong>{{#if order.fulfilledon}} <p class="text-success d-inline-block">Yes</p> {{else}} <p class="text-danger d-inline-block">No</p> {{/if}}</p>
-                                    <p class="card-text" local-class="returned-text"><strong>Returned: </strong>{{#if order.returnedon}} <p class="text-success d-inline-block">Yes</p> {{else}} <p class="text-danger d-inline-block">No</p> {{/if}}</p>
-                                    <p class="card-text">{{order.items.length}} items</p>
-                                    {{#link-to "manage.manage-order" order}}
-                                        <a class="btn btn-primary text-white">View Order</a>
-                                    {{/link-to}}
-                                </div>
-                            </div>
-                        </div>
+                    {{#each this.auth.user.profile.checkouts as |order|}}
+						<OrderCard @order={{order}} @tagName="div" class="col-lg-4 col-md-6 mb-4"></OrderCard>
                     {{/each}}
                 </div>
             {{else}}
-                {{!-- <center> --}}
-                    <p>You do not have any orders associated with your account.</p>
-                    <p>You can browse our library of items to check out {{#link-to "library.index"}}here{{/link-to}}.</p>
-                {{!-- </center> --}}
+				<p>You do not have any orders associated with your account.</p>
+				<p>You can browse our library of items to check out <LinkTo @route="library.index">here</LinkTo>.</p>
             {{/if}}
 
         </div>

@@ -1,73 +1,96 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+{{!-- Skip Link for accessibility --}}
+<a local-class="skip-main" href="#content">Skip to main content</a>
+
+<BsNavbar class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 p-lg-3" as |navbar|>
 	<div class="container">
-  {{#link-to "index" class="navbar-brand"}}{{fa-icon "book"}} Lending Library {{/link-to}}
-  {{!-- <a class="navbar-brand" href="/">{{fa-icon "book"}} Lending Library </a> --}}
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-toggle="collapse"
-    data-target="#navbarCollapse"
-    aria-controls="navbarCollapse"
-    aria-expanded="false"
-    aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarCollapse">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        {{#link-to "about"}}<a class="nav-link">About</a>{{/link-to}}
-      </li>
+		{{!--  Show this only on mobile to medium screens  --}}
+		<div class="d-flex flex-row w-100 justify-content-between d-lg-none">
+			<LinkTo @route="index" class="navbar-brand d-lg-none"><FaIcon @icon="book" /> Lending Library</LinkTo>
+			<navbar.toggle />
+		</div>
 
-      <li class="nav-item">
-        {{#link-to "library"}}<a class="nav-link">Library</a>{{/link-to}}
-      </li>
-    </ul>
+		<navbar.content>
+			<navbar.nav class="d-flex flex-row justify-content-center" as |nav|>
+				<nav.item class="mx-2 mx-lg-0 my-auto d-lg-none">
+					<LinkTo @route="about" class="nav-link">About</LinkTo>
+				</nav.item>
+				<nav.item class="mx-2 mx-lg-0 my-auto d-lg-none">
+					<LinkTo @route="library" class="nav-link">Library</LinkTo>
+				</nav.item>
 
-    <ul class="navbar-nav justify-content-end">
-      {{#if auth.isLoggedIn}}
-        {{!-- <li class="nav-item dropdown">
-          {{#link-to "account"}}<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">My Account</a>{{/link-to}}
-          <div class="dropdown-menu">
-            {{#link-to "account"}}<a class="dropdown-item" href="#">Manage Account</a>{{/link-to}}
-            <a class="dropdown-item" {{action "logout"}}>Logout</a>
-            <div class="dropdown-divider"></div>
-          </div>
-        </li> --}}
-        {{#if auth.user.issuperuser}}
-          <li class="nav-item">
-            {{#link-to "dashboard"}}<a class="nav-link">Admin Dashboard</a>{{/link-to}}
-          </li>
-        {{/if}}
+				{{#if this.auth.isLoggedIn}}
 
-        <li class="nav-item">
-          {{#link-to "account"}}<a class="nav-link">My Account</a>{{/link-to}}
-        </li>
-      {{else}}
-        <li class="nav-item">
-          {{#link-to "login" class="nav-link"}}Login{{/link-to}}
-        </li>
+					{{#if this.auth.user.issuperuser}}
+						<nav.item class="mx-2 mx-lg-0 my-auto d-lg-none">
+							<LinkTo @route="admin.index" class="nav-link">Admin Dashboard</LinkTo>
+						</nav.item>
+					{{/if}}
 
-        <li class="nav-item">
-          {{#link-to "register" class="nav-link"}}Register{{/link-to}}
-        </li>
-      {{/if}}
+					<nav.item class="mx-2 mx-lg-0 my-auto d-lg-none">
+						<LinkTo @route="account" class="nav-link">My Account</LinkTo>
+					</nav.item>
+				{{else}}
+					<nav.item class="mx-2 mx-lg-0 my-auto d-lg-none">
+						<LinkTo @route="login" class="nav-link">Login</LinkTo>
+					</nav.item>
+					
+					<nav.item class="mx-2 mx-lg-0 my-auto d-lg-none">
+						<nav.linkTo @route="register">Register</nav.linkTo>
+						<LinkTo @route="register" class="nav-link">Register</LinkTo>
+					</nav.item>
+				{{/if}}
+				<nav.item class="mx-2 mx-lg-0 my-auto d-lg-none">
+					<LinkTo @route="cart" class="nav-link"><FaIcon @icon="shopping-cart" />&nbsp;Cart {{#if this.cart.length}}
+						({{this.cart.length}}) {{/if}}</LinkTo>
+				</nav.item>
+			</navbar.nav>
 
-      {{#link-to "cart"}}<a class="nav-link">{{fa-icon "shopping-cart"}}&nbsp;Cart {{#if this.cart.length}} ({{this.cart.length}}) {{/if}}</a>{{/link-to}}
-    
-    </ul>
+			{{!--  Show this only on large and up screens  --}}
+			<LinkTo @route="index" class="navbar-brand d-none d-lg-block"><FaIcon @icon="book" /> Lending Library </LinkTo>
 
-  </div>
+			<navbar.nav class="d-flex flex-row justify-content-start" as |nav|>
+					<nav.item class="mx-2 mx-lg-0 my-auto d-none d-lg-block">
+						<LinkTo @route="about" class="nav-link">About</LinkTo>
+					</nav.item>
+					<nav.item class="mx-2 mx-lg-0 my-auto d-none d-lg-block">
+						<LinkTo @route="library" class="nav-link">Library</LinkTo>
+					</nav.item>
+			</navbar.nav>
+
+			<navbar.nav class="d-flex flex-row justify-content-end ml-auto" as |nav2|>
+				{{#if this.auth.isLoggedIn}}
+
+					{{#if this.auth.user.issuperuser}}
+						<nav2.item class="mx-2 mx-lg-0 my-auto d-none d-lg-block">
+							<LinkTo @route="admin.index" class="nav-link">Admin Dashboard</LinkTo>
+						</nav2.item>
+					{{/if}}
+
+					<nav2.item class="mx-2 mx-lg-0 my-auto d-none d-lg-block">
+						<LinkTo @route="account" class="nav-link">My Account</LinkTo>
+					</nav2.item>
+				
+				{{else}}
+					<nav2.item class="mx-2 mx-lg-0 my-auto d-none d-lg-block">
+						<LinkTo @route="login" class="nav-link">Login</LinkTo>
+					</nav2.item>
+					
+					<nav2.item class="mx-2 mx-lg-0 my-auto d-none d-lg-block">
+						<LinkTo @route="register" class="nav-link">Register</LinkTo>
+					</nav2.item>
+				{{/if}}
+
+				<nav2.item class="mx-2 mx-lg-0 my-auto d-none d-lg-block">
+					<LinkTo @route="cart" class="nav-link"><FaIcon @icon="shopping-cart" />&nbsp;Cart {{#if this.cart.length}}
+						({{this.cart.length}}) {{/if}}</LinkTo>
+				</nav2.item>
+			</navbar.nav>
+
+			
+		</navbar.content>
+	</div>
+</BsNavbar>
+
+<div id="content">
+	{{outlet}}
 </div>
-</nav>
-
-
-
-{{!-- <div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      {{outlet}}                        <--- This was making things on the index page super horrible so I'm gonna comment it out and add it to the top of all the routes manually
-    </div>
-  </div>
-</div> --}}
-
-{{outlet}}

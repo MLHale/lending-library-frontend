@@ -6,7 +6,7 @@ export default Route.extend({
 
     async beforeModel() {
       let route = this;
-      let loggedIn = await route.get('auth').getLoginStatus();
+      let loggedIn = await route.auth.getLoginStatus();
       if(loggedIn.data.isauthenticated){
         route.transitionTo('account');
       }
@@ -31,17 +31,9 @@ export default Route.extend({
     },
 
     actions: {
-      willTransition() { // TODO: FIX THIS
+      willTransition() {
         const userRecord = this.controller.get('model');
         this.controller.get('model.profile').rollbackAttributes();
-
-        console.log(userRecord);
-        // console.log(profileRecord);
-        
-        // toss record changes (or the entire record itself) if it hasn't been saved
-        // if (profileRecord.get('hasDirtyAttributes')) {
-        //   profileRecord.rollbackAttributes();
-        // }
 
         if (userRecord.get('hasDirtyAttributes')) {
           userRecord.rollbackAttributes();

@@ -1,0 +1,10 @@
+<this.accordion.item @value={{this.itemtype.id}} @title={{this.itemtype.partname}}>
+	{{this.itemtype.description}}<br>
+	<hr>
+	<div class="d-flex justify-content-between">
+		<p class="my-auto"><strong>Available: </strong> {{this.available}}</p>
+		<button class="btn btn-primary" type="submit" {{action "add" this.itemtype}} disabled={{eq this.available 0}}>Add To Cart</button>
+	</div>
+	
+</this.accordion.item>
+{{yield}}

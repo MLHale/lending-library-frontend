@@ -1,66 +1,59 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
-import $ from 'jquery';
 
 export default Controller.extend({
 	auth: service('auth-manager'),
 	errorMsg: false,
+	showSuccess: false,
+	showError: false,
 	actions: {
+		setSelection(selected) {
+			this.set('model.profile.org', selected);
+		},
 		register() {
 			var controller = this;
-			let newUser = controller.get('model');
+			let newUser = controller.model;
 			// let newProfile = controller.get('model.profile');
-
-			console.log(newUser);
 
 			newUser.validate().then(({ validations }) => {
 				controller.set('didValidate', true);
 				if (validations.get('isValid')) {
 
-					console.log("Registering " + controller.get('model.firstname') + " " + controller.get('model.lastname') + " as: " + controller.get('model.username'));
+					let xhr = new XMLHttpRequest();
+					let fd = new FormData();
 
-					var requestdata = {
-						'username': controller.get('model.username'),
-						'password': controller.get('model.password'),
-						'email': controller.get('model.email'),
-						'firstname': controller.get('model.firstname'),
-						'lastname': controller.get('model.lastname'),
-						'address': controller.get('model.profile.address'),
-						'phone': controller.get('model.profile.phonenumber'),
-					};
+					fd.append('username', controller.get('model.username'));
+					fd.append('password', controller.get('model.password'));
+					fd.append('email', controller.get('model.email'));
+					fd.append('firstname', controller.get('model.firstname'));
+					fd.append('lastname', controller.get('model.lastname'));
+					fd.append('address', controller.get('model.profile.address'));
+					fd.append('phone', controller.get('model.profile.phonenumber'));
+					fd.append('org', controller.get('model.profile.org'));
 
-					$.post('../api/register/', requestdata, function (response) {
-						var errMsg = '';
-						if (response.data.status === "error") {
+					xhr.open("POST", '../api/register/', true);
+					xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+					xhr.onreadystatechange = function () {
+						if (this.readyState == 4 && this.status == 200) {
 
-							if (response.data.username) {
-								errMsg = response.data.username;
-							} else if (response.data.email) {
-								errMsg = response.data.email;
+							let resp = JSON.parse(xhr.responseText)
+							if(resp.data.status === 'error') {
+								controller.set('errorMsg', resp.data.msg);
+								controller.toggleProperty('showError');
+								setTimeout(() => { controller.toggleProperty('showError'); }, 5000);
 							} else {
-								errMsg = "An unknown error occurred. Please try again";
+								controller.transitionToRoute('library');
 							}
 
-							controller.set('validationErrorMsg', errMsg);
-							console.log(errMsg);
-							controller.setProperties({
-								showAlert: true,
-								isRegistered: false,
-							});
-
-						} else {
-
-							controller.get('auth').set('username', controller.get('username'))
-							controller.get('auth').set('password', controller.get('password'))
-
-							controller.setProperties({
-								showAlert: false,
-								isRegistered: true,
-							});
-
-							controller.transitionToRoute('login');
+						} else if(this.readyState == 4 && this.status == 500) {
+							controller.set('errorMsg', 'There was an error registering your account. Please check the data you entered and try again.');
+							controller.toggleProperty('showError');
+							setTimeout(() => { controller.toggleProperty('showError'); }, 5000);
 						}
-					});
+					};
+
+					const queryString = new URLSearchParams(fd).toString();
+					xhr.send(queryString);
 				} else {
 					controller.set('showAlert', true);
 				}

@@ -7,69 +7,67 @@
         <p class="mb-0">Creating an account will allow for you to see the progress of</p>
         <p>orders with the Lending Library, and makes checking out tech much easier.</p><br>
 
-        {{#if showAlert}}
-          <div class="alert alert-danger" id="danger-alert">
-            <button type="button" class="close" data-dismiss="alert" {{action "hide"}}>x</button>
-            <strong>Error! </strong>
-            {{this.validationErrorMsg}}
-          </div>
-
-        {{/if}}
+		<BsAlert @type="success" @visible={{this.showSuccess}} @fadeDuration={{500}}>
+			<strong>Success!</strong> Your account has been registered!
+		</BsAlert>
+		
+		<BsAlert @type="danger" @visible={{this.showError}} @fadeDuration={{500}}>
+			<strong>Error!</strong> {{this.errorMsg}}
+		</BsAlert>
 
         <form class="form-horizontal">
           <h5 class="mb-20 text-left">Login Information</h5>
           <div class="row">
-            <div class="col">
-              {{validated-input model=model valuePath="username" placeholder="JohnDoe1980" didValidate=didValidate title="Username" value=username}}
+            <div class="col-sm">
+              <ValidatedInput @model={{this.model}} @valuePath="username" @placeholder="JohnDoe1980" @didValidate={{this.didValidate}} @title="Username" @value={{this.username}} @type="text" />
             </div>
-            <div class="col">
-              {{validated-input type="email" model=model valuePath="email" placeholder="JohnDoe@gmail.com" didValidate=didValidate title="Email" value=email}}
+            <div class="col-sm">
+              <ValidatedInput @type="email" @model={{this.model}} @valuePath="email" @placeholder="JohnDoe@gmail.com" @didValidate={{this.didValidate}} @title="Email" @value={{this.email}} />
             </div>
           </div>
           <div class="row">
-            <div class="col">
-              {{validated-input type="password" model=model valuePath="password" placeholder="•••••••••••" didValidate=didValidate title="Password" value=password}}
+            <div class="col-sm">
+              <ValidatedInput @type="password" @model={{this.model}} @valuePath="password" @placeholder="•••••••••••" @didValidate={{this.didValidate}} @title="Password" @value={{this.password}} />
             </div>
-            <div class="col">
-              {{validated-input type="password" model=model valuePath="passwordConfirmation" placeholder="•••••••••••" didValidate=didValidate title="Confirm"}}
+            <div class="col-sm">
+              <ValidatedInput @type="password" @model={{this.model}} @valuePath="passwordConfirmation" @placeholder="•••••••••••" @didValidate={{this.didValidate}} @title="Confirm" />
             </div>
           </div>
           <br>
           <h5 class="mb-20 text-left">Personal Information</h5>
           <div class="row">
-            <div class="col">
-              {{validated-input model=model valuePath="firstname" placeholder="John" didValidate=didValidate title="First Name" value=first}}
+            <div class="col-sm">
+              <ValidatedInput @model={{this.model}} @valuePath="firstname" @placeholder="John" @didValidate={{this.didValidate}} @title="First Name" @value={{this.first}} @type="text" />
             </div>
-            <div class="col">
-              {{validated-input model=model valuePath="lastname" placeholder="Doe" didValidate=didValidate title="Last Name" value=last}}
+            <div class="col-sm">
+              <ValidatedInput @model={{this.model}} @valuePath="lastname" @placeholder="Doe" @didValidate={{this.didValidate}} @title="Last Name" @value={{this.last}} @type="text" />
             </div>
           </div>
           <div class="row">
-            <div class="col">
-              {{validated-input model=model.profile valuePath="address" placeholder="1234 S. Monroe Street" didValidate=didValidate title="Address" value=address}}
+            <div class="col-sm">
+              <ValidatedInput @model={{this.model.profile}} @valuePath="address" @placeholder="1234 S. Monroe Street" @didValidate={{this.didValidate}} @title="Address" @value={{this.address}} @type="text" />
             </div>
-            <div class="col">
-              {{validated-input model=model.profile valuePath="phonenumber" placeholder="(402) 867-5309" didValidate=didValidate title="Phone" value=phone}}
+            <div class="col-sm">
+              <ValidatedInput @model={{this.model.profile}} @valuePath="phonenumber" @placeholder="(402) 867-5309" @didValidate={{this.didValidate}} @title="Phone" @value={{this.phone}} @type="tel"/>
             </div>
           </div>
 		  <div class="row">
-			  <div class="col">
+			  <div class="col-sm">
 				<div class="input-group mb-3">
 					<div class="input-group-prepend" local-class="prepend-center">
 						<span class="input-group-text" local-class="prepend-text" for="organizationSelect">College</span>
 					</div>
-					<select class="custom-select" id="organizationSelect">
-						<option selected>Choose...</option>
-						{{#each model.profile.org as |organization|}}
-							<option value="1">{{organization}}</option>
-						{{/each}}
-						
-						<option value="2">Two</option>
-						<option value="3">Three</option>
+					<select class="custom-select" id="organizationSelect" onchange={{action "setSelection" value="target.value"}}>
+						<option disabled selected>Choose...</option>						
+						<option value="uno">University of Nebraska - Omaha</option>
+						<option value="unl">University of Nebraska - Lincoln</option>
+						<option value="unk">University of Nebraska - Kearney</option>
+						<option value="unmc">University of Nebraska Medical Center</option>
+						<option value="other">Other</option>
 					</select>
 				</div>
 			  </div>
-			  <div class="col">
+			  <div class="col-sm">
 
 			  </div>
 		  </div>
@@ -77,7 +75,7 @@
 
           <div class="form-horizontal form-group form-group-lg row">
             <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-3 float-none m-auto">
-              <button type="button" class="btn btn-primary btn-lg btn-block" {{action "register"}} disabled={{v-get model "isInvalid"}}>Register</button>
+              <button type="button" class="btn btn-primary btn-lg btn-block" disabled={{not (and (v-get this.model 'isValid') (v-get this.model.profile 'isValid'))}} {{action "register"}}>Register</button>
             </div>
           </div>
         </form>

@@ -1,53 +1,89 @@
 /* Homepage Styling */
 
 .product-device {
-  position: absolute;
-  right: 10%;
-  bottom: -30%;
-  width: 300px;
-  height: 540px;
-  background-color: #333;
-  border-radius: 21px;
-  -webkit-transform: rotate(30deg);
-  transform: rotate(30deg);
+	position: absolute;
+	right: 10%;
+	bottom: -30%;
+	width: 300px;
+	height: 540px;
+	background-color: #333;
+	border-radius: 21px;
+	-webkit-transform: rotate(30deg);
+	transform: rotate(30deg);
 }
 
 .product-device::before {
-  position: absolute;
-  top: 10%;
-  right: 10px;
-  bottom: 10%;
-  left: 10px;
-  content: "";
-  background-color: rgba(255, 255, 255, .1);
-  border-radius: 5px;
+	position: absolute;
+	top: 10%;
+	right: 10px;
+	bottom: 10%;
+	left: 10px;
+	content: "";
+	background-color: rgba(255, 255, 255, .1);
+	border-radius: 5px;
+	background-image: url("/static/ember/assets/uno_logo.png");
+	background-size: 10rem;
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
+
 .product-device-2 {
-  top: -25%;
-  right: auto;
-  bottom: 0;
-  left: 5%;
-  background-color: #e5e5e5;
+	top: -25%;
+	right: auto;
+	bottom: 0;
+	left: 5%;
+	background-color: #e5e5e5;
+}
+
+.product-device-2::before {
+	background-image: linear-gradient(#e5e5e5, #e5e5e5),
+	url("/static/ember/assets/uno_logo.png");
+	background-blend-mode: screen;
 }
 
 .banner {
-  width: 102vw;
-  margin: 0 auto;
-  margin-top: -1.5rem;
-  margin-left: -1rem;
+	width: 102vw;
+	margin: 0 auto;
+	margin-top: -1.5rem;
+	margin-left: -1rem;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+  	box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 .overflow-hidden {
-  overflow: hidden;
+  	overflow: hidden;
 }
 
 .main-container {
-  margin-top: 5vh;
+  	margin-top: 5vh;
+}
+
+.mid-banner {
+	background-image: url("/static/ember/assets/tech-in-classroom.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	background-attachment: fixed;
+}
+
+.low-banner {
+  background-image: url("/static/ember/assets/rocket.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+:global(button.btn-link) {
+	text-decoration: none !important;
+	color: white !important;
+}
+
+.faq-description {
+	color: #f8f8ff;
 }
 
 .slide-rotate-bottom {

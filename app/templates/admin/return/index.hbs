@@ -1,0 +1,60 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			{{outlet}}
+
+			<div class="jumbotron text-center">
+				<h1>Return Orders</h1>
+
+				<nav aria-label="breadcrumb" class="breadcrumb-nav">
+					<ol class="breadcrumb pt-3 justify-content-center">
+						<li class="breadcrumb-item">
+							<LinkTo @route="admin.index">Home</LinkTo>
+						</li>
+						<li class="breadcrumb-item active" aria-current="page">Return</li>
+					</ol>
+				</nav>
+			</div>
+
+			{{#if this.filteredCheckouts.length}}
+
+			<ListPagination @paginateBy={{12}} @items={{this.filteredCheckouts}} as |tickets|>
+				<div class="row">
+					{{#each tickets as |ticket|}}
+					<div class="col-lg-4 col-md-6 mb-4">
+						<div class="card text-center h-100">
+							<div class="card-body">
+								<h5 class="card-title">{{ticket.firstname}} {{ticket.lastname}}</h5>
+								<p class="card-text"><strong>Ordered on:
+									</strong>{{moment-format ticket.createdon "dddd, MMMM Do, YYYY"}}</p>
+								<p class="card-text">{{ticket.items.length}} items</p>
+								<LinkTo @route="admin.return.return-order" class="btn btn-primary text-white" @model={{ticket}}>Return Items</LinkTo>
+
+							</div>
+						</div>
+					</div>
+					{{/each}}
+				</div>
+			</ListPagination>
+
+			{{else}}
+			<div class="text-center">
+				<p>There are currently no currently checked out items to be returned.</p>
+				<p>To manage a past order, head to the <LinkTo @route="admin.manage.index">manage orders</LinkTo> section to
+					viewand modify past and present orders.</p>
+			</div>
+			{{/if}}
+
+		</div>
+	</div>
+</div>
+
+
+
+{{!-- <p class="card-text"><strong>Fulfilled: </strong>{{#if ticket.fulfilledon}} <p class="text-success d-inline-block">Yes</p> {{else}} <p class="text-danger d-inline-block">No</p> {{/if}}</p>
+                                        <p class="card-text"><strong>Returned: </strong>{{#if ticket.returnedon}} <p class="text-success d-inline-block">Yes</p> {{else}} <p class="text-danger d-inline-block">No</p> {{/if}}</p> --}}
+
+
+{{!-- <div class="card-footer text-muted"> 
+                                        2 days ago
+                                    </div> --}}

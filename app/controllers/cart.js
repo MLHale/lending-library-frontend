@@ -1,10 +1,13 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
-import $ from 'jquery';
+import fade from 'ember-animated/transitions/fade';
 
 export default Controller.extend({
-    cart: service('shopping-cart'),
-    confirm: false,
+	cart: service('shopping-cart'),
+	
+	confirm: false,
+	transition: fade,
+	
     init: function() {
         this._super(...arguments)
         this.set('confirm', false);
@@ -12,33 +15,20 @@ export default Controller.extend({
     actions: {
         remove(itemtype) {
             this.cart.remove(itemtype);
-            console.log("Removed from cart: " + itemtype.partname);
         },
         confirm() {
             this.set('confirm', true);
         },
         clear() {
-            // $("#success-alert")
-            // .fadeTo(5000, 500)
-            // .slideDown(500, function() {
-            //     $("#success-alert").slideUp(500);
-            // });
             this.cart.empty();
             this.set('confirm', false);
-            console.log("Cleared cart");
         },
         close() {
             this.set('confirm', false);
-        },
-        setQuantity(itemtype, quantity) {
-            // this.cart.setQuantity(itemtype, $(("#" + itemtype.partname.replace(/\s+/g, ''))).val());
-            this.cart.setQuantity(itemtype, quantity);
-        },
-
-        // Deprecated
-        modifyQuantity(itemtype) {
-            this.cart.setQuantity(itemtype, $(("#" + itemtype.partname.replace(/\s+/g, ''))).val());
-        }
-
+		},
+		modifyQuantity(cartitem) {
+			let newQuantity = document.getElementById(cartitem.id).value;
+			this.cart.setQuantity(cartitem.itemtype, newQuantity);
+		}
     }
 });

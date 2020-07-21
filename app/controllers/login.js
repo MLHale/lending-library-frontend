@@ -16,13 +16,13 @@ export default Controller.extend({
 	},
 	actions:{
 		login: function(){
-			this.get('auth').login();
+			this.auth.login();
 		},
 		logout: function(){
-			this.get('auth').logout();
+			this.auth.logout();
 		},
 		togglePasswordHidden() {
-			if (this.get('passwordHidden')) {
+			if (this.passwordHidden) {
 				this.set('passwordHidden', false);
 				this.set('passwordHiddenValue', 'text');
 			} else {

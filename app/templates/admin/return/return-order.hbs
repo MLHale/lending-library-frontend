@@ -1,0 +1,76 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="jumbotron text-center">
+				<h1>{{this.model.firstname}} {{this.model.lastname}}<br></h1><br>
+				<p><strong>Created On:</strong> {{moment-format this.model.createdon "dddd, MMMM Do, YYYY"}}</p>
+				<p local-class="fulfilled-text" class="pb-3"><strong>Fulfilled On:</strong>{{#if this.model.fulfilledon}}
+				<p class="text-success d-inline-block">{{moment-format this.model.fulfilledon "dddd, MMMM Do, YYYY"}}
+				</p> {{else}} <p class="text-danger d-inline-block">Not yet fulfilled</p> {{/if}}</p>
+
+				<nav aria-label="breadcrumb" class="breadcrumb-nav">
+					<ol class="breadcrumb pt-4 justify-content-center">
+						<li class="breadcrumb-item">
+							<LinkTo @route="admin.index">Home</LinkTo>
+						</li>
+						<li class="breadcrumb-item">
+							<LinkTo @route="admin.return.index">Return</LinkTo>
+						</li>
+						<li class="breadcrumb-item active" aria-current="page">Order #{{this.model.id}}</li>
+					</ol>
+				</nav>
+			</div>
+			
+			<BsAlert @type="success" @visible={{this.showSuccess}} @fadeDuration={{500}}>
+				<strong>Success!</strong> The order has been marked as returned.
+			</BsAlert>
+
+			<BsAlert @type="warning" @visible={{this.showWarning}} @fadeDuration={{500}}>
+				<strong>Warning!</strong> {{this.warningMessage}}
+			</BsAlert>
+
+			<div class="card text-center w-100">
+				<div class="card-body w-100">
+
+					<h4 class="card-title">Item Check-in</h4><br>
+					<table class="table table-hover rounded">
+						<thead class="thead-light">
+							<tr>
+								<th scope="col">Product</th>
+								<th scope="col">Quantity</th>
+							</tr>
+						</thead>
+						<tbody>
+							{{#each this.groupedItems as |item|}}
+							<tr>
+								<td class="align-middle"><strong>{{item.type}}</strong></td>
+								<td class="align-middle">
+									<select class="form-control" id="select-{{item.contents.0.id}}" local-class="quantity-select">
+										<option value="0" selected="true">0</option>
+
+										{{#each (range 1 item.contents.length) as |index|}}
+											<option value={{index}}>{{index}}</option>
+										{{/each}}
+									</select>
+								</td>
+							</tr>
+							{{/each}}
+						</tbody>
+					</table>
+
+					<br>
+					<button type="button" class="btn btn-primary" disabled={{this.model.returnedon}} {{action "return" this.model}}>Mark as returned</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+{{outlet}}
+
+
+{{!-- What happens When overdue? Fine? --}}
+{{!-- Possibly email alert saying return date is coming up --}}
+{{!-- Order placed page after checkout --}}
+{{!-- Ember Data for cart --}}
+{{!-- Not all records show up on return page, only first 10 --}}

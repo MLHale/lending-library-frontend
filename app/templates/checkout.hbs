@@ -1,171 +1,115 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            {{outlet}}
             <div class="jumbotron text-center">
-                <h1>Checkout<br></h1>
+                <h1 class="mb-0">Checkout<br></h1>
             </div>
 
-            {{!-- {{#if this.checkedOut}}
-                <div class="alert alert-success" role="alert">
-                    <strong>Success!</strong> Your order has successfully been placed.
-                </div>
-            {{/if}}
+			<BsAlert @type="danger" @visible={{this.showError}} @fadeDuration={{500}}>
+				<strong>Sorry!</strong> We don't have any {{this.errorPart}}'s in stock. Please remove this item from your <LinkTo @route="cart" class="alert-link">cart</LinkTo> and try again.
+			</BsAlert>
 
-            {{#if this.checkedOut}}
-                <div class="alert alert-danger" role="alert">
-                    <strong>Error!</strong> Please fill in all form data below.
-                </div>
-            {{/if}} --}}
+			<div class="overlay" id='overlay'>
+				<div class="jumbotron text-center px-5">
+					<button type="button" class="close" local-class="close-button" aria-label="Close" {{action 'hideSuccess'}}>
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<svg id='checkmark' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+						<circle id='circle' cx="26" cy="26" r="25" fill="none" />
+						<path id='check' fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+					</svg>
+					<h2 class="mb-4">Success!<br></h2>
+					<h5>Your order has been placed!</h5>
+					<p class="mb-1">We will let you know when your order is ready to be picked up by email.</p>
+					{{#if this.auth.isLoggedIn}}
+						<p>You can also check on the status of you order at any time on the <LinkTo @route='account'>My Account</LinkTo> page.</p>
+					{{/if}}
+				</div>
 
-            <div class="alert alert-success" local-class="display-none" id="success-alert">
-                <button type="button" class="close" data-dismiss="alert" {{action "hideSuccess"}}>x</button>
-                <strong>Success! </strong>
-                Your order has successfully been placed! 
-                {{!-- You can check on the status of your order at any time in the {{#link-to "account"}}My Account{{/link-to}} section. --}}
-            </div>
-
-            <div class="alert alert-danger" local-class="display-none" id="danger-alert">
-                <button type="button" class="close" data-dismiss="alert" {{action "hideDanger"}}>x</button>
-                <strong>Error! </strong>
-                {{this.errorMsg}}
-            </div>
-
+			</div>
 
             <form class="form-horizontal">
 				<div class="row">
-					<div class="col">
-						{{#if auth.isLoggedIn}}
-							{{validated-input model=this.model.newCheckout valuePath="firstname" didValidate=didValidate title="First Name" value=auth.user.firstname disabled="true"}}
+					<div class="col-sm">
+						{{#if this.auth.isLoggedIn}}
+							<div class="input-group mb-3">
+								<div class="input-group-prepend" local-class="prepend-center">
+									<span class="input-group-text" local-class="prepend-text" id="first">First Name</span>
+								</div>
+								<Input @type="text" @value={{this.auth.user.firstname}} class="form-control" local-class="input-style" @aria-label="First Name" @aria-describedby="first" @disabled={{true}} />
+								<FaIcon @icon="check" local-class="valid-input" />
+							</div>
 						{{else}}
-							{{validated-input model=this.model.newCheckout valuePath="firstname" placeholder="John" didValidate=didValidate title="First Name"}}
+							<ValidatedInput @model={{this.model.newCheckout}} @valuePath="firstname" @placeholder="John" @didValidate={{this.didValidate}} @title="First Name" />
 						{{/if}}
 					</div>
 
-					<div class="col">
-						{{#if auth.isLoggedIn}}
-							{{validated-input model=this.model.newCheckout valuePath="lastname" didValidate=didValidate title="Last Name" value=auth.user.lastname disabled="true"}}
+					<div class="col-sm">
+						{{#if this.auth.isLoggedIn}}
+							<div class="input-group mb-3">
+								<div class="input-group-prepend" local-class="prepend-center">
+									<span class="input-group-text" local-class="prepend-text" id="last">Last Name</span>
+								</div>
+								<Input @type="text" @value={{this.auth.user.lastname}} class="form-control" local-class="input-style" @aria-label="Last Name" @aria-describedby="last" @disabled={{true}} />
+								<FaIcon @icon="check" local-class="valid-input" />
+							</div>
 						{{else}}
-							{{validated-input model=this.model.newCheckout valuePath="lastname" placeholder="Doe" didValidate=didValidate title="Last Name"}}
+							<ValidatedInput @model={{this.model.newCheckout}} @valuePath="lastname" @placeholder="Doe" @didValidate={{this.didValidate}} @title="Last Name" />
 						{{/if}}
 					</div>
 				</div>
 				<div class="row">
-					<div class="col">
-						{{#if auth.isLoggedIn}}
-							{{validated-input model=this.model.newCheckout valuePath="email" didValidate=didValidate title="Email" value=auth.user.email disabled="true"}}
+					<div class="col-sm">
+						{{#if this.auth.isLoggedIn}}
+							<div class="input-group mb-3">
+								<div class="input-group-prepend" local-class="prepend-center">
+									<span class="input-group-text" local-class="prepend-text" id="email">Email</span>
+								</div>
+								<Input @type="email" @value={{this.auth.user.email}} class="form-control" local-class="input-style" @aria-label="Email" @aria-describedby="email" @disabled={{true}} />
+								<FaIcon @icon="check" local-class="valid-input" />
+							</div>
 						{{else}}
-							{{validated-input model=this.model.newCheckout valuePath="email" placeholder="johndoe@gmail.com" didValidate=didValidate title="Email"}}
+							<ValidatedInput @model={{this.model.newCheckout}} @valuePath="email" @placeholder="johndoe@gmail.com" @didValidate={{this.didValidate}} @title="Email" />
 						{{/if}}
 					</div>
 
-					<div class="col">
-						{{#if auth.isLoggedIn}}
-							{{validated-input model=this.model.newCheckout valuePath="phonenumber" didValidate=didValidate title="Phone" value=auth.profile.phonenumber disabled="true"}}
+					<div class="col-sm">
+						{{#if this.auth.isLoggedIn}}
+							<div class="input-group mb-3">
+								<div class="input-group-prepend" local-class="prepend-center">
+									<span class="input-group-text" local-class="prepend-text" id="phone">Phone</span>
+								</div>
+								<Input @type="text" @value={{this.auth.profile.phonenumber}} class="form-control" local-class="input-style"
+									@aria-label="Phone" @aria-describedby="phone" @disabled={{true}} />
+								<FaIcon @icon="check" local-class="valid-input" />
+							</div>
 						{{else}}
-							{{validated-input model=this.model.newCheckout valuePath="phonenumber" placeholder="(402) 867-5309" didValidate=didValidate title="Phone"}}
+							<ValidatedInput @type="tel" @model={{this.model.newCheckout}} @valuePath="phonenumber" @placeholder="(402) 867-5309" @didValidate={{this.didValidate}} @title="Phone" />
 						{{/if}}
 					</div>
 				</div>
 				<div class="row">
-					<div class="col">
-						{{#if auth.isLoggedIn}}
-							{{validated-input model=this.model.newCheckout valuePath="address" didValidate=didValidate title="Address" value=auth.profile.address disabled="true"}}
+					<div class="col-sm">
+						{{#if this.auth.isLoggedIn}}
+							<div class="input-group mb-3">
+								<div class="input-group-prepend" local-class="prepend-center">
+									<span class="input-group-text" local-class="prepend-text" id="address">Address</span>
+								</div>
+								<Input @type="text" @value={{this.auth.profile.address}} class="form-control" local-class="input-style"
+									@aria-label="Address" @aria-describedby="address" @disabled={{true}} />
+								<FaIcon @icon="check" local-class="valid-input" />
+							</div>
 						{{else}}
-							{{validated-input model=this.model.newCheckout valuePath="address" placeholder="1234 S. Monroe Street" didValidate=didValidate title="Address"}}
+							<ValidatedInput @model={{this.model.newCheckout}} @valuePath="address" @placeholder="1234 S. Monroe Street" @didValidate={{this.didValidate}} @title="Address" />
 						{{/if}}
 					</div>
 
-					<div class="col">
-						{{validated-input model=this.model.newCheckout valuePath="numberofstudents" placeholder="47" didValidate=didValidate title="Students" type="number"}}
+					<div class="col-sm">
+						<ValidatedInput @model={{this.model.newCheckout}} @valuePath="numberofstudents" @placeholder="47" @didValidate={{this.didValidate}} @title="Students" @type="number" />
 					</div>
 				</div>
 				<br>
-
             </form>
-
-{{!-- {{validated-input model=model.profile valuePath="address" placeholder="1234 S. Monroe Street" didValidate=didValidate title="Address" value=address}} --}}
-
-
-            {{!-- <form class="form-horizontal">
-                <div class="row">
-                    <div class="col">
-                        <div class="input-group mb-3">
-                            
-                            {{#if auth.isLoggedIn}}
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">First Name</span>
-                                </div>
-                                {{input type="text" id="first" value=auth.user.firstname class="form-control" aria-label="First" aria-describedby="first" disabled="true"}}
-                            {{else}}
-                                {{input type="text" id="first" class="form-control" placeholder="John" aria-label="First" aria-describedby="first"}}
-                                {{validated-input model=model valuePath="first" placeholder="John" didValidate=didValidate title="First name" value=this.model.newCheckout.firstname}}
-                            {{/if}}
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Last Name</span>
-                            </div>
-                            {{#if auth.isLoggedIn}}
-                                {{input type="text" id="last" value=auth.user.lastname class="form-control" aria-label="Last" aria-describedby="last" disabled="true"}}
-                            {{else}}
-                                {{input type="text" id="last" class="form-control" placeholder="Doe" aria-label="Last" aria-describedby="last"}}
-                            {{/if}}
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            </div>
-                            {{#if auth.isLoggedIn}}
-                                {{input type="email" id="email" value=auth.user.email class="form-control" aria-label="Email" aria-describedby="email" disabled="true"}}
-                            {{else}}
-                                {{input type="email" id="email" value=email class="form-control" placeholder="johndoe@gmail.com" aria-label="Email" aria-describedby="email"}}
-                            {{/if}}
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">&nbsp;&nbsp;&nbsp;&nbsp;Phone&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            </div>
-                            {{#if auth.isLoggedIn}}
-                                {{input type="tel" id="phone" value=auth.profile.phonenumber class="form-control" aria-label="Phone" aria-describedby="phone" disabled="true"}}
-                            {{else}}
-                                {{input type="tel" id="phone" class="form-control" placeholder="(402) 867-5309" aria-label="Phone" aria-describedby="phone"}}
-                            {{/if}}
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">&nbsp;&nbsp;Address&nbsp;&nbsp;</span>
-                            </div>
-                            {{#if auth.isLoggedIn}}
-                                {{input type="text" id="address" value=auth.profile.address class="form-control" aria-label="Address" aria-describedby="address" disabled="true"}}
-                            {{else}}
-                                {{input type="text" id="address" class="form-control" placeholder="1234 South Monroe Street" aria-label="Address" aria-describedby="address"}}
-                            {{/if}}
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">&nbsp;Students&nbsp;&nbsp;</span>
-                            </div>
-                            {{input type="number" id="students" value=students min="1" max="99" class="form-control" placeholder="47" aria-label="Students" aria-describedby="students"}}
-                        </div>
-                    </div>
-                </div>
-                <br>
-            </form> --}}
 
             <div class="card text-center w-100">
                 <div class="card-body w-100">
@@ -181,8 +125,24 @@
             </div>
             <br>
 
-            <button type="submit" class="btn btn-success float-right" {{action "checkout"}} disabled={{v-get this.model.newCheckout "isInvalid"}}>Checkout &raquo;</button>
-
+			<div class="row">
+				<div class="col align-self-start">
+					<LinkTo @route="cart" tagName="button" type="button" class="btn btn-outline-secondary">&laquo; Edit Cart</LinkTo>
+				</div>
+				<div class="col align-self-end">
+					{{#if this.auth.isLoggedIn}}
+						<button type="submit" class="btn btn-success float-right" {{action "checkout"}}
+							disabled={{v-get this.model.newCheckout "numberofstudents" "isInvalid"}}>Checkout &raquo;</button>
+					{{else}}
+						<button type="submit" class="btn btn-success float-right" {{action "checkout"}}
+							disabled={{v-get this.model.newCheckout "isInvalid"}}>Checkout &raquo;</button>
+					{{/if}}
+					
+				</div>
+			</div>
+            
         </div>
     </div>
 </div>
+
+{{outlet}}
